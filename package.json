@@ -37,7 +37,7 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "create-rpg",
+  "name": "ts-rpg-framework",
   "author": "Nzceo",
   "module": "dist/create-rpg.esm.js",
   "devDependencies": {
