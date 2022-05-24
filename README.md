@@ -27,5 +27,3 @@ By default this repo only deals with data and text, but exactly because it has b
 
 - Item system
 - Allowing dialogs to access player info
-
-Testing
