@@ -39,7 +39,7 @@
   },
   "name": "ts-rpg-framework",
   "author": "Nzceo",
-  "module": "dist/create-rpg.esm.js",
+  "module": "dist/ts-rpg-framework.esm.js",
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.3",
     "@types/lodash": "4.14.178",
