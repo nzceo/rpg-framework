@@ -5,7 +5,7 @@ import Actor from "../actor/actor";
 import { cloneDeep, omit } from "lodash";
 import Quest from "../quest/quest";
 
-type IPlayerState = "combat" | "dialog" | "normal" | "menu" | "gameOver";
+type IPlayerState = "combat" | "dialog" | "normal" | "menu" | "gameOver" | string;
 
 /**
  * Player class, used as the center of the game
