@@ -121,4 +121,20 @@ describe("Player class", () => {
 
     expect(player.map.name).toBe(mapData[0].name);
   });
+  it("player can access fertility state easily", () => {
+    const game = new Game(config);
+    game.load();
+    const player = game.player as Player;
+
+    player.addStatus("fertile");
+
+    expect(player.fertility).not.toBeNull();
+  });
+  it("player always has fertility state", () => {
+    const game = new Game(config);
+    game.load();
+    const player = game.player as Player;
+
+    expect(player.fertility).not.toBeNull();
+  });
 });

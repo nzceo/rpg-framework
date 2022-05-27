@@ -150,4 +150,38 @@ describe("Game class", () => {
     expect(player.map.getState("flags.testFlag")).toBe("something");
     expect(player.map.getState("stuff.thing.thang")).toBe("this");
   });
+  it("eachDay is called on sleep", () => {
+    // @ts-ignore
+    const game = new Game(config);
+    game.load();
+    const player = game.player;
+
+    player.addStatus("fertile");
+
+    const mockedEachDay = jest.fn();
+
+    player.activeStatuses[0].eachDay = mockedEachDay;
+
+    game.sleep();
+
+    expect(mockedEachDay).toHaveBeenCalled();
+  });
+  it("eachDay is called multiple times if sleep multiple days", () => {
+    // @ts-ignore
+    const game = new Game(config);
+    game.load();
+    const player = game.player;
+
+    player.addStatus("fertile");
+
+    const mockedEachDay = jest.fn();
+
+    player.activeStatuses[0].eachDay = mockedEachDay;
+
+    const days = 7;
+
+    game.sleep(days);
+
+    expect(mockedEachDay).toHaveBeenCalledTimes(days);
+  });
 });

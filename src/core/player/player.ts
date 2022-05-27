@@ -270,6 +270,23 @@ class Player extends Character {
   get armor() {
     return this.getState("combat").armor || this.game.config.defaultArmor;
   }
+  
+  /**
+   * Return player fertility status
+   */
+  get fertility(): Fertile {
+    const fertilityState = this.activeStatuses.filter((status) => {
+      return status.type === "fertile";
+    })[0];
+
+    if (!fertilityState) {
+      this.addStatus("fertile");
+      return this.activeStatuses.filter((status) => {
+        return status.type === "fertile";
+      })[0] as Fertile;
+    }
+    return fertilityState as Fertile;
+  }
 }
 
 export default Player;

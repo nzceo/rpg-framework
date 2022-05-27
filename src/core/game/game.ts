@@ -132,6 +132,24 @@ class Game {
 
     return output;
   }
+
+  day: number = 0;
+  daysToSleep: number = 0;
+
+  sleep(days: number = 1) {
+    this.daysToSleep = days;
+    for (let i = 0; i < this.daysToSleep; i++) {
+      this.day = this.day + 1;
+      this.player.activeStatuses.forEach((status) => {
+        // @ts-ignore
+        status.eachDay();
+      });
+    }
+  }
+
+  resetDaysToSleep() {
+    this.daysToSleep = 0;
+  }
 }
 
 export default Game;
