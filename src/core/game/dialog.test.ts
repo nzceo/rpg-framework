@@ -1,7 +1,7 @@
-import Game from './game';
+import Game from "./game";
 
-describe('dialog tests', () => {
-  it.only('returns info back once dialog has ended', () => {
+describe("dialog tests", () => {
+  it("returns info back once dialog has ended", () => {
     const game = new Game();
     game.load();
 
@@ -10,13 +10,16 @@ describe('dialog tests', () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          { text: 'Hello world', type: 'dialog' },
-          { text: "And here's a continuation", type: 'dialog' },
-          { text: 'You are in Test map.', type: 'flavor' },
+          { text: "Hello world", type: "dialog" },
+          { text: "And here's a continuation", type: "dialog" },
+          {
+            text: "You are in Map connected to map with enemies.",
+            type: "flavor"
+          }
         ]),
         options: expect.arrayContaining([
-          { text: 'Talk to Actor 1', action: expect.anything() },
-        ]),
+          { text: "Talk to Actor 1", action: expect.anything() }
+        ])
       })
     );
   });

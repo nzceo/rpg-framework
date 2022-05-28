@@ -5,7 +5,13 @@ import Actor from "../actor/actor";
 import { cloneDeep, omit } from "lodash";
 import Quest from "../quest/quest";
 
-type IPlayerState = "combat" | "dialog" | "normal" | "menu" | "gameOver" | string;
+type IPlayerState =
+  | "combat"
+  | "dialog"
+  | "normal"
+  | "menu"
+  | "gameOver"
+  | string;
 
 /**
  * Player class, used as the center of the game
@@ -270,7 +276,7 @@ class Player extends Character {
   get armor() {
     return this.getState("combat").armor || this.game.config.defaultArmor;
   }
-  
+
   /**
    * Return player fertility status
    */

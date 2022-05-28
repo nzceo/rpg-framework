@@ -1,8 +1,6 @@
-import Fertile from "./";
-import Game from "../../game";
-import { config } from "../../../config";
 import { cloneDeep } from "lodash";
 import { fType } from "./fTypes";
+import Game from "../../game/game";
 
 const pState = {
   player: {
@@ -15,7 +13,7 @@ const pState = {
           weightBase: 138,
           waistBase: 25,
           weight: 138,
-          waist: 25,
+          waist: 25
         },
         pregnancies: 0,
         births: 0,
@@ -31,11 +29,11 @@ const pState = {
           fetuses: [],
           inches: 0,
           weight: 0,
-          seenAlerts: [],
-        },
-      },
-    },
-  },
+          seenAlerts: []
+        }
+      }
+    }
+  }
 };
 
 describe("preg tests", () => {
@@ -44,7 +42,7 @@ describe("preg tests", () => {
   });
   it("status can be added to character", () => {
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -54,7 +52,7 @@ describe("preg tests", () => {
   });
   it("correctly initialises state", () => {
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -77,7 +75,7 @@ describe("preg tests", () => {
        }`
     );
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -88,7 +86,7 @@ describe("preg tests", () => {
 
   it("cycle progresses", () => {
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -110,7 +108,7 @@ describe("preg tests", () => {
   it("progression works", () => {
     localStorage.setItem("state", JSON.stringify(pState));
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -126,7 +124,7 @@ describe("preg tests", () => {
   it("progression alerts appear", () => {
     localStorage.setItem("state", JSON.stringify(pState));
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -141,9 +139,10 @@ describe("preg tests", () => {
         { text: "Your period seems to be late.", type: "flavor" },
         { text: "You're feeling nauseous.", type: "flavor" },
         {
-          text: "You seem to be gaining some weight, you have a slight pot belly. You decide not to pay too much attention to it.",
-          type: "flavor",
-        },
+          text:
+            "You seem to be gaining some weight, you have a slight pot belly. You decide not to pay too much attention to it.",
+          type: "flavor"
+        }
       ])
     );
   });
@@ -152,7 +151,7 @@ describe("preg tests", () => {
     tempPState.player.statuses.fertile.pregnancies = 1;
     localStorage.setItem("state", JSON.stringify(tempPState));
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -163,9 +162,10 @@ describe("preg tests", () => {
     expect(game.turn().display).toStrictEqual(
       expect.arrayContaining([
         {
-          text: "You still haven't gotten your period and your stomach is starting to swell outwards. You know from experience you're probably pregnant again.",
-          type: "flavor",
-        },
+          text:
+            "You still haven't gotten your period and your stomach is starting to swell outwards. You know from experience you're probably pregnant again.",
+          type: "flavor"
+        }
       ])
     );
   });
@@ -175,7 +175,7 @@ describe("preg tests", () => {
     tempPState.player.statuses.fertile.pregnancy.babies = 1;
     localStorage.setItem("state", JSON.stringify(tempPState));
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -186,9 +186,10 @@ describe("preg tests", () => {
     expect(game.turn().display).toStrictEqual(
       expect.arrayContaining([
         {
-          text: "Your pregnant belly has grown quite a lot. A bit too fast even. You don't remember anyone from the village getting as big as you so quickly. Maybe you should go see a doctor.",
-          type: "flavor",
-        },
+          text:
+            "Your pregnant belly has grown quite a lot. A bit too fast even. You don't remember anyone from the village getting as big as you so quickly. Maybe you should go see a doctor.",
+          type: "flavor"
+        }
       ])
     );
   });
@@ -198,7 +199,7 @@ describe("preg tests", () => {
     tempPState.player.statuses.fertile.pregnancy.babies = 2;
     localStorage.setItem("state", JSON.stringify(tempPState));
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -209,9 +210,10 @@ describe("preg tests", () => {
     expect(game.turn().display).toStrictEqual(
       expect.arrayContaining([
         {
-          text: "Your pregnant belly has grown quite a lot. A bit too fast even. You don't remember anyone from the village getting as big as you so quickly. You're not completely sure but you think you can feel more movement than a single baby should be capable of.",
-          type: "flavor",
-        },
+          text:
+            "Your pregnant belly has grown quite a lot. A bit too fast even. You don't remember anyone from the village getting as big as you so quickly. You're not completely sure but you think you can feel more movement than a single baby should be capable of.",
+          type: "flavor"
+        }
       ])
     );
   });
@@ -221,7 +223,7 @@ describe("preg tests", () => {
     tempPState.player.statuses.fertile.pregnancy.babies = 2;
     localStorage.setItem("state", JSON.stringify(tempPState));
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -237,7 +239,7 @@ describe("preg tests", () => {
     tempPState.player.statuses.fertile.pregnancy.babies = 3;
     localStorage.setItem("state", JSON.stringify(tempPState));
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -256,7 +258,7 @@ describe("preg tests", () => {
     tempPState.player.statuses.fertile.pregnancy.babies = 1;
     localStorage.setItem("state", JSON.stringify(tempPState));
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -274,7 +276,7 @@ describe("preg tests", () => {
   //     tempPState.player.statuses.fertile.pregnancy.babies = 1;
   //     localStorage.setItem("state", JSON.stringify(tempPState));
   //     // @ts-ignore
-  //     const game = new Game(config);
+  //     const game = new Game();
   //     game.load();
   //     const player = game.player;
 

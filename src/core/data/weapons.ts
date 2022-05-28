@@ -6,7 +6,7 @@ const weapons: {
   unarmed: {
     name: "bare fists",
     damage: 1,
-    governingSkill: "unarmed"
+    governingSkill: "oneHanded"
   },
   sword: {
     name: "simple sword",

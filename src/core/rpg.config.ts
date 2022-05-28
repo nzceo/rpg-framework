@@ -14,50 +14,16 @@ import Character from "./character/character";
 import MapClass from "./map/map";
 import Quest from "./quest/quest";
 import Status from "./status/status";
-import { IMapContructorArg } from "./types/Imap";
-import { IPlayer } from "./types/IPlayer";
-import Game, { ITurn } from "./game/game";
-import { IWeapon } from "./types/IWeapon";
-import { IArmor } from "./types/IArmor";
+import { IConfig } from "./rpg.config";
+import fertile from "./status/fertile";
 
-export interface IConfig {
-  levels: {
-    level: number;
-    next: number;
-  }[];
-  maps: IMapContructorArg[];
-  player: IPlayer;
-  statuses: {
-    [type: string]: any;
-  };
-  quests: {
-    [id: string]: any;
-  };
-  render: (game: Game) => ITurn;
-  attack: (
-    attacker: Character,
-    attackee: Character,
-    governingSkill: string,
-    game: Game
-  ) => void;
-  encounter: (game: Game, map: MapClass) => void;
-  governingStats: {
-    [name: string]: string;
-  };
-  defaultWeapon: IWeapon;
-  defaultArmor: IArmor;
-  defaultMap: IMapContructorArg;
-  classes: {
-    [className: string]: any;
-  };
-}
-
-const config: IConfig = {
+const mockedConfig: IConfig = {
   levels,
   maps,
   player,
   statuses: {
-    testableStatus: TestableStatus
+    testableStatus: TestableStatus,
+    fertile
   },
   quests: {
     defeatTestEnemy: DefeatTestEnemy
@@ -90,4 +56,4 @@ const config: IConfig = {
   }
 };
 
-export default config;
+export default mockedConfig;

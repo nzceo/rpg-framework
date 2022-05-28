@@ -1,4 +1,3 @@
-import Status from "../";
 import { pMessages, contractionMessages, PMessages } from "./pMessages";
 import {
   returnPregCalc,
@@ -8,9 +7,9 @@ import {
 } from "./pFuncs";
 import { fType, FType } from "./fTypes";
 import { isArray } from "lodash";
-import Game from "../../game";
-import ExtendedGame from "../../game";
 import Roll from "roll";
+import Status from "../status";
+import Game from "../../game/game";
 
 export interface IFertilityStatusData {
   initialised: boolean;
@@ -51,7 +50,7 @@ class Fertile extends Status {
   contractionMessages!: PMessages[];
   pregnancyMessages!: PMessages[];
 
-  game!: ExtendedGame;
+  game!: Game;
 
   constructor(game: any, character: any) {
     super(game, character, {

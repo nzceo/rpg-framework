@@ -152,7 +152,7 @@ describe("Game class", () => {
   });
   it("eachDay is called on sleep", () => {
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 
@@ -168,7 +168,7 @@ describe("Game class", () => {
   });
   it("eachDay is called multiple times if sleep multiple days", () => {
     // @ts-ignore
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player;
 

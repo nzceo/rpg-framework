@@ -122,7 +122,7 @@ describe("Player class", () => {
     expect(player.map.name).toBe(mapData[0].name);
   });
   it("player can access fertility state easily", () => {
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player as Player;
 
@@ -131,7 +131,7 @@ describe("Player class", () => {
     expect(player.fertility).not.toBeNull();
   });
   it("player always has fertility state", () => {
-    const game = new Game(config);
+    const game = new Game();
     game.load();
     const player = game.player as Player;
 

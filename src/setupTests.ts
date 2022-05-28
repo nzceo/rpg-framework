@@ -1,1 +1,1 @@
-import './mocks/localstorage.mock.ts'
+import "./mocks/localStorage.mock.ts";

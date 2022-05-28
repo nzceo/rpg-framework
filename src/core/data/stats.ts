@@ -20,7 +20,6 @@ export default {
       base: 0,
       current: 0
     },
-
     skills: {
       endurance: 10,
       stamina: 10,

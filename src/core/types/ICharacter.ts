@@ -61,32 +61,16 @@ export interface ICharacter {
        */
       current: number;
     };
-
-    /**
-     * Base ttributes
-     */
-    attributes: {
-      endurance: number;
-      strength: number;
-      dexterity: number;
-      intelligence: number;
-      perception: number;
-      charisma: number;
-    };
-
     /**
      * Base skills
      */
     skills: {
+      endurance: number;
+      stamina: number;
       oneHanded: number;
       ranged: number;
-      poles: number;
-      twoHanded: number;
-      occult: number;
-      lockpick: number;
       speech: number;
-      barter: number;
-      tinkering: number;
+      intelligence: number;
     };
   };
 }

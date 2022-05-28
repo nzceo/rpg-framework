@@ -1,22 +1,11 @@
 {
   "version": "0.0.0-development",
   "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/nzceo/rpg-framework.git"
   },
-  "homepage": "https://github.com/nzceo/rpg-framework",
-  "keywords": [
-    "rpg",
-    "rpg-engine",
-    "rpg-framework"
-  ],
+  "keywords": ["rpg", "rpg-engine", "rpg-framework"],
   "engines": {
     "node": ">=10"
   },
@@ -36,9 +25,6 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "ts-rpg-framework",
-  "author": "Nzceo",
-  "module": "dist/ts-rpg-framework.esm.js",
   "devDependencies": {
     "@size-limit/preset-small-lib": "^7.0.3",
     "@types/lodash": "4.14.178",
@@ -63,17 +49,10 @@
     "mock-local-storage": "1.1.20"
   },
   "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
+    "extends": ["react-app", "react-app/jest"]
   },
   "browserslist": {
-    "production": [
-      ">0.2%",
-      "not dead",
-      "not op_mini all"
-    ],
+    "production": [">0.2%", "not dead", "not op_mini all"],
     "development": [
       "last 1 chrome version",
       "last 1 firefox version",
