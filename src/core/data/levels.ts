@@ -1,4 +1,4 @@
-export default [
+const levels = [
   { level: 1, next: 200 },
   { level: 2, next: 550 },
   { level: 3, next: 1050 },
@@ -20,3 +20,5 @@ export default [
   { level: 19, next: 29450 },
   { level: 20, next: 0 }
 ];
+
+export default levels;

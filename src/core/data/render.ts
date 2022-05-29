@@ -7,7 +7,7 @@ import { IDialog } from "../types/IDialog";
  * Add new switches and use the game class to output
  * new things.
  */
-export default (game: Game): ITurn => {
+const render = (game: Game): ITurn => {
   switch (game.player.state) {
     default:
     case "normal":
@@ -147,3 +147,5 @@ export default (game: Game): ITurn => {
       };
   }
 };
+
+export default render;

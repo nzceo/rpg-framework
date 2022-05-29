@@ -4,7 +4,7 @@ import Game from "../game/game";
 /**
  * Logic for attacks
  */
-export default (
+const handleAttack = (
   attacker: Character,
   attackee: Character,
   governingSkill: string,
@@ -32,3 +32,5 @@ export default (
     skillValue
   });
 };
+
+export default handleAttack;

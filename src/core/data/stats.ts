@@ -1,4 +1,4 @@
-export default {
+const stats = {
   weak: {
     hitPoints: { base: 15, current: 15 },
     manaPoints: {
@@ -46,3 +46,5 @@ export default {
     }
   }
 };
+
+export default stats;

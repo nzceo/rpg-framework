@@ -4,7 +4,7 @@ interface ICharacterArchetype {
   [key: string]: ICharacter["description"];
 }
 
-export default <ICharacterArchetype>{
+const archetypes: ICharacterArchetype = {
   player: {
     pronouns: "you",
     sex: "male",
@@ -16,3 +16,5 @@ export default <ICharacterArchetype>{
     appearance: "A normal looking man. Everything about him is normal."
   }
 };
+
+export default archetypes;
