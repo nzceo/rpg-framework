@@ -6,7 +6,7 @@ interface IBaseDialog extends IDisappearing<Actor> {
   /**
    * Id of the message. Needs to be unique in the dialog tree.
    */
-  id?: string;
+  id: string;
   /**
    * Text of the message. This is what the user will see.
    */
