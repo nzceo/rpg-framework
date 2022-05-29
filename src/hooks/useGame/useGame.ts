@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import Game, { ITurn } from "../../core/game/game";
-import config from "../../core/rpg.config";
+import config from "../../core/custom.rpg.config";
 
 const useGame = () => {
   const [gameCounter, setGameCounter] = useState(0);
