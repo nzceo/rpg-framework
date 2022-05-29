@@ -1,9 +1,9 @@
 import { PMessages } from "./pMessages";
 import { growthCurves } from "./fTypes";
-import Game from "../../game";
 import Fertile, { IFertilityStatusData, PregnancyInterface } from "./fertile";
 import { solveCubicBezier } from "./bezier";
 import { isFunction, isArray, sample } from "lodash";
+import Game from "../../game/game";
 
 export function returnPregTerm(
   weeks: number
