@@ -103,11 +103,6 @@ class Status {
       ...value
     });
   }
-
-  /**
-   * Runs each day
-   */
-   eachDay() {}
 }
 
 export default Status;
