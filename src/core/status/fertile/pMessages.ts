@@ -1,6 +1,6 @@
-import Game from "../../game";
 import { waistIsAbove, sizeMatches } from "./pFuncs";
 import Fertile from "./fertile";
+import Game from "../../game/game";
 
 export interface PMessages {
   m: string | string[] | ((game: Game) => string | string[]);
