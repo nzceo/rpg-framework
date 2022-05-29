@@ -4,6 +4,7 @@ import Character from "../character/character";
 import Actor from "../actor/actor";
 import { cloneDeep, omit } from "lodash";
 import Quest from "../quest/quest";
+import Fertile from "../status/fertile";
 
 type IPlayerState =
   | "combat"

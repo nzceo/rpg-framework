@@ -38,9 +38,11 @@ interface IQuestion extends IBaseDialog {
   }[];
 }
 
-interface IEnd {
+interface IEnd extends Omit<IBaseDialog, "message"> {
   id: string;
   type: "end";
+
+  message?: string;
 }
 
 export type IDialog = IMessage | IQuestion | IEnd;
