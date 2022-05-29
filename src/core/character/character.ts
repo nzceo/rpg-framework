@@ -198,13 +198,6 @@ class Character extends Saveable {
   }
 
   /**
-   * Get character attributes
-   */
-  get attributes() {
-    return this.data.combat.attributes;
-  }
-
-  /**
    * Returns true if character has less than 0 health
    */
   isDead() {

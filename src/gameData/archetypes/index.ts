@@ -1,4 +1,4 @@
-import { ICharacter } from "../../types/ICharacter";
+import { ICharacter } from "../../core/types";
 
 interface ICharacterArchetype {
   [key: string]: ICharacter["description"];

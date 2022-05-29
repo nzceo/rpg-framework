@@ -1,35 +1,23 @@
 {
   "version": "0.0.0-development",
   "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
   "repository": {
     "type": "git",
     "url": "https://github.com/nzceo/rpg-framework.git"
   },
-  "homepage": "https://github.com/nzceo/rpg-framework",
-  "keywords": [
-    "rpg",
-    "rpg-engine",
-    "rpg-framework"
-  ],
+  "keywords": ["rpg", "rpg-engine", "rpg-framework"],
   "engines": {
     "node": ">=10"
   },
   "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test",
-    "lint": "tsdx lint",
-    "prepare": "husky install",
-    "size": "size-limit",
-    "analyze": "size-limit --why",
-    "semantic-release": "semantic-release",
-    "cm": "cz"
+    "dev": "vite",
+    "start:old": "vite",
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "serve": "vite preview",
+    "test:dev": "jest --watchAll --no-cache",
+    "test": "jest --no-cache",
+    "tsc": "tsc"
   },
   "prettier": {
     "printWidth": 80,
@@ -37,38 +25,42 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
-  "name": "ts-rpg-framework",
-  "author": "Nzceo",
-  "module": "dist/ts-rpg-framework.esm.js",
   "devDependencies": {
+    "@types/react": "18.0.9",
+    "@types/react-dom": "18.0.5",
     "@size-limit/preset-small-lib": "^7.0.3",
+    "@types/jest": "27.5.1",
+    "@types/mocha": "9.1.1",
     "@types/lodash": "4.14.178",
     "@types/roll": "1.2.0",
     "@types/uuid": "8.3.4",
-    "commitizen": "^4.2.4",
-    "cz-conventional-changelog": "^3.3.0",
     "husky": "^7.0.4",
-    "mock-local-storage": "1.1.20",
     "semantic-release": "^19.0.2",
-    "size-limit": "^7.0.3",
-    "tsdx": "^0.14.1",
-    "tslib": "^2.3.1",
+    "ts-jest": "^27.1.3",
+    "jest": "^27.5.0",
     "typescript": "^4.5.2"
   },
   "dependencies": {
+    "esbuild-jest": "0.5.0",
     "lodash": "4.17.21",
     "lodash-es": "^4.17.21",
+    "mock-local-storage": "1.1.20",
+    "react": "^18.0.0",
+    "react-dom": "^18.0.0",
+    "react-scripts": "4.0.3",
     "roll": "1.3.1",
-    "uuid": "8.3.2"
+    "uuid": "8.3.2",
+    "vite": "^2.6.0"
   },
-  "release": {
-    "branches": [
-      "main"
+  "eslintConfig": {
+    "extends": ["react-app", "react-app/jest"]
+  },
+  "browserslist": {
+    "production": [">0.2%", "not dead", "not op_mini all"],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
     ]
-  },
-  "config": {
-    "commitizen": {
-      "path": "./node_modules/cz-conventional-changelog"
-    }
   }
 }

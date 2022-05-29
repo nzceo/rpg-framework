@@ -14,11 +14,10 @@ import Character from "./character/character";
 import MapClass from "./map/map";
 import Quest from "./quest/quest";
 import Status from "./status/status";
+import fertile from "./status/fertile";
 import { IMapContructorArg } from "./types/Imap";
-import { IPlayer } from "./types/IPlayer";
-import Game, { ITurn } from "./game/game";
-import { IWeapon } from "./types/IWeapon";
-import { IArmor } from "./types/IArmor";
+import { IArmor, IPlayer, ITurn, IWeapon } from "./types";
+import Game from "./game/game";
 
 export interface IConfig {
   levels: {
@@ -52,12 +51,13 @@ export interface IConfig {
   };
 }
 
-const config: IConfig = {
+const mockedConfig: IConfig = {
   levels,
   maps,
   player,
   statuses: {
-    testableStatus: TestableStatus
+    testableStatus: TestableStatus,
+    fertile
   },
   quests: {
     defeatTestEnemy: DefeatTestEnemy
@@ -90,4 +90,4 @@ const config: IConfig = {
   }
 };
 
-export default config;
+export default mockedConfig;
