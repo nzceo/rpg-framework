@@ -43,6 +43,7 @@ interface IEnd extends Omit<IBaseDialog, "message"> {
   type: "end";
 
   message?: string;
+  next?: string;
 }
 
 export type IDialog = IMessage | IQuestion | IEnd;
