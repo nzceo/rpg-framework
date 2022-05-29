@@ -2,7 +2,6 @@ import stats from "../../core/data/stats";
 import Game from "../../core/game/game";
 import { IActor } from "../../core/types";
 import archetypes from "../archetypes";
-import { v4 as uuid } from "uuid";
 
 const actors: IActor[] = [
   {
@@ -57,7 +56,7 @@ const actors: IActor[] = [
           "Really? Isn't it obvious? Last I checked it was pretty easy to see how pregnant I am. There's not much a girl in my state can do but serve drinks and food to a bunch of old drunks. Or at least that's what they told me back at the farm once my belly became too big to hide."
       },
       {
-        id: uuid(),
+        id: "work_answer_2",
         type: "message",
         message:
           "Yeah, I might be on my feet all day and my back hurts like a bitch from carrying this baby around, but at least I don't have to work the streets to support myself."
