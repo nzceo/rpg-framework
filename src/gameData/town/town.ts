@@ -1,8 +1,9 @@
+import stats from "../../core/data/stats";
+import Game from "../../core/game/game";
+import { IActor } from "../../core/types";
 import archetypes from "../archetypes";
-import stats from "../stats";
-import Game from "../game";
 
-const actors = [
+const actors: IActor[] = [
   {
     id: "heavily_pregnant_waitress",
     name: "heavily pregnant waitress",
@@ -13,13 +14,13 @@ const actors = [
         id: "heavily_pregnant_waitress_1",
         type: "message",
         message:
-          "<i>The big bellied waitress is currently awkwardly bent over a table full of drunken men, trying to collect their glasses. As you wait for her to finish you see one of the men slapping her ass, she doesn't look very comfortable with it but smiles and leaves them be.</i>",
+          "<i>The big bellied waitress is currently awkwardly bent over a table full of drunken men, trying to collect their glasses. As you wait for her to finish you see one of the men slapping her ass, she doesn't look very comfortable with it but smiles and leaves them be.</i>"
       },
       {
         id: "heavily_pregnant_waitress_2",
         type: "message",
         message:
-          "<i>You wave your hand to catch her attention and she starts waddling towards you. As she approaches your eyes are caught by a detail you had previously missed, possibly since you were distracted by her extended womb: her breasts have been tightly stuffed into her revealing uniform, leaving her deep cleavage open for anyone to see.</i>",
+          "<i>You wave your hand to catch her attention and she starts waddling towards you. As she approaches your eyes are caught by a detail you had previously missed, possibly since you were distracted by her extended womb: her breasts have been tightly stuffed into her revealing uniform, leaving her deep cleavage open for anyone to see.</i>"
       },
       {
         id: "initial_question",
@@ -29,33 +30,35 @@ const actors = [
           {
             action: "Why are you working here?",
             message: "Why are you working here?",
-            next: "work_answer",
+            next: "work_answer"
           },
           {
             action: "I saw what that man did, why didn't you stop him?",
             message: "I saw what that man did, why didn't you stop him?",
-            next: "harrassment_answer",
+            next: "harrassment_answer"
           },
           {
             action: "How did you get pregnant?",
             message: "How did you get pregnant?",
-            next: "pregnant_question",
+            next: "pregnant_question"
           },
           {
             action: "Talk to you later",
             message: "Talk to you later",
-            next: "convo_end",
-          },
-        ],
+            next: "convo_end"
+          }
+        ]
       },
       {
         id: "work_answer",
+        type: "message",
         message:
-          "Really? Isn't it obvious? Last I checked it was pretty easy to see how pregnant I am. There's not much a girl in my state can do but serve drinks and food to a bunch of old drunks. Or at least that's what they told me back at the farm once my belly became too big to hide.",
+          "Really? Isn't it obvious? Last I checked it was pretty easy to see how pregnant I am. There's not much a girl in my state can do but serve drinks and food to a bunch of old drunks. Or at least that's what they told me back at the farm once my belly became too big to hide."
       },
       {
+        type: "message",
         message:
-          "Yeah, I might be on my feet all day and my back hurts like a bitch from carrying this baby around, but at least I don't have to work the streets to support myself.",
+          "Yeah, I might be on my feet all day and my back hurts like a bitch from carrying this baby around, but at least I don't have to work the streets to support myself."
       },
       // {
       //   type: "switch",
@@ -74,9 +77,10 @@ const actors = [
       // },
       {
         id: "harrassment_answer",
+        type: "message",
         message:
           "Oh that? It happens, what are you going to do. These bastards pay my salary, I'm not about to ruin such a cushy opportunity just because someone touches me. Being as big as I am I don't get much attention anymore, at least stuff like that reminds me I'm not just a bloated pregnant whale to everyone.",
-        next: "initial_question",
+        next: "initial_question"
       },
       // {
       //   label: "pregnant_question",
@@ -94,8 +98,8 @@ const actors = [
       //   },
       //   next: "initial_question",
       // },
-      { id: "convo_end" },
-    ],
+      { id: "convo_end", type: "end" }
+    ]
   },
   {
     id: "sleep",
@@ -111,14 +115,14 @@ const actors = [
           {
             action: "7 days",
             message: "",
-            next: "sleep_7",
+            next: "sleep_7"
           },
           {
             action: "28 days",
             message: "",
-            next: "sleep_28",
-          },
-        ],
+            next: "sleep_28"
+          }
+        ]
       },
       {
         id: "sleep_7",
@@ -134,8 +138,8 @@ const actors = [
         func: (game: Game) => game.sleep(28),
         next: "convo_end"
       },
-      { id: "convo_end" },
-    ],
+      { id: "convo_end", type: "end" }
+    ]
   },
   {
     id: "preg",
@@ -147,11 +151,11 @@ const actors = [
         id: "make",
         type: "message",
         message: "You're now pregnant",
-        func: (game: Game) => game.player.fertility.debugPregnancy(),
+        func: (game: Game) => game.player.fertility.debugPregnancy()
       },
-      { id: "convo_end" },
-    ],
-  },
+      { id: "convo_end", type: "end" }
+    ]
+  }
 ];
 
 export default actors;
