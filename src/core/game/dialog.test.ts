@@ -13,7 +13,7 @@ describe("dialog tests", () => {
           { text: "Hello world", type: "dialog" },
           { text: "And here's a continuation", type: "dialog" },
           {
-            text: "You are in Map connected to map with enemies.",
+            text: "You are in Test map.",
             type: "flavor"
           }
         ]),

@@ -65,7 +65,6 @@ class Game {
    * @param id the map's id
    */
   findMap(id: string) {
-    console.log(this.config.maps);
     return this.config.maps.filter((map) => id === map.id);
   }
 
