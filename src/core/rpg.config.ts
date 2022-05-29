@@ -14,8 +14,42 @@ import Character from "./character/character";
 import MapClass from "./map/map";
 import Quest from "./quest/quest";
 import Status from "./status/status";
-import { IConfig } from "./rpg.config";
 import fertile from "./status/fertile";
+import { IMapContructorArg } from "./types/Imap";
+import { IArmor, IPlayer, ITurn, IWeapon } from "./types";
+import Game from "./game/game";
+
+export interface IConfig {
+  levels: {
+    level: number;
+    next: number;
+  }[];
+  maps: IMapContructorArg[];
+  player: IPlayer;
+  statuses: {
+    [type: string]: any;
+  };
+  quests: {
+    [id: string]: any;
+  };
+  render: (game: Game) => ITurn;
+  attack: (
+    attacker: Character,
+    attackee: Character,
+    governingSkill: string,
+    game: Game
+  ) => void;
+  encounter: (game: Game, map: MapClass) => void;
+  governingStats: {
+    [name: string]: string;
+  };
+  defaultWeapon: IWeapon;
+  defaultArmor: IArmor;
+  defaultMap: IMapContructorArg;
+  classes: {
+    [className: string]: any;
+  };
+}
 
 const mockedConfig: IConfig = {
   levels,

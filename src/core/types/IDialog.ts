@@ -38,4 +38,9 @@ interface IQuestion extends IBaseDialog {
   }[];
 }
 
-export type IDialog = IMessage | IQuestion;
+interface IEnd {
+  id: string;
+  type: "end";
+}
+
+export type IDialog = IMessage | IQuestion | IEnd;

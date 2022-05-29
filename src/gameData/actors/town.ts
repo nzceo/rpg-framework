@@ -1,8 +1,9 @@
 import stats from "../../core/data/stats";
 import Game from "../../core/game/game";
+import { IActor } from "../../core/types";
 import archetypes from "../archetypes";
 
-const actors = [
+const actors: IActor[] = [
   {
     id: "heavily_pregnant_waitress",
     name: "heavily pregnant waitress",
@@ -49,11 +50,13 @@ const actors = [
         ]
       },
       {
+        type: "message",
         id: "work_answer",
         message:
           "Really? Isn't it obvious? Last I checked it was pretty easy to see how pregnant I am. There's not much a girl in my state can do but serve drinks and food to a bunch of old drunks. Or at least that's what they told me back at the farm once my belly became too big to hide."
       },
       {
+        type: "message",
         message:
           "Yeah, I might be on my feet all day and my back hurts like a bitch from carrying this baby around, but at least I don't have to work the streets to support myself."
       },
@@ -73,6 +76,7 @@ const actors = [
       //   },
       // },
       {
+        type: "message",
         id: "harrassment_answer",
         message:
           "Oh that? It happens, what are you going to do. These bastards pay my salary, I'm not about to ruin such a cushy opportunity just because someone touches me. Being as big as I am I don't get much attention anymore, at least stuff like that reminds me I'm not just a bloated pregnant whale to everyone.",
@@ -94,7 +98,10 @@ const actors = [
       //   },
       //   next: "initial_question",
       // },
-      { id: "convo_end" }
+      {
+        type: "end",
+        id: "convo_end"
+      }
     ]
   },
   {
@@ -134,7 +141,10 @@ const actors = [
         func: (game: Game) => game.sleep(28),
         next: "convo_end"
       },
-      { id: "convo_end" }
+      {
+        type: "end",
+        id: "convo_end"
+      }
     ]
   },
   {
@@ -149,7 +159,10 @@ const actors = [
         message: "You're now pregnant",
         func: (game: Game) => game.player.fertility.debugPregnancy()
       },
-      { id: "convo_end" }
+      {
+        type: "end",
+        id: "convo_end"
+      }
     ]
   }
 ];

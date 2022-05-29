@@ -9,46 +9,12 @@ import render from "./data/render";
 import stats from "./data/stats";
 import encounter from "./data/encounters";
 import weapons from "./data/weapons";
-import Game from "./game/game";
 import MapClass from "./map/map";
 import player from "./player/player";
 import Quest from "./quest/quest";
 import fertile from "./status/fertile";
 import Status from "./status/status";
-import { IArmor, IPlayer, ITurn, IWeapon } from "./types";
-import { IMapContructorArg } from "./types/Imap";
-
-export interface IConfig {
-  levels: {
-    level: number;
-    next: number;
-  }[];
-  maps: IMapContructorArg[];
-  player: IPlayer;
-  statuses: {
-    [type: string]: any;
-  };
-  quests: {
-    [id: string]: any;
-  };
-  render: (game: Game) => ITurn;
-  attack: (
-    attacker: Character,
-    attackee: Character,
-    governingSkill: string,
-    game: Game
-  ) => void;
-  encounter: (game: Game, map: MapClass) => void;
-  governingStats: {
-    [name: string]: string;
-  };
-  defaultWeapon: IWeapon;
-  defaultArmor: IArmor;
-  defaultMap: IMapContructorArg;
-  classes: {
-    [className: string]: any;
-  };
-}
+import { IConfig } from "./rpg.config";
 
 export const config: IConfig = {
   maps: [...townMaps],
