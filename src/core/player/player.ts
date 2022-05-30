@@ -5,6 +5,7 @@ import Actor from "../actor/actor";
 import { cloneDeep, omit } from "lodash";
 import Quest from "../quest/quest";
 import Fertile from "../status/fertile";
+import CustomEvent from "../event";
 
 type IPlayerState =
   | "combat"
@@ -12,7 +13,7 @@ type IPlayerState =
   | "normal"
   | "menu"
   | "gameOver"
-  | string;
+  | "custom";
 
 /**
  * Player class, used as the center of the game
@@ -99,6 +100,20 @@ class Player extends Character {
   state: IPlayerState = "normal";
   switchState(state: IPlayerState) {
     this.state = state;
+  }
+
+  /**
+   * An event class, will be consumed as a custom state.
+   */
+  customState?: CustomEvent;
+
+  /**
+   * Allows setting a custom state to the player.
+   */
+  setCustomState(customEvent: typeof CustomEvent, data: any) {
+    this.switchState("custom");
+    // @ts-ignore
+    this.customState = new customEvent(this.game, data);
   }
 
   /**
