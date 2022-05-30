@@ -4,6 +4,10 @@ import Actor from "../actor/actor";
 import maps from "../data/maps";
 
 describe("combat tests", () => {
+  // Clears localstorage
+  beforeEach(() => {
+    localStorage.setItem("state", ``);
+  });
   it("renders combat info", () => {
     const game = new Game();
     game.load();
