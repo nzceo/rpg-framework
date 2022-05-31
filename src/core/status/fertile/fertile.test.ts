@@ -365,6 +365,6 @@ describe("preg tests", () => {
 
     game.sleep(1);
 
-    expect(player.fertility.isPregnant).toBe(false);
+    expect(player.fertility.isPregnant()).toBe(false);
   });
 });

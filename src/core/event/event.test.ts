@@ -38,7 +38,7 @@ describe("event tests", () => {
       // )
     );
 
-    player.customState.exit();
+    player.customState?.exit();
 
     expect(game.turn().display).toStrictEqual(
       expect.arrayContaining([
