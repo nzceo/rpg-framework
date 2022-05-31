@@ -224,6 +224,35 @@ class Fertile extends Status {
     }
   }
 
+  /**
+   * Resets pregnancy state
+   */
+  endPregnancy() {
+    this.statusData = {
+      isPregnant: false,
+      births: this.statusData.births + this.babies(),
+      pregnancies: this.statusData.pregnancies + 1,
+      body: {
+        weight: this.statusData.body.weightBase,
+        waist: this.statusData.body.waistBase
+      },
+      pregnancy: {
+        known: false,
+        progressDays: 0,
+        progressWeeks: 0,
+        publicProgressWeeks: 0,
+        babies: 0,
+        publicBabies: 0,
+        publicFetus: "",
+        fetusType: {},
+        fetuses: [],
+        inches: 0,
+        weight: 0,
+        seenAlerts: []
+      }
+    };
+  }
+
   progressPregnancy() {
     if (this.isPregnant()) {
       this.generateFetuses();

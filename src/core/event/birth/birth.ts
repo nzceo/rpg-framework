@@ -158,6 +158,15 @@ class BirthEvent extends CustomEvent {
         type: "flavor"
       }
     ]);
+
+    this.game.player.fertility.endPregnancy();
+
+    this.addToOptions([
+      {
+        text: "Continue",
+        action: () => this.exit()
+      }
+    ]);
   }
 }
 

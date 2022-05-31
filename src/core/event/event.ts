@@ -70,7 +70,6 @@ class CustomEvent {
    * Returns an object with options and flavor text for it to be rendered
    */
   turn(): ITurn {
-    console.log("event turn");
     return this.consumeDialog();
   }
 
