@@ -1,4 +1,3 @@
 // write here what you did last and what you need to do next
 
-Implemented rough version of birth event. Need to now reset pregnancy state
-once birth is completed.
+Clean up birth event, there's a default option that appears when it's over. Display and options should be reset on construct.
