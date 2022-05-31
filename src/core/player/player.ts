@@ -111,7 +111,9 @@ class Player extends Character {
    * Allows setting a custom state to the player.
    */
   setCustomState(customEvent: typeof CustomEvent, data: any) {
+    console.log("setting custom state");
     this.switchState("custom");
+    console.log("state is", this.state);
     // @ts-ignore
     this.customState = new customEvent(this.game, data);
   }

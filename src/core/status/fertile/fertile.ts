@@ -10,6 +10,7 @@ import { isArray } from "lodash";
 import Roll from "roll";
 import Status from "../status";
 import Game from "../../game/game";
+import BirthEvent from "../../event/birth";
 
 export interface IFertilityStatusData {
   initialised: boolean;
@@ -124,7 +125,8 @@ class Fertile extends Status {
         const chanceModifier = progressDays + 14 - pregnancyDuration;
 
         if (chance + chanceModifier > 100) {
-          // start birth
+          this.game.player.setCustomState(BirthEvent, {});
+          this.game.resetDaysToSleep();
         } else if (chance + chanceModifier > 60) {
           this.game.resetDaysToSleep();
           // bad contractions, no birth
@@ -314,6 +316,13 @@ class Fertile extends Status {
    */
   isPregnancyKnown() {
     return this.statusData.pregnancy.known;
+  }
+
+  /**
+   * Returns true if current fetus type is larger than an average human fetus
+   */
+  isFetusBiggerThanAverage() {
+    return this.statusData.pregnancy.fetusType.sizeIncrease > 1;
   }
 
   setPregnancyKnown() {

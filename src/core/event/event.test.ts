@@ -1,22 +1,49 @@
 import Game from "../game";
 import CustomEvent from "./";
-import { config } from "../custom.rpg.config";
+import { testConfig } from "../../mocks/test.rpg.config";
 
 describe("event tests", () => {
   beforeEach(() => {
     localStorage.setItem("state", ``);
   });
   it("custom events can be assigned and consumed", () => {
-    const game = new Game(config);
+    const game = new Game(testConfig);
+    game.load();
+    const player = game.player;
+
+    player.setCustomState(CustomEvent, {});
+
+    expect(game.turn().display).toStrictEqual([
+      {
+        text: `This is a custom event.`,
+        type: "flavor"
+      }
+    ]);
+  });
+  it("custom events can be assigned consumed and exited", () => {
+    const game = new Game(testConfig);
     game.load();
     const player = game.player;
 
     player.setCustomState(CustomEvent, {});
 
     expect(game.turn().display).toStrictEqual(
-      expect.arrayContaining([
+      // expect.arrayContaining(
+      [
         {
           text: `This is a custom event.`,
+          type: "flavor"
+        }
+      ]
+      // )
+    );
+
+    player.customState.exit();
+
+    expect(game.turn().display).toStrictEqual(
+      expect.arrayContaining([
+        {
+          text: `You are in The Golden Boot.`,
           type: "flavor"
         }
       ])

@@ -8,6 +8,7 @@ import { IDialog } from "../types/IDialog";
  * new things.
  */
 const render = (game: Game): ITurn => {
+  console.log("rendering, state is", game.player.state);
   switch (game.player.state) {
     default:
     case "normal":
