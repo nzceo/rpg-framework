@@ -1,16 +1,25 @@
 import { pMessages, contractionMessages, PMessages } from "./pMessages";
 import {
+  getAverageSize,
   returnPregCalc,
   returnPregnancyProgressMessages,
   returnPregnancyWeightGain,
-  returnRandomMessage
+  returnRandomMessage,
+  sizeMatches,
+  Sizes,
+  waistIsAbove,
+  waistIsBetween
 } from "./pFuncs";
 import { fType, FType } from "./fTypes";
-import { isArray } from "lodash";
+import { isArray, merge } from "lodash";
 import Roll from "roll";
 import Status from "../status";
 import Game from "../../game/game";
 import BirthEvent from "../../event/birth";
+
+type RecursivePartial<T> = {
+  [P in keyof T]?: RecursivePartial<T[P]>;
+};
 
 export interface IFertilityStatusData {
   initialised: boolean;
@@ -37,7 +46,7 @@ export interface PregnancyInterface {
   babies: number;
   publicBabies: number;
   publicFetus: string;
-  fetusType: FType;
+  fetusType?: FType;
   fetuses: {
     weight: number;
     sex: "male" | "female";
@@ -94,7 +103,7 @@ class Fertile extends Status {
           babies: 0,
           publicBabies: 0,
           publicFetus: "",
-          fetusType: {},
+          fetusType: undefined,
           fetuses: [],
           inches: 0,
           weight: 0,
@@ -102,6 +111,25 @@ class Fertile extends Status {
         }
       };
     }
+  }
+
+  /**
+   * Returns all the extra data from the status
+   * Do whatever you want with it
+   */
+  get statusData(): IFertilityStatusData {
+    return this.character.getState(`statuses.${this.type}`);
+  }
+
+  /**
+   * Sets data to the game status.
+   * Old object and new object are merged automatically, specify only values that you want to change.
+   */
+  set statusData(value: RecursivePartial<IFertilityStatusData>) {
+    this.character.setState(
+      `statuses.${this.type}`,
+      merge(this.statusData, value)
+    );
   }
 
   eachDay() {
@@ -113,7 +141,7 @@ class Fertile extends Status {
   checkForBirth() {
     if (this.isPregnant()) {
       const progressDays = this.statusData.pregnancy.progressDays;
-      const pregnancyDuration = this.statusData.pregnancy.fetusType.multiples[
+      const pregnancyDuration = this.statusData.pregnancy.fetusType!.multiples[
         this.babies()
       ].duration;
       if (progressDays > pregnancyDuration - 14) {
@@ -290,11 +318,9 @@ class Fertile extends Status {
         this.statusData.pregnancy.babies
       );
 
-      const babyWeight = parseFloat(
-        this.statusData.pregnancy.fetuses.reduce(
-          (p: number, c: { weight: number }) => p + c.weight,
-          0
-        )
+      const babyWeight = this.statusData.pregnancy.fetuses.reduce(
+        (p: number, c: { weight: number }) => p + c.weight,
+        0
       );
 
       let weightGain = pWeightGain + babyWeight;
@@ -307,16 +333,66 @@ class Fertile extends Status {
     return `${this.statusData.body.weight}lb`;
   }
 
+  /**
+   * Quick references to functions that can
+   * be used to perform state checks in dialogs
+   */
+  dialogHelpers = {
+    isPregnant: this.isPregnant,
+    isFirstPregnancy: this.isFirstPregnancy,
+    fetusType: () => this.fetusType,
+    isMultiples: this.isMultiples,
+    isKnownMultiples: this.isKnownMultiples,
+    babies: () => this.babies(),
+    isPregnancyKnown: () => this.isPregnancyKnown(),
+    isFetusBiggerThanAverage: () => this.isFetusBiggerThanAverage(),
+    getPregnancyTerm: () => this.getPregnancyTerm(),
+    waistIsAbove: (inches: number) => {
+      return waistIsAbove(this.statusData, inches);
+    },
+    waistIsBetween: (lowerInches: number, higherInches: number) => {
+      return waistIsBetween(this.statusData, lowerInches, higherInches);
+    },
+    getAverageSize: () => {
+      return getAverageSize(this);
+    },
+    sizeMatches: (sizes: Sizes) => {
+      return sizeMatches(this, sizes);
+    }
+  };
+
+  getPregnancyTerm(): "first" | "second" | "third" | "late" {
+    const weeks = this.statusData.pregnancy.progressWeeks;
+    if (weeks < 12) {
+      return "first";
+    } else if (weeks >= 12 && weeks < 24) {
+      return "second";
+    } else if (weeks >= 24 && weeks < 36) {
+      return "third";
+    } else {
+      return "late";
+    }
+  }
+
+  /**
+   * Returns whether the character is pregnant, known or not
+   */
   isPregnant() {
     return this.statusData.isPregnant;
   }
 
+  /**
+   * Returns true if this is the chars first pregnancy
+   */
   isFirstPregnancy() {
     return this.statusData.pregnancies === 0;
   }
 
+  /**
+   * Returns the fetus' race
+   */
   get fetusType() {
-    return this.statusData.pregnancy.fetusType.type;
+    return this.statusData.pregnancy.fetusType?.type;
   }
 
   /**
@@ -351,7 +427,7 @@ class Fertile extends Status {
    * Returns true if current fetus type is larger than an average human fetus
    */
   isFetusBiggerThanAverage() {
-    return this.statusData.pregnancy.fetusType.sizeIncrease > 1;
+    return this.statusData.pregnancy.fetusType!.sizeIncrease > 1;
   }
 
   setPregnancyKnown() {

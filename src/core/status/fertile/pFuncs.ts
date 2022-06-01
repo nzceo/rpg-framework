@@ -5,20 +5,6 @@ import { solveCubicBezier } from "./bezier";
 import { isFunction, isArray, sample } from "lodash";
 import Game from "../../game/game";
 
-export function returnPregTerm(
-  weeks: number
-): "first" | "second" | "third" | "late" {
-  if (weeks < 12) {
-    return "first";
-  } else if (weeks >= 12 && weeks < 24) {
-    return "second";
-  } else if (weeks >= 24 && weeks < 36) {
-    return "third";
-  } else {
-    return "late";
-  }
-}
-
 export const returnPregnancyWeightGain = (
   progressDays: number,
   fetusType: any,
@@ -204,7 +190,7 @@ export const waistIsBetween = (
   );
 };
 
-export const sizeMatches = (fertile: Fertile, sizes: string[]) => {
+export const getAverageSize = (fertile: Fertile) => {
   let currentDay = 0;
   let averageSize = 0;
   const pregnancy = fertile.statusData.pregnancy;
@@ -237,5 +223,11 @@ export const sizeMatches = (fertile: Fertile, sizes: string[]) => {
     sizeResult = "average";
   }
 
-  return sizes.includes(sizeResult);
+  return sizeResult;
+};
+
+export type Sizes = "large" | "veryLarge" | "average" | "small" | "average";
+
+export const sizeMatches = (fertile: Fertile, sizes: Sizes) => {
+  return sizes.includes(getAverageSize(fertile));
 };
