@@ -270,19 +270,148 @@ describe("preg tests", () => {
 
     expect(player.fertility.weight).toContain(`+`);
   });
-  //   it("test", () => {
-  //     const tempPState = cloneDeep(pState);
-  //     tempPState.player.statuses.fertile.pregnancy.fetusType = fType.human;
-  //     tempPState.player.statuses.fertile.pregnancy.babies = 1;
-  //     localStorage.setItem("state", JSON.stringify(tempPState));
-  //     // @ts-ignore
-  //     const game = new Game();
-  //     game.load();
-  //     const player = game.player;
+  it("birth gets triggered", () => {
+    const tempPState = cloneDeep(pState);
+    tempPState.player.statuses.fertile.pregnancy.fetusType = fType.human;
+    tempPState.player.statuses.fertile.pregnancy.babies = 1;
+    localStorage.setItem(
+      "state",
+      JSON.stringify({
+        player: {
+          statuses: {
+            fertile: {
+              initialised: true,
+              isPregnant: true,
+              body: {
+                height: 5.4,
+                weightBase: 138,
+                waistBase: 25,
+                weight: 138,
+                waist: 25
+              },
+              pregnancies: 0,
+              births: 0,
+              pregnancy: {
+                known: false,
+                progressDays: 600,
+                progressWeeks: 0,
+                publicProgressWeeks: 0,
+                babies: 1,
+                publicBabies: 0,
+                publicFetus: "",
+                fetusType: fType.human,
+                fetuses: [],
+                inches: 0,
+                weight: 0,
+                seenAlerts: []
+              }
+            }
+          }
+        }
+      })
+    );
+    const game = new Game();
+    game.load();
+    const player = game.player;
 
-  //     game.sleep(
-  //       fType[tempPState.player.statuses.fertile.pregnancy.fetusType.type]
-  //         .multiples[tempPState.player.statuses.fertile.pregnancy.babies].duration
-  //     );
-  //   });
+    const mockedSetCustomState = jest.fn();
+    player.setCustomState = mockedSetCustomState;
+
+    game.sleep(1);
+
+    expect(mockedSetCustomState).toHaveBeenCalled();
+  });
+
+  it("birth resets pregnancy state", () => {
+    localStorage.setItem(
+      "state",
+      JSON.stringify({
+        player: {
+          statuses: {
+            fertile: {
+              initialised: true,
+              isPregnant: true,
+              body: {
+                height: 5.4,
+                weightBase: 138,
+                waistBase: 25,
+                weight: 138,
+                waist: 25
+              },
+              pregnancies: 0,
+              births: 0,
+              pregnancy: {
+                known: false,
+                progressDays: 600,
+                progressWeeks: 0,
+                publicProgressWeeks: 0,
+                babies: 1,
+                publicBabies: 0,
+                publicFetus: "",
+                fetusType: fType.human,
+                fetuses: [],
+                inches: 0,
+                weight: 0,
+                seenAlerts: []
+              }
+            }
+          }
+        }
+      })
+    );
+    const game = new Game();
+    game.load();
+    const player = game.player;
+
+    game.sleep(1);
+
+    expect(player.fertility.isPregnant()).toBe(false);
+  });
+
+  it("birth increases pregnancy stats", () => {
+    localStorage.setItem(
+      "state",
+      JSON.stringify({
+        player: {
+          statuses: {
+            fertile: {
+              initialised: true,
+              isPregnant: true,
+              body: {
+                height: 5.4,
+                weightBase: 138,
+                waistBase: 25,
+                weight: 138,
+                waist: 25
+              },
+              pregnancies: 2,
+              births: 5,
+              pregnancy: {
+                known: false,
+                progressDays: 600,
+                progressWeeks: 0,
+                publicProgressWeeks: 0,
+                babies: 3,
+                publicBabies: 0,
+                publicFetus: "",
+                fetusType: fType.human,
+                fetuses: [],
+                inches: 0,
+                weight: 0,
+                seenAlerts: []
+              }
+            }
+          }
+        }
+      })
+    );
+    const game = new Game();
+    game.load();
+    const player = game.player;
+
+    game.sleep(1);
+
+    expect(player.fertility.statusData.births).toBe(8);
+    expect(player.fertility.statusData.pregnancies).toBe(3);
+  });
 });

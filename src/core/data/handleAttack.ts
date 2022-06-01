@@ -25,12 +25,6 @@ const handleAttack = (
     armorDT;
   const damAdjusted2 = Math.max(damAdjusted * 0.2, damAdjusted * adjustedDT);
   attackee.damage(damAdjusted2);
-
-  console.log({
-    governingSkill,
-    skills: attacker.skills,
-    skillValue
-  });
 };
 
 export default handleAttack;

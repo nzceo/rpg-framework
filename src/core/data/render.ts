@@ -145,6 +145,8 @@ const render = (game: Game): ITurn => {
           }
         ]
       };
+    case "custom":
+      return game.player.customState!.turn();
   }
 };
 

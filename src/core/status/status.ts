@@ -1,4 +1,4 @@
-import { omit } from "lodash";
+import { merge, omit } from "lodash";
 import Character from "../character/character";
 import Game from "../game/game";
 import { IStatus } from "../types/IStatus";
@@ -95,13 +95,14 @@ class Status {
   }
 
   /**
-   * Sets data to the game status
+   * Sets data to the game status.
+   * Old object and new object are merged automatically, specify only values that you want to change.
    */
   set statusData(value: any) {
-    this.character.setState(`statuses.${this.type}`, {
-      ...this.statusData,
-      ...value
-    });
+    this.character.setState(
+      `statuses.${this.type}`,
+      merge(this.statusData, value)
+    );
   }
 }
 

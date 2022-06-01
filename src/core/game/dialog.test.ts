@@ -1,6 +1,10 @@
 import Game from "./game";
 
 describe("dialog tests", () => {
+  // Clears localstorage
+  beforeEach(() => {
+    localStorage.setItem("state", ``);
+  });
   it("returns info back once dialog has ended", () => {
     const game = new Game();
     game.load();

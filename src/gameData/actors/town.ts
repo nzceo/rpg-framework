@@ -126,6 +126,11 @@ const actors: IActor[] = [
             action: "28 days",
             message: "",
             next: "sleep_28"
+          },
+          {
+            action: "Sleep until full term",
+            message: "",
+            next: "sleep_279"
           }
         ]
       },
@@ -141,6 +146,13 @@ const actors: IActor[] = [
         type: "message",
         message: "You sleep for a month.",
         func: (game: Game) => game.sleep(28),
+        next: "convo_end"
+      },
+      {
+        id: "sleep_279",
+        type: "message",
+        message: "You sleep for a very long time.",
+        func: (game: Game) => game.sleep(279),
         next: "convo_end"
       },
       {

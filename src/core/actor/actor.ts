@@ -1,8 +1,8 @@
-import { IActor } from '../types/IActor';
-import { IDialog } from '../types/IDialog';
-import Character from '../character/character';
-import Game from '../game/game';
-import { cloneDeep } from 'lodash';
+import { IActor } from "../types/IActor";
+import { IDialog } from "../types/IDialog";
+import Character from "../character/character";
+import Game from "../game/game";
+import { cloneDeep } from "lodash";
 
 /**
  * Actor class, used for any non playable, but talkable NPC
@@ -22,7 +22,7 @@ class Actor extends Character {
    */
   talkTo() {
     this.updateDialogRef(this.data.dialog[0].id);
-    this.game.player.switchState('dialog');
+    this.game.player.switchState("dialog");
     this.game.player.dialog = this;
   }
 
@@ -30,7 +30,7 @@ class Actor extends Character {
    * Updates current dialogRef
    */
   updateDialogRef(dialogRef: string) {
-    this.game.player.setState('data.dialogRef', dialogRef);
+    this.game.player.setState("data.dialogRef", dialogRef);
   }
 
   /**
@@ -41,7 +41,7 @@ class Actor extends Character {
 
     // Returns index of dialog to start from
     const findDialogIndex = (nextId: string) => {
-      return dialog.findIndex(m => m.id === nextId);
+      return dialog.findIndex((m) => m.id === nextId);
     };
 
     let i = 0;
@@ -80,7 +80,7 @@ class Actor extends Character {
       if (dialogFunc !== undefined) {
         dialogFunc(this.game, this);
       }
-      if (message.type === 'question') {
+      if (message.type === "question") {
         break;
       }
 
@@ -93,8 +93,9 @@ class Actor extends Character {
 
     // Dialog has completed
     if (i === dialog.length) {
-      this.game.player.setState('data.dialogRef', '');
-      this.game.player.switchState('normal');
+      this.game.player.setState("data.dialogRef", "");
+      if (this.game.player.state === "dialog")
+        this.game.player.switchState("normal");
     }
 
     return messages;
