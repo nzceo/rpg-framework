@@ -4,6 +4,7 @@ import Game from "../../game";
 class BirthEvent extends CustomEvent {
   constructor(game: Game, data: any) {
     super(game, data);
+    this.resetDialog();
     this.birthStart();
     this.birthEventPlaceholder();
   }
@@ -155,6 +156,14 @@ class BirthEvent extends CustomEvent {
                 .map((f: any) => `${f.weight.toFixed(2)}lb `)
                 .join("and ")} respectively.`
         }`,
+        type: "flavor"
+      },
+      {
+        text: `As you cannot take care of ${
+          this.game.player.fertility.babies() === 1
+            ? `this child`
+            : `these children`
+        } you make the decision to entrust them to the local church.`,
         type: "flavor"
       }
     ]);

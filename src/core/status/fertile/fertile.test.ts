@@ -367,4 +367,51 @@ describe("preg tests", () => {
 
     expect(player.fertility.isPregnant()).toBe(false);
   });
+
+  it("birth increases pregnancy stats", () => {
+    localStorage.setItem(
+      "state",
+      JSON.stringify({
+        player: {
+          statuses: {
+            fertile: {
+              initialised: true,
+              isPregnant: true,
+              body: {
+                height: 5.4,
+                weightBase: 138,
+                waistBase: 25,
+                weight: 138,
+                waist: 25
+              },
+              pregnancies: 2,
+              births: 5,
+              pregnancy: {
+                known: false,
+                progressDays: 600,
+                progressWeeks: 0,
+                publicProgressWeeks: 0,
+                babies: 3,
+                publicBabies: 0,
+                publicFetus: "",
+                fetusType: fType.human,
+                fetuses: [],
+                inches: 0,
+                weight: 0,
+                seenAlerts: []
+              }
+            }
+          }
+        }
+      })
+    );
+    const game = new Game();
+    game.load();
+    const player = game.player;
+
+    game.sleep(1);
+
+    expect(player.fertility.statusData.births).toBe(8);
+    expect(player.fertility.statusData.pregnancies).toBe(3);
+  });
 });
