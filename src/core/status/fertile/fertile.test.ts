@@ -137,12 +137,7 @@ describe("preg tests", () => {
     expect(game.turn().display).toStrictEqual(
       expect.arrayContaining([
         { text: "Your period seems to be late.", type: "flavor" },
-        { text: "You're feeling nauseous.", type: "flavor" },
-        {
-          text:
-            "You seem to be gaining some weight, you have a slight pot belly. You decide not to pay too much attention to it.",
-          type: "flavor"
-        }
+        { text: "You're feeling nauseous.", type: "flavor" }
       ])
     );
   });

@@ -152,17 +152,18 @@ class Fertile extends Status {
         // A modifier to be added to the roll which increases each day
         const chanceModifier = progressDays + 14 - pregnancyDuration;
 
-        console.log({
-          progressDays,
-          waist: this.waist,
-          weight: this.weight,
-          eachBabyWeight: this.statusData.pregnancy.fetuses.map(({ weight }) =>
-            weight.toFixed(2)
-          ),
-          totalBabyWeight: this.statusData.pregnancy.fetuses
-            .reduce((p: number, c: { weight: number }) => p + c.weight, 0)
-            .toFixed(2)
-        });
+        // below console logs a bunch of stuff
+        // console.log({
+        //   progressDays,
+        //   waist: this.waist,
+        //   weight: this.weight,
+        //   eachBabyWeight: this.statusData.pregnancy.fetuses.map(({ weight }) =>
+        //     weight.toFixed(2)
+        //   ),
+        //   totalBabyWeight: this.statusData.pregnancy.fetuses
+        //     .reduce((p: number, c: { weight: number }) => p + c.weight, 0)
+        //     .toFixed(2)
+        // });
 
         if (chance + chanceModifier > 100) {
           this.game.player.setCustomState(BirthEvent, {});
