@@ -208,7 +208,7 @@ export const waistIsBetween = (
   );
 };
 
-export const getAverageSize = (fertile: Fertile) => {
+export const getAverageSize = (fertile: Fertile): Sizes => {
   let currentDay = 0;
   let averageSize = 0;
   const pregnancy = fertile.statusData.pregnancy;
@@ -226,12 +226,12 @@ export const getAverageSize = (fertile: Fertile) => {
   const currentInches = fertile.statusData.pregnancy.inches;
 
   let sizeResult;
-  if (currentInches - averageSize >= 3) {
+  if (currentInches - averageSize >= 2) {
     sizeResult = "large";
-  } else if (currentInches - averageSize > 5) {
+  } else if (currentInches - averageSize > 4) {
     sizeResult = "veryLarge";
   } else if (
-    currentInches - averageSize < 5 &&
+    currentInches - averageSize < 4 &&
     currentInches - averageSize >= 0
   ) {
     sizeResult = "average";
@@ -241,11 +241,11 @@ export const getAverageSize = (fertile: Fertile) => {
     sizeResult = "average";
   }
 
-  return sizeResult;
+  return sizeResult as Sizes;
 };
 
 export type Sizes = "large" | "veryLarge" | "average" | "small" | "average";
 
-export const sizeMatches = (fertile: Fertile, sizes: Sizes) => {
+export const sizeMatches = (fertile: Fertile, sizes: Sizes[]) => {
   return sizes.includes(getAverageSize(fertile));
 };

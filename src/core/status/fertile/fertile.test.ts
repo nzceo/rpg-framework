@@ -116,7 +116,7 @@ describe("preg tests", () => {
 
     expect(player.statuses[0].statusData.isPregnant).toBe(true);
 
-    game.sleep(20);
+    game.sleep(40);
 
     expect(player.statuses[0].statusData.pregnancy.inches).toBeGreaterThan(0);
   });
@@ -262,9 +262,11 @@ describe("preg tests", () => {
     game.load();
     const player = game.player;
 
-    game.sleep(30);
+    game.sleep(50);
 
-    expect(player.fertility.weight).toBe(`138lb`);
+    expect(parseInt(player.fertility.weight.split("lb")[0])).toBeGreaterThan(
+      137
+    );
 
     game.sleep(111);
 
