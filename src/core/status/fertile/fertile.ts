@@ -393,7 +393,7 @@ class Fertile extends Status {
     getAverageSize: () => {
       return getAverageSize(this);
     },
-    sizeMatches: (sizes: Sizes) => {
+    sizeMatches: (sizes: Sizes[]) => {
       return sizeMatches(this, sizes);
     }
   };
