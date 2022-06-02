@@ -13,7 +13,7 @@ describe("character class", () => {
 
     player.addStatus("testableStatus");
 
-    expect(player.statuses[0].name).toBe("Just a testable status");
+    expect(player.statuses[1].name).toBe("Just a testable status");
   });
   it("statuses that don't exist don't break the game", () => {
     const game = new Game();
@@ -22,7 +22,7 @@ describe("character class", () => {
 
     player.addStatus("somethingElse");
 
-    expect(player.statuses.length).toBe(0);
+    expect(player.statuses.length).toBe(1);
   });
   it("Status eachDay function is called correctly", () => {
     const game = new Game();
@@ -53,20 +53,22 @@ describe("character class", () => {
     game.save();
 
     let state = JSON.parse(localStorage.getItem("state")!);
-    expect(state.player.statuses).toStrictEqual({
-      testableStatus: { otherStuff: { testData: "don't look very good" } }
-    });
+    expect(state.player.statuses).toStrictEqual(
+      expect.objectContaining({
+        testableStatus: { otherStuff: { testData: "don't look very good" } }
+      })
+    );
 
-    expect(player.statuses[0].name).toBe("Just a testable status");
+    expect(player.statuses[1].name).toBe("Just a testable status");
 
     player.removeStatus("testableStatus");
 
-    expect(player.statuses.length).toBe(0);
+    expect(player.statuses.length).toBe(1);
 
     game.save();
 
     state = JSON.parse(localStorage.getItem("state")!);
-    expect(state.player.statuses).toStrictEqual({});
+    expect(state.player.statuses.testableStatus).toBeUndefined();
   });
   it("Status eachDay function is called correctly", () => {
     const game = new Game();
@@ -97,11 +99,11 @@ describe("character class", () => {
 
     player.addStatus("testableStatus");
 
-    expect(player.statuses.length).toBe(1);
+    expect(player.statuses.length).toBe(2);
 
     player.addStatus("testableStatus");
 
-    expect(player.statuses.length).toBe(1);
+    expect(player.statuses.length).toBe(2);
   });
   it("statuses can be loaded from state and extra data can be accessed", () => {
     localStorage.setItem(
@@ -132,12 +134,14 @@ describe("character class", () => {
   it("statuses can be saved and loaded to localStorage", () => {
     const game = new Game();
     game.load();
-    expect(game.player.statuses.length).toBe(0);
+    expect(game.player.statuses.length).toBe(1);
     game.player.addStatus("testableStatus");
     game.save();
     const state = JSON.parse(localStorage.getItem("state")!);
-    expect(state.player.statuses).toStrictEqual({
-      testableStatus: expect.anything()
-    });
+    expect(state.player.statuses).toStrictEqual(
+      expect.objectContaining({
+        testableStatus: expect.anything()
+      })
+    );
   });
 });

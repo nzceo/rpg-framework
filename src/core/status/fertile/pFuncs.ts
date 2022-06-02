@@ -2,29 +2,21 @@ import { PMessages } from "./pMessages";
 import { growthCurves } from "./fTypes";
 import Fertile, { IFertilityStatusData, PregnancyInterface } from "./fertile";
 import { solveCubicBezier } from "./bezier";
-import { isFunction, isArray, sample } from "lodash";
+import { isFunction, isArray, sample, random } from "lodash";
 import Game from "../../game/game";
-
-export function returnPregTerm(
-  weeks: number
-): "first" | "second" | "third" | "late" {
-  if (weeks < 12) {
-    return "first";
-  } else if (weeks >= 12 && weeks < 24) {
-    return "second";
-  } else if (weeks >= 24 && weeks < 36) {
-    return "third";
-  } else {
-    return "late";
-  }
-}
 
 export const returnPregnancyWeightGain = (
   progressDays: number,
   fetusType: any,
   babies: number
 ): number => {
-  const relativeProgress = progressDays / fetusType.multiples[babies].duration;
+  const relativeProgress =
+    /**
+     * We add 20 days to the total duration since player
+     * could be overdue. If we don't account for it values after
+     * gestation are too high
+     */
+    progressDays / (fetusType.multiples[babies].duration + 20);
 
   const curve = growthCurves.standard;
 
@@ -46,7 +38,13 @@ const returnInchPerGrowthProgression = (
   fetusType: any,
   babies: number
 ) => {
-  const relativeProgress = progressDays / fetusType.multiples[babies].duration;
+  const relativeProgress =
+    /**
+     * We add 20 days to the total duration since player
+     * could be overdue. If we don't account for it values after
+     * gestation are too high
+     */
+    progressDays / (fetusType.multiples[babies].duration + 20);
 
   const curve = fetusType.growthCurve;
 
@@ -65,7 +63,10 @@ const returnInchPerGrowthProgression = (
     // Apply race multipliers and multiples multipliers
     (fetusType.sizeIncrease * babies * fetusType.multiples[babies].size);
 
-  return inchesAtProgress;
+  return random(
+    inchesAtProgress - inchesAtProgress * 3,
+    inchesAtProgress + inchesAtProgress * 3
+  );
 };
 
 const returnWeightPerGrowthProgression = (
@@ -91,7 +92,10 @@ const returnWeightPerGrowthProgression = (
     // Apply race multipliers and multiples multipliers
     (fetusType.weightIncrease * fetusType.multiples[babies].size);
 
-  return weightAtProgress;
+  return random(
+    weightAtProgress - weightAtProgress,
+    weightAtProgress + weightAtProgress
+  );
 };
 
 export function returnPregCalc(pregnancy: PregnancyInterface) {
@@ -204,7 +208,7 @@ export const waistIsBetween = (
   );
 };
 
-export const sizeMatches = (fertile: Fertile, sizes: string[]) => {
+export const getAverageSize = (fertile: Fertile): Sizes => {
   let currentDay = 0;
   let averageSize = 0;
   const pregnancy = fertile.statusData.pregnancy;
@@ -222,12 +226,12 @@ export const sizeMatches = (fertile: Fertile, sizes: string[]) => {
   const currentInches = fertile.statusData.pregnancy.inches;
 
   let sizeResult;
-  if (currentInches - averageSize >= 3) {
+  if (currentInches - averageSize >= 2) {
     sizeResult = "large";
-  } else if (currentInches - averageSize > 5) {
+  } else if (currentInches - averageSize > 4) {
     sizeResult = "veryLarge";
   } else if (
-    currentInches - averageSize < 5 &&
+    currentInches - averageSize < 4 &&
     currentInches - averageSize >= 0
   ) {
     sizeResult = "average";
@@ -237,5 +241,11 @@ export const sizeMatches = (fertile: Fertile, sizes: string[]) => {
     sizeResult = "average";
   }
 
-  return sizes.includes(sizeResult);
+  return sizeResult as Sizes;
+};
+
+export type Sizes = "large" | "veryLarge" | "average" | "small" | "average";
+
+export const sizeMatches = (fertile: Fertile, sizes: Sizes[]) => {
+  return sizes.includes(getAverageSize(fertile));
 };

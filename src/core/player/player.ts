@@ -29,6 +29,14 @@ class Player extends Character {
    */
   currentMap?: Map;
 
+  /**
+   * Quick references to functions that can
+   * be used to perform state checks in dialogs
+   */
+  dialogHelpers = {
+    ...this.fertility.dialogHelpers
+  };
+
   constructor(game: Game) {
     super(game!, "player", game!.config.player);
     this.generateCurrentMap();

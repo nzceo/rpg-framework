@@ -116,7 +116,7 @@ describe("preg tests", () => {
 
     expect(player.statuses[0].statusData.isPregnant).toBe(true);
 
-    game.sleep(20);
+    game.sleep(40);
 
     expect(player.statuses[0].statusData.pregnancy.inches).toBeGreaterThan(0);
   });
@@ -137,12 +137,7 @@ describe("preg tests", () => {
     expect(game.turn().display).toStrictEqual(
       expect.arrayContaining([
         { text: "Your period seems to be late.", type: "flavor" },
-        { text: "You're feeling nauseous.", type: "flavor" },
-        {
-          text:
-            "You seem to be gaining some weight, you have a slight pot belly. You decide not to pay too much attention to it.",
-          type: "flavor"
-        }
+        { text: "You're feeling nauseous.", type: "flavor" }
       ])
     );
   });
@@ -262,9 +257,11 @@ describe("preg tests", () => {
     game.load();
     const player = game.player;
 
-    game.sleep(30);
+    game.sleep(50);
 
-    expect(player.fertility.weight).toBe(`138lb`);
+    expect(parseInt(player.fertility.weight.split("lb")[0])).toBeGreaterThan(
+      137
+    );
 
     game.sleep(111);
 
