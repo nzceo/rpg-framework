@@ -144,13 +144,13 @@ class BirthEvent extends CustomEvent {
         text: `You've given birth to ${
           this.game.player.fertility.babies() === 1
             ? `${
-                this.game.player.fertility.statusData.pregnancy.fetusType
+                this.game.player.fertility.statusData.pregnancy.fetusType!
                   .menuText.single
               }. It weighs ${this.game.player.fertility.statusData.pregnancy.fetuses[0].weight.toFixed(
                 2
               )}lb.`
             : `${this.game.player.fertility.babies()} ${
-                this.game.player.fertility.statusData.pregnancy.fetusType
+                this.game.player.fertility.statusData.pregnancy.fetusType!
                   .menuText.multiple
               }. They weigh ${this.game.player.fertility.statusData.pregnancy.fetuses
                 .map((f: any) => `${f.weight.toFixed(2)}lb `)

@@ -11,7 +11,7 @@ import {
   waistIsBetween
 } from "./pFuncs";
 import { fType, FType } from "./fTypes";
-import { isArray, merge } from "lodash";
+import { isArray, merge, random } from "lodash";
 import Roll from "roll";
 import Status from "../status";
 import Game from "../../game/game";
@@ -152,6 +152,18 @@ class Fertile extends Status {
         // A modifier to be added to the roll which increases each day
         const chanceModifier = progressDays + 14 - pregnancyDuration;
 
+        console.log({
+          progressDays,
+          waist: this.waist,
+          weight: this.weight,
+          eachBabyWeight: this.statusData.pregnancy.fetuses.map(({ weight }) =>
+            weight.toFixed(2)
+          ),
+          totalBabyWeight: this.statusData.pregnancy.fetuses
+            .reduce((p: number, c: { weight: number }) => p + c.weight, 0)
+            .toFixed(2)
+        });
+
         if (chance + chanceModifier > 100) {
           this.game.player.setCustomState(BirthEvent, {});
           this.game.resetDaysToSleep();
@@ -234,6 +246,9 @@ class Fertile extends Status {
     }
   }
 
+  /**
+   * Generates fetuses if pregnant. This mean we don't have to have this logic in the sex funcs.
+   */
   generateFetuses() {
     if (this.isPregnant() && this.statusData.pregnancy.fetuses.length === 0) {
       this.statusData = {
@@ -281,6 +296,9 @@ class Fertile extends Status {
     };
   }
 
+  /**
+   * Progresses pregnancy stats, including belly size and fetus weight
+   */
   progressPregnancy() {
     if (this.isPregnant()) {
       this.generateFetuses();
@@ -310,27 +328,46 @@ class Fertile extends Status {
     }
   }
 
-  get weight() {
+  get waist() {
+    const waist = this.statusData.body.waist;
+    const inchesIncrease = this.statusData.pregnancy.inches;
+    const randomisedWaist = random(waist - waist / 50, waist + waist / 50);
+
     if (this.isPregnancyKnown()) {
-      const pWeightGain = returnPregnancyWeightGain(
-        this.statusData.pregnancy.progressDays,
-        this.statusData.pregnancy.fetusType,
-        this.statusData.pregnancy.babies
-      );
-
-      const babyWeight = this.statusData.pregnancy.fetuses.reduce(
-        (p: number, c: { weight: number }) => p + c.weight,
-        0
-      );
-
-      let weightGain = pWeightGain + babyWeight;
-      weightGain = parseFloat(weightGain.toFixed(2));
-
-      return `${this.statusData.body.weight + weightGain}lb${
-        weightGain > 0 ? `(+${weightGain}lb)` : ""
+      return `${(randomisedWaist + inchesIncrease).toFixed(2)}in${
+        inchesIncrease > 0 ? `(+${inchesIncrease.toFixed(2)}in)` : ""
       }`;
     }
-    return `${this.statusData.body.weight}lb`;
+
+    return (randomisedWaist + inchesIncrease).toFixed(2);
+  }
+
+  /**
+   * Get player's weight, including fetus weight if pregnant
+   */
+  get weight() {
+    const weight = this.statusData.body.weight;
+    const randomisedWeight = random(weight - weight / 50, weight + weight / 50);
+    const pWeightGain = returnPregnancyWeightGain(
+      this.statusData.pregnancy.progressDays,
+      this.statusData.pregnancy.fetusType,
+      this.statusData.pregnancy.babies
+    );
+
+    const babyWeight = this.statusData.pregnancy.fetuses.reduce(
+      (p: number, c: { weight: number }) => p + c.weight,
+      0
+    );
+
+    let weightGain = pWeightGain + babyWeight;
+    weightGain = parseFloat(weightGain.toFixed(2));
+
+    if (this.isPregnancyKnown()) {
+      return `${(randomisedWeight + weightGain).toFixed(2)}lb${
+        weightGain > 0 ? `(+${weightGain.toFixed(2)}lb)` : ""
+      }`;
+    }
+    return `${(randomisedWeight + weightGain).toFixed(2)}lb`;
   }
 
   /**
@@ -462,10 +499,10 @@ class Fertile extends Status {
         progressDays: 0,
         progressWeeks: 0,
         publicProgressWeeks: 0,
-        babies: 2,
+        babies: 4,
         publicBabies: 0,
         publicFetus: "",
-        fetusType: fType.orc,
+        fetusType: fType.goblin,
         fetuses: [],
         inches: 0,
         weight: 0,

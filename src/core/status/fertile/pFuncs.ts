@@ -2,7 +2,7 @@ import { PMessages } from "./pMessages";
 import { growthCurves } from "./fTypes";
 import Fertile, { IFertilityStatusData, PregnancyInterface } from "./fertile";
 import { solveCubicBezier } from "./bezier";
-import { isFunction, isArray, sample } from "lodash";
+import { isFunction, isArray, sample, random } from "lodash";
 import Game from "../../game/game";
 
 export const returnPregnancyWeightGain = (
@@ -10,7 +10,13 @@ export const returnPregnancyWeightGain = (
   fetusType: any,
   babies: number
 ): number => {
-  const relativeProgress = progressDays / fetusType.multiples[babies].duration;
+  const relativeProgress =
+    /**
+     * We add 20 days to the total duration since player
+     * could be overdue. If we don't account for it values after
+     * gestation are too high
+     */
+    progressDays / (fetusType.multiples[babies].duration + 20);
 
   const curve = growthCurves.standard;
 
@@ -32,7 +38,13 @@ const returnInchPerGrowthProgression = (
   fetusType: any,
   babies: number
 ) => {
-  const relativeProgress = progressDays / fetusType.multiples[babies].duration;
+  const relativeProgress =
+    /**
+     * We add 20 days to the total duration since player
+     * could be overdue. If we don't account for it values after
+     * gestation are too high
+     */
+    progressDays / (fetusType.multiples[babies].duration + 20);
 
   const curve = fetusType.growthCurve;
 
@@ -51,7 +63,10 @@ const returnInchPerGrowthProgression = (
     // Apply race multipliers and multiples multipliers
     (fetusType.sizeIncrease * babies * fetusType.multiples[babies].size);
 
-  return inchesAtProgress;
+  return random(
+    inchesAtProgress - inchesAtProgress * 3,
+    inchesAtProgress + inchesAtProgress * 3
+  );
 };
 
 const returnWeightPerGrowthProgression = (
@@ -77,7 +92,10 @@ const returnWeightPerGrowthProgression = (
     // Apply race multipliers and multiples multipliers
     (fetusType.weightIncrease * fetusType.multiples[babies].size);
 
-  return weightAtProgress;
+  return random(
+    weightAtProgress - weightAtProgress,
+    weightAtProgress + weightAtProgress
+  );
 };
 
 export function returnPregCalc(pregnancy: PregnancyInterface) {
