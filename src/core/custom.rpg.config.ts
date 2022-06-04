@@ -1,20 +1,20 @@
 import archetypes from "../gameData/archetypes";
-import attack from "../gameData/attack";
+import attack from "../gameData/static/attack";
 import townMaps from "../gameData/maps/town";
 import Actor from "./actor/actor";
 import Character from "./character/character";
-import armors from "./data/armors";
+import armors from "../gameData/static/armors";
 import levels from "./data/levels";
-import render from "./data/render";
-import stats from "./data/stats";
 import encounter from "./data/encounters";
-import weapons from "./data/weapons";
+import weapons from "../gameData/static/weapons";
+import render from "../gameData/static/render";
 import MapClass from "./map/map";
 import player from "./player/player";
 import Quest from "./quest/quest";
 import fertile from "./status/fertile";
 import Status from "./status/status";
 import { IConfig } from "./rpg.config";
+import stats from "../gameData/static/stats";
 
 export const config: IConfig = {
   maps: [...townMaps],
@@ -42,13 +42,9 @@ export const config: IConfig = {
     unarmed: "strength",
     oneHanded: "dexterity",
     ranged: "dexterity",
-    twoHanded: "strength",
-    poles: "dexterity",
-    occult: "intelligence",
     lockPick: "perception",
     speech: "charisma",
-    barter: "charisma",
-    tinkering: "intelligence"
+    barter: "charisma"
   },
   statuses: {
     fertile

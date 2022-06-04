@@ -1,14 +1,13 @@
-import Character from "../character/character";
-import Game from "../game/game";
+import Character from "../../core/character/character";
+import Game from "../../core/game";
 
 /**
  * Logic for attacks
  */
-const handleAttack = (
+const attack = (
   attacker: Character,
   attackee: Character,
   governingSkill: string,
-  // @ts-ignore
   game: Game
 ) => {
   const armorDT = attackee.armor.damageThreshold;
@@ -17,14 +16,16 @@ const handleAttack = (
   const skillValue =
     // @ts-ignore
     attacker.skills[governingSkill];
+  // @ts-ignore
   const damage = weaponDamage * skillValue;
   const damAdjusted =
     damage *
-    1 *
     // Change with damage resistance from equip
     armorDT;
   const damAdjusted2 = Math.max(damAdjusted * 0.2, damAdjusted * adjustedDT);
+
+  console.log(damAdjusted);
   attackee.damage(damAdjusted2);
 };
 
-export default handleAttack;
+export default attack;

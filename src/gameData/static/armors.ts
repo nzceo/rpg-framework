@@ -1,4 +1,4 @@
-import { IArmor } from "../types/IArmor";
+import { IArmor } from "../../core/types/IArmor";
 
 const armors: {
   [name: string]: IArmor;
