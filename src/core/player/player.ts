@@ -6,6 +6,8 @@ import { cloneDeep, omit } from "lodash";
 import Quest from "../quest/quest";
 import Fertile from "../status/fertile";
 import CustomEvent from "../event";
+import { IArmor, IFertility, IWeapon } from "../types";
+import Roll from "roll";
 
 type IPlayerState =
   | "combat"
@@ -99,6 +101,10 @@ class Player extends Character {
   }
   set setName(val: string) {
     this.setState("data.name", val);
+  }
+
+  get purity() {
+    return this.getState("data.purity");
   }
 
   /**
@@ -240,6 +246,7 @@ class Player extends Character {
     if (this.game) {
       const currentMapRef =
         this.getState("mapRef") || this.game.config.defaultMap.id;
+      console.log(currentMapRef);
       const currentMap = this.game.findMap(currentMapRef)[0];
       this.currentMap = new this.game.config.classes.map(
         currentMap,
@@ -258,6 +265,15 @@ class Player extends Character {
       true,
       this.game
     );
+  }
+
+  /**
+   * Attack the player
+   * @param attacker - The character attacking
+   * @param governingStat - The stat that governs the attack type
+   */
+  attack(attacker: Character, governingSkill: string) {
+    this.game.config.attack(attacker, this, governingSkill, this.game);
   }
 
   /**
@@ -290,14 +306,14 @@ class Player extends Character {
   /**
    * Return player weapon from state
    */
-  get weapon() {
+  get weapon(): IWeapon {
     return this.getState("combat").weapon || this.game.config.defaultWeapon;
   }
 
   /**
    * Return player armor from state
    */
-  get armor() {
+  get armor(): IArmor {
     return this.getState("combat").armor || this.game.config.defaultArmor;
   }
 
@@ -316,6 +332,54 @@ class Player extends Character {
       })[0] as Fertile;
     }
     return fertilityState as Fertile;
+  }
+
+  /**
+   * Whenever the player has sex, this function should be run to calculate outcomes
+   */
+  sex(fertilityData: IFertility) {
+    // if already pregnant, nothing happens
+    if (!this.dialogHelpers.isPregnant()) {
+      // can be 0 to 100
+      const playerFertility = this.fertility.fertility;
+      // can be 0 to 100
+      const fatherSpermCount = fertilityData.spermCount;
+
+      /**
+       * Combined chance is the two multiplied and then divided
+       * We add +1 to each so there's always a chance
+       *
+       * It also means we can set either to ridiculously high numbers to
+       * ensure pregnancy
+       */
+      const combinedPregnancyModifier =
+        ((playerFertility + 1) * (fatherSpermCount + 1)) / 100;
+
+      const roll = new Roll();
+      const chance = roll.roll("1d100").result;
+
+      if (chance + combinedPregnancyModifier + 1000 > 100) {
+        this.fertility.makePregnant(fertilityData.race);
+      }
+    }
+  }
+
+  /**
+   * Get the map id of the last checkpoint map
+   */
+  get checkpointRef() {
+    return this.getState("data").checkpointRef;
+  }
+
+  /**
+   * Sets the last checkpoint map
+   * @param checkPointRef the map id
+   */
+  setCheckpointRef(checkpointRef: string) {
+    this.setState("data", {
+      ...this.getState("data"),
+      checkpointRef
+    });
   }
 }
 

@@ -111,6 +111,16 @@ const render = (game: Game): ITurn => {
           }
         };
       });
+
+      const submitOptions = game.enemyData.map((enemy) => {
+        return {
+          text: `Submit to ${enemy.name}`,
+          action: () => {
+            // "onehanded" should be replaced by currently equipped weapon skill
+            enemy.submit();
+          }
+        };
+      });
       return {
         display: [
           ...game.extraDisplay,
@@ -120,7 +130,7 @@ const render = (game: Game): ITurn => {
           },
           ...currentEnemies
         ],
-        options: [...game.extraOptions, ...attackOptions]
+        options: [...game.extraOptions, ...attackOptions, ...submitOptions]
       };
     case "gameOver":
       return {
@@ -140,6 +150,7 @@ const render = (game: Game): ITurn => {
                 "combat.hitPoints.current",
                 game.player.getState("combat.hitPoints.base")
               );
+              console.log(game.player.getState("data"));
               game.player.travelTo(game.player.getState("data").checkpointRef);
             }
           }

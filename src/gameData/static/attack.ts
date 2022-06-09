@@ -24,7 +24,6 @@ const attack = (
     armorDT;
   const damAdjusted2 = Math.max(damAdjusted * 0.2, damAdjusted * adjustedDT);
 
-  console.log(damAdjusted);
   attackee.damage(damAdjusted2);
 };
 

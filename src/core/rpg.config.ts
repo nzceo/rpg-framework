@@ -40,9 +40,6 @@ export interface IConfig {
     game: Game
   ) => void;
   encounter: (game: Game, map: MapClass) => void;
-  governingStats: {
-    [name: string]: string;
-  };
   defaultWeapon: IWeapon;
   defaultArmor: IArmor;
   defaultMap: IMapContructorArg;
@@ -65,18 +62,6 @@ const mockedConfig: IConfig = {
   render,
   attack,
   encounter,
-  governingStats: {
-    unarmed: "strength",
-    oneHanded: "dexterity",
-    ranged: "dexterity",
-    twoHanded: "strength",
-    poles: "dexterity",
-    occult: "intelligence",
-    lockPick: "perception",
-    speech: "charisma",
-    barter: "charisma",
-    tinkering: "intelligence"
-  },
   defaultWeapon: weapons.unarmed,
   defaultArmor: armors.clothes,
   defaultMap: maps[0],

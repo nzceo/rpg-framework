@@ -1,9 +1,10 @@
 import { IActor } from "./IActor";
 import { IArmor } from "./IArmor";
-import { ICharacter } from "./ICharacter";
+import { ICharacter, Races, Skills } from "./ICharacter";
 import { IDialog } from "./IDialog";
+import { IFertility } from "./IFertility";
 import { IDisappearing } from "./IDisappearing";
-import { IGameState } from "./IGame";
+import { IGameState, RandomMessagesSet } from "./IGame";
 import { IPlayer } from "./IPlayer";
 import { IQuest } from "./IQuest";
 import { IStatus } from "./IStatus";
@@ -15,13 +16,17 @@ export type {
   IActor,
   IArmor,
   ICharacter,
+  Races,
+  Skills,
   IDialog,
   IDisappearing,
   IGameState,
+  RandomMessagesSet,
   IPlayer,
   IQuest,
   IStatus,
   IMap,
   IWeapon,
-  ITurn
+  ITurn,
+  IFertility
 };

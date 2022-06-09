@@ -12,6 +12,11 @@ export interface IPlayer extends ICharacter {
   checkpointRef: string;
 
   /**
+   * The player' purity, lower results in more slutty behavior
+   */
+  purity: number;
+
+  /**
    * Current dialog index ref
    */
   dialogRef: string;

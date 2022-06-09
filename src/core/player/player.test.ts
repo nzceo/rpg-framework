@@ -137,4 +137,16 @@ describe("Player class", () => {
 
     expect(player.fertility).not.toBeNull();
   });
+  it("can set checkpointmapref", () => {
+    const game = new Game();
+    game.load();
+    const player = game.player as Player;
+
+    expect(player.checkpointRef).not.toBeNull();
+    expect(player.checkpointRef).toBe("golden-boot-inn");
+
+    player.setCheckpointRef("test-map");
+
+    expect(player.checkpointRef).toBe("test-map");
+  });
 });

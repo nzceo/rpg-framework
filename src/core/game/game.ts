@@ -1,9 +1,14 @@
 import Player from "../player/player";
 import { IGameState } from "../types/IGame";
 import defaultConfig, { IConfig } from "../rpg.config";
+import gameConfig from "../custom.rpg.config";
+import attack from "../../gameData/static/attack";
 import Character from "../character/character";
 import { ICharacter } from "../types/ICharacter";
 import { merge } from "lodash";
+import playerSubmit from "../../gameData/static/combat/submit";
+import acceptSubmit from "../../gameData/static/combat/acceptSubmit";
+import submissionSex from "../../gameData/static/combat/submissionSex";
 
 export interface ITurn {
   display: { text: string; type: "flavor" | "dialog" }[];
@@ -19,6 +24,15 @@ class Game {
 
   playerData?: Player;
 
+  /**
+   * Static references of externally loaded data.
+   */
+  dataSets = {
+    playerSubmit,
+    acceptSubmit,
+    submissionSex
+  };
+
   constructor(
     config: {
       levels?: IConfig["levels"];
@@ -29,14 +43,19 @@ class Game {
     } & Omit<
       IConfig,
       "levels" | "render" | "attack" | "encounter" | "classes"
-    > = defaultConfig
+    > = {
+      ...gameConfig,
+      maps: defaultConfig.maps,
+      defaultMap: defaultConfig.defaultMap,
+      statuses: defaultConfig.statuses,
+      quests: defaultConfig.quests
+    }
   ) {
     this.config = merge(config, {
-      levels: defaultConfig.levels,
-      render: defaultConfig.render,
-      attack: defaultConfig.attack,
-      encounter: defaultConfig.encounter,
-      classes: defaultConfig.classes
+      levels: gameConfig.levels,
+      attack,
+      encounter: gameConfig.encounter,
+      classes: gameConfig.classes
     }) as IConfig;
   }
 
@@ -65,6 +84,7 @@ class Game {
    * @param id the map's id
    */
   findMap(id: string) {
+    console.log("findmap", id);
     return this.config.maps.filter((map) => id === map.id);
   }
 

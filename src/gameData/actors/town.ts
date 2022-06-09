@@ -1,8 +1,10 @@
-import stats from "../../core/data/stats";
+import stats from "../static/stats";
 import Game from "../../core/game/game";
 import { IActor } from "../../core/types";
 import archetypes from "../archetypes";
 import { v4 as uuid } from "uuid";
+import Actor from "../../core/actor/actor";
+import { fertility } from "../static/fertility";
 
 const actors: IActor[] = [
   {
@@ -172,6 +174,28 @@ const actors: IActor[] = [
         type: "message",
         message: "You're now pregnant",
         func: (game: Game) => game.player.fertility.debugPregnancy()
+      },
+      {
+        type: "end",
+        id: "convo_end"
+      }
+    ]
+  },
+  {
+    id: "combat",
+    name: "test fight",
+    description: archetypes.normalMan,
+    combat: stats.weak,
+    fertility: fertility.standard,
+    dialog: [
+      {
+        id: "fight",
+        type: "message",
+        message: "Starting fight...",
+        func: (game: Game) => {
+          game.enemyData = [new Actor(actors[3], game)];
+          game.player.switchState("combat");
+        }
       },
       {
         type: "end",

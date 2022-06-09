@@ -139,17 +139,15 @@ export function returnRandomMessage(
   fertile: Fertile,
   arrayOfMessages: PMessages[]
 ): string | string[] {
-  for (let i = 0; i < arrayOfMessages.length; i++) {
-    const m = sample(arrayOfMessages)!;
-    if (m?.display(fertile)) {
-      if (isFunction(m.m)) {
-        return m.m(game);
-      }
-      return m.m;
-    }
+  const m = sample(
+    arrayOfMessages.map((possibleMessage) =>
+      possibleMessage.display(fertile) ? possibleMessage : null
+    )
+  )!;
+  if (isFunction(m.m)) {
+    return m.m(game);
   }
-  // @ts-ignore
-  return arrayOfMessages[0].m;
+  return m.m;
 }
 
 export function returnPregnancyProgressMessages(

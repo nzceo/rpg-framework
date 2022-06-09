@@ -1,5 +1,15 @@
 import { IWeapon } from "./IWeapon";
 import { IArmor } from "./IArmor";
+import { IFertility } from "./IFertility";
+
+export type Skills =
+  | "endurance"
+  | "stamina"
+  | "strength"
+  | "intelligence"
+  | "dexterity";
+
+export type Races = "orc" | "goblin" | "human" | "elf";
 
 export interface ICharacter {
   /**
@@ -11,10 +21,12 @@ export interface ICharacter {
    * Character name
    */
   name: string;
+
   /**
-   *
+   * Generic information about the character
    */
   description: {
+    race: Races;
     pronouns: string;
     sex: "male" | "female";
     appearance: string;
@@ -49,28 +61,20 @@ export interface ICharacter {
     };
 
     /**
-     * Player mana points
+     * Lust level of character, used for sex stuff
      */
-    manaPoints: {
-      /**
-       * Total mp
-       */
-      base: number;
-      /**
-       * current hp
-       */
-      current: number;
-    };
+    lust: number;
+
     /**
      * Base skills
      */
     skills: {
-      endurance: number;
-      stamina: number;
-      oneHanded: number;
-      ranged: number;
-      speech: number;
-      intelligence: number;
+      [key in Skills]: number;
     };
   };
+
+  /**
+   * Data used for sex
+   */
+  fertility?: IFertility;
 }

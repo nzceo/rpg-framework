@@ -11,11 +11,13 @@ import {
   waistIsBetween
 } from "./pFuncs";
 import { fType, FType } from "./fTypes";
-import { isArray, merge, random } from "lodash";
+import { bind, isArray, merge, random } from "lodash";
 import Roll from "roll";
+import Chance from "chance";
 import Status from "../status";
 import Game from "../../game/game";
 import BirthEvent from "../../event/birth";
+import { Races } from "../../types";
 
 type RecursivePartial<T> = {
   [P in keyof T]?: RecursivePartial<T[P]>;
@@ -145,7 +147,6 @@ class Fertile extends Status {
         this.babies()
       ].duration;
       if (progressDays > pregnancyDuration - 14) {
-        // @ts-ignore
         const roll = new Roll();
         const chance = roll.roll("1d100").result;
 
@@ -371,32 +372,36 @@ class Fertile extends Status {
     return `${(randomisedWeight + weightGain).toFixed(2)}lb`;
   }
 
+  get fertility() {
+    return this.statusData.fertility;
+  }
+
   /**
    * Quick references to functions that can
    * be used to perform state checks in dialogs
    */
   dialogHelpers = {
-    isPregnant: this.isPregnant,
-    isFirstPregnancy: this.isFirstPregnancy,
+    isPregnant: this.isPregnant.bind(this),
+    isFirstPregnancy: this.isFirstPregnancy.bind(this),
     fetusType: () => this.fetusType,
-    isMultiples: this.isMultiples,
-    isKnownMultiples: this.isKnownMultiples,
-    babies: () => this.babies(),
-    isPregnancyKnown: () => this.isPregnancyKnown(),
-    isFetusBiggerThanAverage: () => this.isFetusBiggerThanAverage(),
-    getPregnancyTerm: () => this.getPregnancyTerm(),
-    waistIsAbove: (inches: number) => {
+    isMultiples: this.isMultiples.bind(this),
+    isKnownMultiples: this.isKnownMultiples.bind(this),
+    babies: () => this.babies.bind(this)(),
+    isPregnancyKnown: () => this.isPregnancyKnown.bind(this)(),
+    isFetusBiggerThanAverage: this.isFetusBiggerThanAverage.bind(this),
+    getPregnancyTerm: () => this.getPregnancyTerm.bind(this)(),
+    waistIsAbove: bind((inches: number) => {
       return waistIsAbove(this.statusData, inches);
-    },
-    waistIsBetween: (lowerInches: number, higherInches: number) => {
+    }, this),
+    waistIsBetween: bind((lowerInches: number, higherInches: number) => {
       return waistIsBetween(this.statusData, lowerInches, higherInches);
-    },
-    getAverageSize: () => {
-      return getAverageSize(this);
-    },
-    sizeMatches: (sizes: Sizes[]) => {
-      return sizeMatches(this, sizes);
-    }
+    }, this),
+    getAverageSize: bind(() => {
+      return this.isPregnant() && getAverageSize(this);
+    }, this),
+    sizeMatches: bind((sizes: Sizes[]) => {
+      return this.isPregnant() && sizeMatches(this, sizes);
+    }, this)
   };
 
   getPregnancyTerm(): "first" | "second" | "third" | "late" {
@@ -465,7 +470,9 @@ class Fertile extends Status {
    * Returns true if current fetus type is larger than an average human fetus
    */
   isFetusBiggerThanAverage() {
-    return this.statusData.pregnancy.fetusType!.sizeIncrease > 1;
+    return (
+      this.isPregnant() && this.statusData.pregnancy.fetusType!.sizeIncrease > 1
+    );
   }
 
   setPregnancyKnown() {
@@ -474,6 +481,50 @@ class Fertile extends Status {
       pregnancy: {
         ...this.statusData.pregnancy,
         known: true
+      }
+    };
+  }
+
+  makePregnant(race: Races) {
+    /**
+     * The father's race data
+     */
+    const f = fType[race];
+    /**
+     * How many babies can player get pregnant with by this race
+     */
+    const number = Object.keys(f.multiples).map((n) => parseInt(n));
+
+    let totalChanceUsed = 0;
+    /**
+     * This will generate realistic-ish chances of having multiples
+     * Lower numbers will have a high chance, twins and up will be much rarer
+     */
+    const weights = number.map((n, i) => {
+      let chanceRemaining = 100 - totalChanceUsed;
+
+      if (i + 1 === number.length) {
+      }
+
+      const x = chanceRemaining / number.length;
+      console.log({ totalChanceUsed, chanceRemaining, x });
+      totalChanceUsed += chanceRemaining - x;
+      return chanceRemaining - x;
+    });
+
+    console.log(number, weights);
+
+    const chance = new Chance();
+
+    const outcome = chance.weighted(number, weights);
+
+    console.log(`pregnant with ${outcome} child/children`);
+
+    this.statusData = {
+      isPregnant: true,
+      pregnancy: {
+        babies: outcome,
+        fetusType: f
       }
     };
   }

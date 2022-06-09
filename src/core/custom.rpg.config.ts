@@ -28,6 +28,7 @@ export const config: IConfig = {
   player: {
     name: "Hero",
     dialogRef: "",
+    purity: 100,
     mapRef: townMaps[0].id,
     checkpointRef: townMaps[0].id,
     experience: {
@@ -35,16 +36,8 @@ export const config: IConfig = {
       current: 0
     },
     levelData: levels,
-    combat: stats.weak,
+    combat: stats.player,
     description: archetypes.player
-  },
-  governingStats: {
-    unarmed: "strength",
-    oneHanded: "dexterity",
-    ranged: "dexterity",
-    lockPick: "perception",
-    speech: "charisma",
-    barter: "charisma"
   },
   statuses: {
     fertile

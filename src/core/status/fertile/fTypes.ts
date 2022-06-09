@@ -1,5 +1,7 @@
+import { Races } from "../../types";
+
 export interface FType {
-  type: "human" | "orc" | "goblin";
+  type: Races;
   sizeIncrease: number;
   weightIncrease: number;
   growthCurve: number[];
@@ -22,10 +24,34 @@ export const growthCurves = {
 };
 
 export const fType: {
-  [key: string]: FType;
+  [key in Races]: FType;
 } = {
   human: {
     type: "human",
+    sizeIncrease: 1.2,
+    weightIncrease: 0.8,
+    growthCurve: growthCurves.standard,
+    // could have up to triplets
+    multiples: {
+      1: {
+        size: 1,
+        duration: 273
+      },
+      2: {
+        size: 0.8,
+        duration: 259
+      },
+      3: {
+        size: 0.7,
+        duration: 245
+      }
+    },
+    strength: "normal",
+    movement: "normal",
+    menuText: { single: "a human child", multiple: "human children" }
+  },
+  elf: {
+    type: "elf",
     sizeIncrease: 1.2,
     weightIncrease: 0.8,
     growthCurve: growthCurves.standard,

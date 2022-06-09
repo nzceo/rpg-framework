@@ -1,10 +1,14 @@
 import Game, { ITurn } from "../game/game";
 import { ICharacter } from "../types/ICharacter";
-import stats from "../data/stats";
+import stats from "../../gameData/static/stats";
+import { fertility } from "../../gameData/static/fertility";
 import Status from "../status/status";
 import archetypes from "../data/archetypes/character";
 import { cloneDeep } from "lodash";
 import Saveable from "../saveable/saveable";
+import Roll from "roll";
+import { addArrayOrStringToDisplay } from "../game/utils/addArrayOrStringToDisplay";
+import { getRandomFromArray } from "../game/utils/getRandomFromArray";
 
 /**
  * Character class, contains generic info
@@ -16,7 +20,8 @@ class Character extends Saveable {
   data: ICharacter = {
     name: "",
     description: archetypes.normalMan,
-    combat: cloneDeep(stats.weak)
+    combat: cloneDeep(stats.weak),
+    fertility: cloneDeep(fertility.standard)
   };
 
   activeStatuses: Status[] = [];
@@ -26,6 +31,8 @@ class Character extends Saveable {
     this.id = id;
     this.game = game;
     this.data = cloneDeep(data);
+
+    console.log(data);
 
     if (this.game) {
       this.initializeState();
@@ -56,6 +63,13 @@ class Character extends Saveable {
    */
   get name() {
     return this.data.name;
+  }
+
+  /**
+   * Gets the character's race.
+   */
+  get race() {
+    return this.data.description.race;
   }
 
   /**
@@ -177,6 +191,43 @@ class Character extends Saveable {
   }
 
   /**
+   * Submit to this character
+   */
+  submit() {
+    const roll = new Roll();
+    const chance = roll.roll("1d100").result;
+
+    addArrayOrStringToDisplay(
+      this.game,
+      getRandomFromArray(this.game, this.game.dataSets.playerSubmit)
+    );
+
+    if (chance + this.lust > 70) {
+      addArrayOrStringToDisplay(
+        this.game,
+        getRandomFromArray(this.game, this.game.dataSets.acceptSubmit)
+      );
+      addArrayOrStringToDisplay(
+        this.game,
+        getRandomFromArray(this.game, this.game.dataSets.submissionSex)
+      );
+
+      this.game.enemyData = [];
+      this.game.player.switchState("normal");
+    } else {
+      this.game.extraDisplay.push({
+        text: `The enemy ${this.name} ignores your advances completely and attacks you.`,
+        type: "flavor"
+      });
+      this.game.player.attack(this, this.weapon!.governingSkill);
+    }
+  }
+
+  get lust() {
+    return this.data.combat.lust;
+  }
+
+  /**
    * Return character weapon
    */
   get weapon() {
@@ -258,3 +309,6 @@ class Character extends Saveable {
 }
 
 export default Character;
+function fertil(fertil: any) {
+  throw new Error("Function not implemented.");
+}
