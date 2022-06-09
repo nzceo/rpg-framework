@@ -511,8 +511,6 @@ class Fertile extends Status {
       return chanceRemaining - x;
     });
 
-    console.log(number, weights);
-
     const chance = new Chance();
 
     const outcome = chance.weighted(number, weights);

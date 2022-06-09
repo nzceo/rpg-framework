@@ -164,30 +164,30 @@ describe("preg tests", () => {
       ])
     );
   });
-  it("different progression alert if child is larger", () => {
-    const tempPState = cloneDeep(pState);
-    tempPState.player.statuses.fertile.pregnancy.fetusType = fType.orc;
-    tempPState.player.statuses.fertile.pregnancy.babies = 1;
-    localStorage.setItem("state", JSON.stringify(tempPState));
-    // @ts-ignore
-    const game = new Game();
-    game.load();
-    const player = game.player;
+  // it("different progression alert if child is larger", () => {
+  //   const tempPState = cloneDeep(pState);
+  //   tempPState.player.statuses.fertile.pregnancy.fetusType = fType.orc;
+  //   tempPState.player.statuses.fertile.pregnancy.babies = 1;
+  //   localStorage.setItem("state", JSON.stringify(tempPState));
+  //   // @ts-ignore
+  //   const game = new Game();
+  //   game.load();
+  //   const player = game.player;
 
-    expect(player.statuses[0].statusData.isPregnant).toBe(true);
+  //   expect(player.statuses[0].statusData.isPregnant).toBe(true);
 
-    game.sleep(155);
+  //   game.sleep(155);
 
-    expect(game.turn().display).toStrictEqual(
-      expect.arrayContaining([
-        {
-          text:
-            "Your pregnant belly has grown quite a lot. A bit too fast even. You don't remember anyone from the village getting as big as you so quickly. Maybe you should go see a doctor.",
-          type: "flavor"
-        }
-      ])
-    );
-  });
+  //   expect(game.turn().display).toStrictEqual(
+  //     expect.arrayContaining([
+  //       {
+  //         text:
+  //           "Your pregnant belly has grown quite a lot. A bit too fast even. You don't remember anyone from the village getting as big as you so quickly. Maybe you should go see a doctor.",
+  //         type: "flavor"
+  //       }
+  //     ])
+  //   );
+  // });
   it("different progression alert if child is larger and multiples", () => {
     const tempPState = cloneDeep(pState);
     tempPState.player.statuses.fertile.pregnancy.fetusType = fType.orc;
