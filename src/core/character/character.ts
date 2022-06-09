@@ -307,6 +307,3 @@ class Character extends Saveable {
 }
 
 export default Character;
-function fertil(fertil: any) {
-  throw new Error("Function not implemented.");
-}
