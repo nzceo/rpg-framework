@@ -1,5 +1,6 @@
 import { cloneDeep } from "lodash";
 import { fType } from "./fTypes";
+import { fertility } from "../../../gameData/static/fertility";
 import Game from "../../game/game";
 
 const pState = {
@@ -36,7 +37,7 @@ const pState = {
   }
 };
 
-describe("preg tests", () => {
+describe.only("preg tests", () => {
   beforeEach(() => {
     localStorage.setItem("state", ``);
   });
@@ -410,5 +411,31 @@ describe("preg tests", () => {
 
     expect(player.fertility.statusData.births).toBe(8);
     expect(player.fertility.statusData.pregnancies).toBe(3);
+  });
+  test("sex triggers pregnancy if chance is high", () => {
+    const game = new Game();
+    game.load();
+    const player = game.player;
+
+    const mockedMakePregnant = jest.fn();
+    player.fertility.makePregnant = mockedMakePregnant;
+
+    player.sex({ ...fertility.standard, spermCount: 9999 });
+
+    expect(mockedMakePregnant).toHaveBeenCalled();
+  });
+  test("sex does not trigger pregnancy if already pregnant", () => {
+    const tempPState = cloneDeep(pState);
+    localStorage.setItem("state", JSON.stringify(tempPState));
+    const game = new Game();
+    game.load();
+    const player = game.player;
+
+    const mockedMakePregnant = jest.fn();
+    player.fertility.makePregnant = mockedMakePregnant;
+
+    player.sex({ ...fertility.standard, spermCount: 9999 });
+
+    expect(mockedMakePregnant).not.toHaveBeenCalled();
   });
 });

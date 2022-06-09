@@ -357,7 +357,7 @@ class Player extends Character {
       const roll = new Roll();
       const chance = roll.roll("1d100").result;
 
-      if (chance + combinedPregnancyModifier + 1000 > 100) {
+      if (chance + combinedPregnancyModifier > 100) {
         this.fertility.makePregnant(fertilityData.race);
       }
     }
