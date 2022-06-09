@@ -507,7 +507,6 @@ class Fertile extends Status {
       }
 
       const x = chanceRemaining / number.length;
-      console.log({ totalChanceUsed, chanceRemaining, x });
       totalChanceUsed += chanceRemaining - x;
       return chanceRemaining - x;
     });

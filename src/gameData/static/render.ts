@@ -150,7 +150,6 @@ const render = (game: Game): ITurn => {
                 "combat.hitPoints.current",
                 game.player.getState("combat.hitPoints.base")
               );
-              console.log(game.player.getState("data"));
               game.player.travelTo(game.player.getState("data").checkpointRef);
             }
           }

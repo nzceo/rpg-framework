@@ -32,8 +32,6 @@ class Character extends Saveable {
     this.game = game;
     this.data = cloneDeep(data);
 
-    console.log(data);
-
     if (this.game) {
       this.initializeState();
       const characterStatuses = this.game.state[id].statuses;

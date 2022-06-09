@@ -246,7 +246,6 @@ class Player extends Character {
     if (this.game) {
       const currentMapRef =
         this.getState("mapRef") || this.game.config.defaultMap.id;
-      console.log(currentMapRef);
       const currentMap = this.game.findMap(currentMapRef)[0];
       this.currentMap = new this.game.config.classes.map(
         currentMap,
