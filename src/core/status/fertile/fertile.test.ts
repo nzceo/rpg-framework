@@ -37,7 +37,7 @@ const pState = {
   }
 };
 
-describe.only("preg tests", () => {
+describe("preg tests", () => {
   beforeEach(() => {
     localStorage.setItem("state", ``);
   });
