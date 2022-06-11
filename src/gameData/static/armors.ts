@@ -7,13 +7,21 @@ const armors: {
     name: "clothes",
     damageThreshold: 1,
     basePrice: 1,
-    tailored: false
+    tailored: false,
+    wear: () => ({
+      result: true,
+      message: "You put on clothes."
+    })
   },
   leatherArmor: {
     name: "leather armor",
     damageThreshold: 12,
     basePrice: 20,
-    tailored: false
+    tailored: false,
+    wear: () => ({
+      result: true,
+      message: "You put on your leather armor."
+    })
   }
 };
 
