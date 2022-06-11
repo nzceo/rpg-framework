@@ -1,4 +1,10 @@
+import Game from "../game";
 import { ICharacter } from "./ICharacter";
+
+export interface RandomMessagesSet {
+  m: string | string[] | ((game: Game) => string | string[]);
+  display: (game: Game) => boolean;
+}
 
 export interface IGameState {
   [id: string]: {

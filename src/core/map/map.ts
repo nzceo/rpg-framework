@@ -83,14 +83,15 @@ class Map extends Salveable {
    * Connects maps together by creating map classes
    */
   generateConnections() {
-    const connections = this.data.connectionRefs
-      ? this.data.connectionRefs.map((connection) => {
-          const foundMap = this.game.config.maps.filter(
-            (map) => map.id === connection
-          )[0];
-          return new Map(foundMap, false, this.game);
-        })
-      : [];
+    const connections =
+      this.data.connectionRefs && this.data.connectionRefs.length
+        ? this.data.connectionRefs.map((connection) => {
+            const foundMap = this.game.config.maps.filter(
+              (map) => map.id === connection
+            )[0];
+            return new Map(foundMap, false, this.game);
+          })
+        : [];
 
     this.data.connections = connections as Map[];
   }

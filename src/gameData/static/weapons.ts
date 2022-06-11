@@ -1,4 +1,4 @@
-import { IWeapon } from "../types/IWeapon";
+import { IWeapon } from "../../core/types/IWeapon";
 
 const weapons: {
   [name: string]: IWeapon;
@@ -6,12 +6,12 @@ const weapons: {
   unarmed: {
     name: "bare fists",
     damage: 1,
-    governingSkill: "oneHanded"
+    governingSkill: "stamina"
   },
   sword: {
     name: "simple sword",
     damage: 2,
-    governingSkill: "oneHanded"
+    governingSkill: "strength"
   }
 };
 

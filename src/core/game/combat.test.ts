@@ -66,7 +66,7 @@ describe("combat tests", () => {
     game.player.state = "combat";
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
-        options: [
+        options: expect.arrayContaining([
           {
             text: `Attack ${actors[0].name}`,
             action: expect.anything()
@@ -75,7 +75,7 @@ describe("combat tests", () => {
             text: `Attack ${actors[0].name}`,
             action: expect.anything()
           }
-        ]
+        ])
       })
     );
   });
@@ -103,7 +103,7 @@ describe("combat tests", () => {
       expect.objectContaining({
         display: expect.arrayContaining([
           { text: "Actor 1 takes 10 damage.", type: "flavor" },
-          { text: "You have 15HP left.", type: "flavor" },
+          { text: "You have 140HP left.", type: "flavor" },
           {
             text:
               "You are fighting Actor 1. A normal looking man. Everything about him is normal. He has 5HP left.",
@@ -160,6 +160,12 @@ describe("combat tests", () => {
     game.enemyData = [new Actor(actors[2], game)];
     game.player.state = "combat";
 
+    game.player.health = 25;
+
+    game.player.setCheckpointRef("test-map-4");
+
+    // game.player.setState("combat.hitPoints.current", 25);
+
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
@@ -198,7 +204,7 @@ describe("combat tests", () => {
       })
     );
 
-    expect(game.player.getState("combat.hitPoints.current")).toBe(25);
+    expect(game.player.getState("combat.hitPoints.current")).toBe(150);
   });
 
   it("random encounters get triggered", () => {
