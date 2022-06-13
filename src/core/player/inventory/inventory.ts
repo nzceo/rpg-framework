@@ -1,4 +1,4 @@
-import { cloneDeep, merge } from "lodash";
+import { cloneDeep } from "lodash";
 import { v4 as uuid } from "uuid";
 import { IInventory } from "../../types/IInventory";
 import Player from "../player";
