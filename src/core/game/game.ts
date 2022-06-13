@@ -9,6 +9,8 @@ import { merge } from "lodash";
 import playerSubmit from "../../gameData/static/combat/submit";
 import acceptSubmit from "../../gameData/static/combat/acceptSubmit";
 import submissionSex from "../../gameData/static/combat/submissionSex";
+import weapons from "../../gameData/static/weapons";
+import armors from "../../gameData/static/armors";
 
 export interface ITurn {
   display: { text: string; type: "flavor" | "dialog" }[];
@@ -30,7 +32,9 @@ class Game {
   dataSets = {
     playerSubmit,
     acceptSubmit,
-    submissionSex
+    submissionSex,
+    weapons,
+    armors
   };
 
   constructor(

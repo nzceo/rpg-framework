@@ -6,6 +6,7 @@ import { cloneDeep, omit } from "lodash";
 import Quest from "../quest/quest";
 import Fertile from "../status/fertile";
 import CustomEvent from "../event";
+import Inventory from "./inventory";
 import { IArmor, IFertility, IWeapon } from "../types";
 import Roll from "roll";
 
@@ -39,9 +40,13 @@ class Player extends Character {
     ...this.fertility.dialogHelpers
   };
 
+  inventory: Inventory;
+
   constructor(game: Game) {
     super(game!, "player", game!.config.player);
     this.generateCurrentMap();
+    this.inventory = new Inventory(this);
+
     if (game) {
       this.initializeState();
 
@@ -305,15 +310,33 @@ class Player extends Character {
   /**
    * Return player weapon from state
    */
-  get weapon(): IWeapon {
+  get weapon(): IWeapon & {
+    id: string;
+  } {
     return this.getState("combat").weapon || this.game.config.defaultWeapon;
+  }
+
+  /**
+   * Set player's weapon
+   */
+  set weapon(weapon: IWeapon | undefined) {
+    this.setState("combat.weapon", weapon);
   }
 
   /**
    * Return player armor from state
    */
-  get armor(): IArmor {
+  get armor(): IArmor & {
+    id: string;
+  } {
     return this.getState("combat").armor || this.game.config.defaultArmor;
+  }
+
+  /**
+   * Set player's armor
+   */
+  set armor(armor: IArmor | undefined) {
+    this.setState("combat.armor", armor);
   }
 
   /**

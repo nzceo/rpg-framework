@@ -1,6 +1,7 @@
 import Game from "../game";
 
 export interface IArmor {
+  type: "armor";
   /**
    * The armor's name
    */

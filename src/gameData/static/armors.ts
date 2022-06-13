@@ -4,6 +4,7 @@ const armors: {
   [name: string]: IArmor;
 } = {
   clothes: {
+    type: "armor",
     name: "clothes",
     damageThreshold: 1,
     basePrice: 1,
@@ -14,6 +15,7 @@ const armors: {
     })
   },
   leatherArmor: {
+    type: "armor",
     name: "leather armor",
     damageThreshold: 12,
     basePrice: 20,
