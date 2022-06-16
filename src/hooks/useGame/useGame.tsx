@@ -23,6 +23,8 @@ export const useGame = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameCounter]);
 
+  console.log(gameState.display);
+
   return {
     gameState,
     turn: increaseGameCounter,

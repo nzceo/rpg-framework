@@ -25,6 +25,7 @@ const Button = styled("button", {
 const Inventory = () => {
   const { game } = useGame();
   const items = game.player.inventory.items;
+
   return (
     <>
       <Dialog
