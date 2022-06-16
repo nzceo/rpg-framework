@@ -1,4 +1,5 @@
 import Game from "../game";
+import { Message } from "./IGame";
 
 export interface IArmor {
   type: "armor";
@@ -29,6 +30,14 @@ export interface IArmor {
     game: Game
   ) => {
     result: boolean;
-    message: string;
+    message: Message;
+  };
+  /**
+   * Description about how the current clothes fit you
+   */
+  describe: (
+    game: Game
+  ) => {
+    message: Message;
   };
 }

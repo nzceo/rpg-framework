@@ -1,9 +1,10 @@
 import { waistIsAbove, sizeMatches } from "./pFuncs";
 import Fertile from "./fertile";
 import Game from "../../game/game";
+import { Message } from "../../types/IGame";
 
 export interface PMessages {
-  m: string | string[] | ((game: Game) => string | string[]);
+  m: Message;
   display: (fertile: Fertile) => boolean;
 }
 

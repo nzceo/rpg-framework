@@ -5,6 +5,7 @@ import archetypes from "../archetypes";
 import { v4 as uuid } from "uuid";
 import Actor from "../../core/actor/actor";
 import { fertility } from "../static/fertility";
+import armors from "../static/armors";
 
 const actors: IActor[] = [
   {
@@ -195,6 +196,27 @@ const actors: IActor[] = [
         func: (game: Game) => {
           game.enemyData = [new Actor(actors[3], game)];
           game.player.switchState("combat");
+        }
+      },
+      {
+        type: "end",
+        id: "convo_end"
+      }
+    ]
+  },
+  {
+    id: "add-item",
+    name: "add item to inventory",
+    description: archetypes.normalMan,
+    combat: stats.weak,
+    fertility: fertility.standard,
+    dialog: [
+      {
+        id: "add",
+        type: "message",
+        message: "Added item...",
+        func: (game: Game) => {
+          game.player.inventory.addItem(armors["dress"]);
         }
       },
       {
