@@ -3,7 +3,12 @@ import Inventory from "./components/molecules/inventory";
 import { useGame } from "./hooks/useGame";
 
 const globalStyles = globalCss({
-  "*": { boxSizing: "border-box" }
+  "*": { boxSizing: "border-box" },
+  body: {
+    fontFamily: `'Inter var', -apple-system, BlinkMacSystemFont, 'Segoe UI',
+      'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
+      'Helvetica Neue', sans-serif`
+  }
 });
 
 const Navbar = styled("div", {

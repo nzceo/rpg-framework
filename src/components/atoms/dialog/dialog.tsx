@@ -25,7 +25,6 @@ const StyledOverlay = styled(DialogPrimitive.Overlay, {
 
 const StyledContent = styled(DialogPrimitive.Content, {
   backgroundColor: "white",
-  borderRadius: 6,
   boxShadow:
     "hsl(206 22% 7% / 35%) 0px 10px 38px -10px, hsl(206 22% 7% / 20%) 0px 10px 20px -15px",
   position: "fixed",
@@ -55,14 +54,12 @@ function Content({ children, ...props }: any) {
 const StyledTitle = styled(DialogPrimitive.Title, {
   margin: 0,
   fontWeight: 500,
-  color: mauve.mauve12,
   fontSize: 17,
   marginBottom: ".5rem"
 });
 
 const StyledDescription = styled(DialogPrimitive.Description, {
   margin: "10px 0 20px",
-  color: mauve.mauve11,
   fontSize: 15,
   lineHeight: 1.5
 });
@@ -84,13 +81,9 @@ const IconButton = styled("button", {
   display: "inline-flex",
   alignItems: "center",
   justifyContent: "center",
-  color: violet.violet11,
   position: "absolute",
   top: 10,
-  right: 10,
-
-  "&:hover": { backgroundColor: violet.violet4 },
-  "&:focus": { boxShadow: `0 0 0 2px ${violet.violet7}` }
+  right: 10
 });
 
 interface DialogProps {

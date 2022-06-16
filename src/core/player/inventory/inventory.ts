@@ -26,7 +26,6 @@ class Inventory {
    * Get all items in invetory
    */
   get items(): IPlayerItem[] {
-    console.log(this.player.getState("inventory"));
     return this.player.getState("inventory");
   }
 
