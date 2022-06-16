@@ -4,26 +4,11 @@ import config from "../../core/custom.rpg.config";
 import { ctx } from "./context";
 
 export const useGame = () => {
-  const {
-    game,
-    gameState,
-    setGameState,
-    gameCounter,
-    setGameCounter
-  } = useContext(ctx);
+  const { game, gameState, gameCounter, setGameCounter } = useContext(ctx);
 
   const increaseGameCounter = () => {
     setGameCounter(gameCounter + 1);
   };
-
-  useEffect(() => {
-    if (gameCounter > 0) {
-      setGameState(game.turn());
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [gameCounter]);
-
-  console.log(gameState.display);
 
   return {
     gameState,
@@ -45,6 +30,13 @@ export const GameContextProvider = ({
     display: [],
     options: []
   });
+
+  useEffect(() => {
+    if (gameCounter > 0) {
+      setGameState(gameRef.current!.turn());
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [gameCounter]);
 
   React.useEffect(() => {
     gameRef.current = new Game(config);

@@ -25,7 +25,7 @@ const Gameview = styled("div", {
 
 function App() {
   globalStyles();
-  const { gameState, turn, started } = useGame();
+  const { gameState, turn, started, game } = useGame();
   return (
     <div>
       {started && (
