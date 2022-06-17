@@ -1,6 +1,8 @@
 import Game from "../game";
+import { Message } from "./IGame";
 
 export interface IArmor {
+  type: "armor";
   /**
    * The armor's name
    */
@@ -25,9 +27,18 @@ export interface IArmor {
    * a more descriptive outcome of the result.
    */
   wear: (
-    game: Game
+    game: Game,
+    isTailored: boolean
   ) => {
     result: boolean;
-    message: string;
+    message: Message;
+  };
+  /**
+   * Description about how the current clothes fit you
+   */
+  describe: (
+    game: Game
+  ) => {
+    message: Message;
   };
 }

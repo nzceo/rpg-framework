@@ -89,11 +89,11 @@ class Fertile extends Status {
         // out of 100
         fertility: 20,
         body: {
-          height: 5.4,
+          height: 5.6,
           weightBase: 138,
-          waistBase: 25,
+          waistBase: 28,
           weight: 138,
-          waist: 25
+          waist: 28
         },
         pregnancies: 0,
         births: 0,

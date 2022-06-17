@@ -202,6 +202,27 @@ const actors: IActor[] = [
         id: "convo_end"
       }
     ]
+  },
+  {
+    id: "add-item",
+    name: "add item to inventory",
+    description: archetypes.normalMan,
+    combat: stats.weak,
+    fertility: fertility.standard,
+    dialog: [
+      {
+        id: "add",
+        type: "message",
+        message: "Added item...",
+        func: (game: Game) => {
+          game.player.inventory.addItem(game.findItem("dress"));
+        }
+      },
+      {
+        type: "end",
+        id: "convo_end"
+      }
+    ]
   }
 ];
 

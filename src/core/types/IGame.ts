@@ -1,8 +1,10 @@
 import Game from "../game";
 import { ICharacter } from "./ICharacter";
 
+export type Message = string | string[] | ((game: Game) => string | string[]);
+
 export interface RandomMessagesSet {
-  m: string | string[] | ((game: Game) => string | string[]);
+  m: Message;
   display: (game: Game) => boolean;
 }
 

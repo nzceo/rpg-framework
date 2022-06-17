@@ -11,6 +11,7 @@ import { IStatus } from "./IStatus";
 import { IMapContructorArg as IMap } from "./Imap";
 import { IWeapon } from "./IWeapon";
 import { ITurn } from "../game/game";
+import { IPlayerItem } from "../player/inventory/inventory";
 
 export type {
   IActor,
@@ -28,5 +29,6 @@ export type {
   IMap,
   IWeapon,
   ITurn,
-  IFertility
+  IFertility,
+  IPlayerItem
 };
