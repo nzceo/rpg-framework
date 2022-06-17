@@ -30,7 +30,7 @@ const IconButton = styled("button", {
 });
 
 const Item = ({ item }: { item: IPlayerItem }) => {
-  const { game } = useGame();
+  const { game, turn } = useGame();
   const { close } = useDialog();
   switch (item.type) {
     default:
@@ -97,6 +97,7 @@ const Item = ({ item }: { item: IPlayerItem }) => {
                   <DropdownMenuItem
                     onClick={() => {
                       game.player.inventory.equip(item);
+                      turn();
                       close();
                     }}
                   >

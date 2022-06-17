@@ -40,11 +40,13 @@ const armors: {
           "A brown dress. Not the kind of gear you would use for adventuring, however the way it hugs your curves is certainly enticing."
       };
     },
-    wear: (game) => {
+    wear: (game, isTailored) => {
+      console.log(game.player.fertility.waist, isTailored);
       const errorMessage =
         "You try your hardest to fit into the dress, but it just won't fit over your pregnany belly. You should give up on wearing this again or find a tailor.";
       if (game.player.dialogHelpers.waistIsAbove(20)) {
-        if (game.player.armor.tailored) {
+        console.log("test");
+        if (isTailored) {
           return {
             result: true,
             message:
@@ -101,9 +103,9 @@ const armors: {
           "Leather armor comprised of a tight breastplate which hugs your curves with a deep neckline that leaves very little to the immagination. The trousers tightly hug your legs."
       };
     },
-    wear: (game) => {
+    wear: (game, isTailored) => {
       if (game.player.dialogHelpers.waistIsAbove(10)) {
-        if (game.player.armor.tailored) {
+        if (isTailored) {
           return {
             result: true,
             message: [

@@ -1,4 +1,5 @@
-import { cloneDeep } from "lodash";
+import { addArrayOrStringToDisplay } from "core/game/utils/addArrayOrStringToDisplay";
+import { cloneDeep, isFunction } from "lodash";
 import { v4 as uuid } from "uuid";
 import { IInventory } from "../../types/IInventory";
 import Player from "../player";
@@ -70,7 +71,19 @@ class Inventory {
   equip(item: IInventory) {
     switch (item.type) {
       case "armor":
-        this.player.armor = item;
+        const output = item.wear(this.player.game, item.tailored);
+        let m;
+        if (isFunction(output.message)) {
+          m = output.message(this.player.game);
+        } else {
+          m = output.message;
+        }
+        addArrayOrStringToDisplay(this.player.game, m);
+        if (output.result) {
+          this.player.armor = item;
+        } else {
+          this.player.armor = undefined;
+        }
         break;
       case "weapon":
         this.player.weapon = item;

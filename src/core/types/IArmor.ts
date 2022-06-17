@@ -27,7 +27,8 @@ export interface IArmor {
    * a more descriptive outcome of the result.
    */
   wear: (
-    game: Game
+    game: Game,
+    isTailored: boolean
   ) => {
     result: boolean;
     message: Message;
