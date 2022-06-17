@@ -3,7 +3,7 @@ import { styled, keyframes } from "stitches.config";
 import { blackA } from "@radix-ui/colors";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
-import { context, DialogContext } from "./context";
+import { context } from "./context";
 
 const overlayShow = keyframes({
   "0%": { opacity: 0 },
