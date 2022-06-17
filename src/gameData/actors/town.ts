@@ -110,6 +110,7 @@ const actors: IActor[] = [
   },
   {
     id: "sleep",
+    customAction: "",
     name: "Sleep",
     description: archetypes.normalMan,
     combat: stats.weak,
@@ -165,6 +166,7 @@ const actors: IActor[] = [
   },
   {
     id: "preg",
+    customAction: "",
     name: "make pregnant",
     description: archetypes.normalMan,
     combat: stats.weak,
@@ -183,6 +185,7 @@ const actors: IActor[] = [
   },
   {
     id: "combat",
+    customAction: "",
     name: "test fight",
     description: archetypes.normalMan,
     combat: stats.weak,
@@ -205,6 +208,7 @@ const actors: IActor[] = [
   },
   {
     id: "add-item",
+    customAction: "",
     name: "add item to inventory",
     description: archetypes.normalMan,
     combat: stats.weak,

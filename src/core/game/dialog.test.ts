@@ -15,11 +15,7 @@ describe("dialog tests", () => {
       expect.objectContaining({
         display: expect.arrayContaining([
           { text: "Hello world", type: "dialog" },
-          { text: "And here's a continuation", type: "dialog" },
-          {
-            text: "You are in Test map.",
-            type: "flavor"
-          }
+          { text: "And here's a continuation", type: "dialog" }
         ]),
         options: expect.arrayContaining([
           { text: "Talk to Actor 1", action: expect.anything() }

@@ -1,3 +1,4 @@
+import Div from "components/atoms/div";
 import { globalCss, styled } from "stitches.config";
 import Inventory from "./components/molecules/inventory";
 import { useGame } from "./hooks/useGame";
@@ -22,12 +23,15 @@ const Navbar = styled("div", {
 });
 
 const Gameview = styled("div", {
-  paddingTop: 43
+  paddingTop: 43,
+  paddingBottom: 56,
+  paddingLeft: ".5rem",
+  paddingRight: ".5rem"
 });
 
 function App() {
   globalStyles();
-  const { gameState, turn, started } = useGame();
+  const { displayState, optionsState, turn, started } = useGame();
   return (
     <div>
       {started && (
@@ -37,12 +41,31 @@ function App() {
       )}
       <Gameview>
         <div>
-          {gameState.display.map((display: any) => (
-            <div>{display.text}</div>
+          {displayState.map((display: any) => (
+            <div dangerouslySetInnerHTML={{ __html: display.text }}></div>
           ))}
         </div>
-        <div>
-          {gameState.options.map((option: any) => (
+        <Div
+          css={{
+            position: "fixed",
+            left: 0,
+            bottom: 0,
+            right: 0,
+
+            display: "flex",
+            flexDirection: "row",
+            gap: "1rem",
+            flexWrap: "nowrap",
+            overflowX: "auto",
+            background: "white",
+            padding: "1rem",
+
+            "& > button": {
+              whiteSpace: "nowrap"
+            }
+          }}
+        >
+          {optionsState.map((option: any) => (
             <button
               onClick={() => {
                 option.action();
@@ -52,7 +75,7 @@ function App() {
               {option.text}
             </button>
           ))}
-        </div>
+        </Div>
       </Gameview>
     </div>
   );
