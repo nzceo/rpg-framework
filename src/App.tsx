@@ -1,6 +1,7 @@
 import { globalCss, styled } from "../stitches.config";
 import Inventory from "./components/molecules/inventory";
 import { useGame } from "./hooks/useGame";
+import "./styles/styles.css";
 
 const globalStyles = globalCss({
   "*": { boxSizing: "border-box" },
@@ -20,7 +21,7 @@ const Navbar = styled("div", {
 });
 
 const Gameview = styled("div", {
-  marginTop: "43px"
+  paddingTop: 43
 });
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
         </Navbar>
       )}
       <Gameview>
-        <div className="flex flex-col">
+        <div>
           {gameState.display.map((display: any) => (
             <div>{display.text}</div>
           ))}

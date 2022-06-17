@@ -1,8 +1,9 @@
 import React from "react";
 import { styled, keyframes } from "../../../../stitches.config";
-import { violet, blackA, mauve } from "@radix-ui/colors";
+import { blackA } from "@radix-ui/colors";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import * as DialogPrimitive from "@radix-ui/react-dialog";
+import { context, DialogContext } from "./context";
 
 const overlayShow = keyframes({
   "0%": { opacity: 0 },
@@ -86,25 +87,55 @@ const IconButton = styled("button", {
   right: 10
 });
 
+export const useDialog = () => {
+  const { open: isOpen, setOpen } = React.useContext(context);
+
+  const open = () => {
+    setOpen(true);
+  };
+
+  const close = () => {
+    setOpen(false);
+  };
+
+  const trigger = () => {
+    setOpen(!isOpen);
+  };
+
+  return {
+    isOpen,
+    open,
+    close,
+    trigger
+  };
+};
+
 interface DialogProps {
   button: React.ReactNode;
   dialogTitle: string;
   dialogContent: React.ReactNode;
 }
 
-const Dialog = ({ button, dialogTitle, dialogContent }: DialogProps) => (
-  <DialogRoot>
-    <DialogTrigger asChild>{button}</DialogTrigger>
-    <DialogContent>
-      <DialogTitle>{dialogTitle}</DialogTitle>
-      {dialogContent}
-      <DialogClose asChild>
-        <IconButton aria-label="Close">
-          <Cross2Icon />
-        </IconButton>
-      </DialogClose>
-    </DialogContent>
-  </DialogRoot>
-);
+const Dialog = ({ button, dialogTitle, dialogContent }: DialogProps) => {
+  const [open, setOpen] = React.useState(false);
+  return (
+    <context.Provider value={{ open, setOpen }}>
+      <DialogRoot open={open}>
+        <DialogTrigger asChild onClick={() => setOpen(true)}>
+          {button}
+        </DialogTrigger>
+        <DialogContent>
+          <DialogTitle>{dialogTitle}</DialogTitle>
+          {dialogContent}
+          <DialogClose asChild onClick={() => setOpen(false)}>
+            <IconButton aria-label="Close">
+              <Cross2Icon />
+            </IconButton>
+          </DialogClose>
+        </DialogContent>
+      </DialogRoot>
+    </context.Provider>
+  );
+};
 
 export default Dialog;
