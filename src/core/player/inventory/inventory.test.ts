@@ -74,8 +74,6 @@ describe("Inventory class", () => {
       })
     );
 
-    console.log(player.inventory.items);
-
     expect(player.inventory.items.length).toBe(1);
 
     player.inventory.equip(player.inventory.items[0]);

@@ -41,11 +41,9 @@ const armors: {
       };
     },
     wear: (game, isTailored) => {
-      console.log(game.player.fertility.waist, isTailored);
       const errorMessage =
         "You try your hardest to fit into the dress, but it just won't fit over your pregnany belly. You should give up on wearing this again or find a tailor.";
       if (game.player.dialogHelpers.waistIsAbove(20)) {
-        console.log("test");
         if (isTailored) {
           return {
             result: true,
