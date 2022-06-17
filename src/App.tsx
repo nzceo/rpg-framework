@@ -17,7 +17,8 @@ const Navbar = styled("div", {
   width: "100%",
   top: 0,
   left: 0,
-  right: 0
+  right: 0,
+  background: "white"
 });
 
 const Gameview = styled("div", {
@@ -26,7 +27,7 @@ const Gameview = styled("div", {
 
 function App() {
   globalStyles();
-  const { gameState, turn, started, game } = useGame();
+  const { gameState, turn, started } = useGame();
   return (
     <div>
       {started && (

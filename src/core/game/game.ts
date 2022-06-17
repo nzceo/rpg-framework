@@ -11,6 +11,8 @@ import acceptSubmit from "../../gameData/static/combat/acceptSubmit";
 import submissionSex from "../../gameData/static/combat/submissionSex";
 import weapons from "../../gameData/static/weapons";
 import armors from "../../gameData/static/armors";
+import getUuid from "uuid-by-string";
+import { IPlayerItem } from "core/types";
 
 export interface ITurn {
   display: { text: string; type: "flavor" | "dialog" }[];
@@ -33,8 +35,16 @@ class Game {
     playerSubmit,
     acceptSubmit,
     submissionSex,
-    weapons,
-    armors
+    weapons: Object.entries(weapons).map(([name, weapon]) => ({
+      ...weapon,
+      id: getUuid(`weapon-${name}`),
+      key: name
+    })),
+    armors: Object.entries(armors).map(([name, armor]) => ({
+      ...armor,
+      id: getUuid(`armor-${name}`),
+      key: name
+    }))
   };
 
   constructor(
@@ -172,6 +182,26 @@ class Game {
 
   resetDaysToSleep() {
     this.daysToSleep = 0;
+  }
+
+  /**
+   * Finds an item with a specific key
+   * @param key - what the object was named in the datasets e.g. `leatherArmor: {}`
+   */
+  findItem(key: string): IPlayerItem {
+    return [...this.dataSets.armors, ...this.dataSets.weapons].find(
+      (x) => x.key === key
+    )!;
+  }
+
+  /**
+   * Finds an item with a specific id
+   * @param id - the unique item id
+   */
+  findItemById(id: string) {
+    return [...this.dataSets.armors, ...this.dataSets.weapons].find(
+      (x) => x.id === id
+    );
   }
 }
 

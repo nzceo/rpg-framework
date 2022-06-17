@@ -5,7 +5,6 @@ import archetypes from "../archetypes";
 import { v4 as uuid } from "uuid";
 import Actor from "../../core/actor/actor";
 import { fertility } from "../static/fertility";
-import armors from "../static/armors";
 
 const actors: IActor[] = [
   {
@@ -216,7 +215,7 @@ const actors: IActor[] = [
         type: "message",
         message: "Added item...",
         func: (game: Game) => {
-          game.player.inventory.addItem(armors["dress"]);
+          game.player.inventory.addItem(game.findItem("dress"));
         }
       },
       {

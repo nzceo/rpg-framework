@@ -120,6 +120,7 @@ describe("character class", () => {
   it("statuses can be saved and loaded to localStorage", () => {
     const game = new Game();
     game.load();
+    console.log(game.player.statuses);
     expect(game.player.statuses.length).toBe(1);
     game.player.addStatus("testableStatus");
     game.save();

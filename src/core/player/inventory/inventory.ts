@@ -1,26 +1,35 @@
+import Game from "core/game";
 import { addArrayOrStringToDisplay } from "core/game/utils/addArrayOrStringToDisplay";
 import { cloneDeep, isFunction } from "lodash";
-import { v4 as uuid } from "uuid";
 import { IInventory } from "../../types/IInventory";
 import Player from "../player";
 
 export type IPlayerItem = {
   id: string;
+  key: string;
 } & IInventory;
 
 /**
  * Container class for inventory methods
  */
 class Inventory {
+  game: Game;
   player: Player;
 
   constructor(parent: Player) {
     this.player = parent;
+    this.game = parent.game;
+
+    /**
+     * Items will get saved without functions
+     * so on construct we want to reinitialise them
+     */
+    const items = (
+      this.player.getState("inventory") || []
+    ).map((item: IPlayerItem) => this.game.findItemById(item.id));
 
     // Initialise inventory
-    this.player.setState("inventory", [
-      ...(this.player.getState("inventory") || [])
-    ]);
+    this.player.setState("inventory", [...items]);
   }
 
   /**
@@ -34,10 +43,7 @@ class Inventory {
    * Add item to inventory
    */
   addItem(item: IInventory) {
-    this.player.setState(`inventory`, [
-      ...this.items,
-      cloneDeep({ ...item, id: uuid() })
-    ]);
+    this.player.setState(`inventory`, [...this.items, cloneDeep({ ...item })]);
   }
 
   /**

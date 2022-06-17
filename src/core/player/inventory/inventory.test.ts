@@ -10,7 +10,7 @@ describe("Inventory class", () => {
     game.load();
     const player = game.player;
 
-    player.inventory.addItem(game.dataSets.weapons["sword"]);
+    player.inventory.addItem(game.findItem("sword"));
 
     expect(player.inventory.items.length).toBe(1);
     expect(player.inventory.items[0].name).toBe("simple sword");
@@ -22,7 +22,7 @@ describe("Inventory class", () => {
       `{
         "player": {
           "inventory": [
-            ${JSON.stringify(game.dataSets.weapons["sword"])}
+            ${JSON.stringify(game.findItem("sword"))}
           ] 
         }
        }`
@@ -38,7 +38,7 @@ describe("Inventory class", () => {
     game.load();
     const player = game.player;
 
-    player.inventory.addItem(game.dataSets.weapons["sword"]);
+    player.inventory.addItem(game.findItem("sword"));
 
     expect(player.inventory.items.length).toBe(1);
     expect(player.inventory.items[0].name).toBe("simple sword");
@@ -54,7 +54,9 @@ describe("Inventory class", () => {
       `{
         "player": {
           "inventory": [
-            ${JSON.stringify(game.dataSets.armors["leatherArmor"])}
+            ${JSON.stringify(
+              game.dataSets.armors.find((x) => x.key === "leatherArmor")
+            )}
           ] 
         }
        }`
@@ -72,13 +74,15 @@ describe("Inventory class", () => {
       })
     );
 
+    console.log(player.inventory.items);
+
     expect(player.inventory.items.length).toBe(1);
 
     player.inventory.equip(player.inventory.items[0]);
 
     expect(player.armor).toStrictEqual(
       expect.objectContaining({
-        name: "leather armor",
+        name: "Ecluvian leather armor",
         tailored: false,
         type: "armor"
       })
@@ -92,7 +96,7 @@ describe("Inventory class", () => {
       `{
         "player": {
           "inventory": [
-            ${JSON.stringify(game.dataSets.weapons["sword"])}
+            ${JSON.stringify(game.findItem("sword"))}
           ] 
         }
        }`
@@ -124,7 +128,7 @@ describe("Inventory class", () => {
       `{
         "player": {
           "inventory": [
-            ${JSON.stringify(game.dataSets.armors["leatherArmor"])}
+            ${JSON.stringify(game.findItem("leatherArmor"))}
           ] 
         }
        }`
@@ -136,7 +140,7 @@ describe("Inventory class", () => {
 
     expect(player.armor).toStrictEqual(
       expect.objectContaining({
-        name: "leather armor",
+        name: "Ecluvian leather armor",
         tailored: false,
         type: "armor"
       })
@@ -147,7 +151,7 @@ describe("Inventory class", () => {
 
     expect(player.armor).toStrictEqual(
       expect.objectContaining({
-        name: "leather armor",
+        name: "Ecluvian leather armor",
         tailored: true,
         type: "armor"
       })
@@ -161,7 +165,7 @@ describe("Inventory class", () => {
       `{
         "player": {
           "inventory": [
-            ${JSON.stringify(game.dataSets.armors["leatherArmor"])}
+            ${JSON.stringify(game.findItem("leatherArmor"))}
           ] 
         }
        }`
@@ -173,7 +177,7 @@ describe("Inventory class", () => {
 
     expect(player.armor).toStrictEqual(
       expect.objectContaining({
-        name: "leather armor",
+        name: "Ecluvian leather armor",
         tailored: false,
         type: "armor"
       })
