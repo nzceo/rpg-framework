@@ -1,5 +1,5 @@
 import React from "react";
-import { styled, keyframes } from "../../../../stitches.config";
+import { styled, keyframes } from "stitches.config";
 import { blackA } from "@radix-ui/colors";
 import { Cross2Icon } from "@radix-ui/react-icons";
 import * as DialogPrimitive from "@radix-ui/react-dialog";

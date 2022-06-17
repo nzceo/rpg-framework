@@ -1,4 +1,4 @@
-import { globalCss, styled } from "../stitches.config";
+import { globalCss, styled } from "stitches.config";
 import Inventory from "./components/molecules/inventory";
 import { useGame } from "./hooks/useGame";
 import "./styles/styles.css";

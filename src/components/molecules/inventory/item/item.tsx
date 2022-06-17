@@ -10,7 +10,7 @@ import {
 import { DotsThreeVertical, Shield, TShirt } from "phosphor-react";
 import { blackA } from "@radix-ui/colors";
 import { useGame } from "hooks/useGame";
-import { styled } from "../../../../../stitches.config";
+import { styled } from "stitches.config";
 import { useDialog } from "components/atoms/dialog/dialog";
 
 const IconButton = styled("button", {

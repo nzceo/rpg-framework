@@ -1,5 +1,5 @@
 import { Backpack } from "phosphor-react";
-import { styled } from "../../../../stitches.config";
+import { styled } from "stitches.config";
 import { useGame } from "../../../hooks/useGame";
 import Dialog from "../../atoms/dialog";
 import Div from "../../atoms/div";
