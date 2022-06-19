@@ -28,7 +28,7 @@ const Gameview = styled("div", {});
 
 function App() {
   globalStyles();
-  const { displayState, optionsState, turn, started, gameCounter } = useGame();
+  const { displayState, optionsState, turn, started } = useGame();
 
   const lastDate = useRef<undefined | string>();
 
