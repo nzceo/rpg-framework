@@ -21,7 +21,7 @@ const render = (game: Game): ITurn => {
          * Unsure if this should be here, I also don't like the hardcoded state.
          */
         if (game.player.map.actors.length > 0) {
-          game.extraDisplay.push({
+          game.addToExtraDisplay({
             text: `You see the following characters:`,
             type: "flavor"
           });

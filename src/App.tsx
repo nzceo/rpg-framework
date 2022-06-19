@@ -1,4 +1,5 @@
 import Div from "components/atoms/div";
+import { useEffect, useRef } from "react";
 import { globalCss, styled } from "stitches.config";
 import Inventory from "./components/molecules/inventory";
 import { useGame } from "./hooks/useGame";
@@ -7,6 +8,7 @@ import "./styles/styles.css";
 const globalStyles = globalCss({
   "*": { boxSizing: "border-box" },
   body: {
+    overflowY: "hidden",
     fontFamily: `'Inter var', -apple-system, BlinkMacSystemFont, 'Segoe UI',
       'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans',
       'Helvetica Neue', sans-serif`
@@ -22,16 +24,25 @@ const Navbar = styled("div", {
   background: "white"
 });
 
-const Gameview = styled("div", {
-  paddingTop: 43,
-  paddingBottom: 56,
-  paddingLeft: ".5rem",
-  paddingRight: ".5rem"
-});
+const Gameview = styled("div", {});
 
 function App() {
   globalStyles();
-  const { displayState, optionsState, turn, started } = useGame();
+  const { displayState, optionsState, turn, started, gameCounter } = useGame();
+
+  const lastDate = useRef<undefined | string>();
+
+  const scrollableContainer = useRef<undefined | HTMLDivElement>();
+
+  useEffect(() => {
+    console.log("scroll");
+    if (scrollableContainer.current) {
+      console.log({ scrollHeight: scrollableContainer.current.scrollHeight });
+      scrollableContainer.current.scrollTop =
+        scrollableContainer.current.scrollHeight;
+    }
+  }, [displayState]);
+
   return (
     <div>
       {started && (
@@ -40,11 +51,62 @@ function App() {
         </Navbar>
       )}
       <Gameview>
-        <div>
-          {displayState.map((display: any) => (
-            <div dangerouslySetInnerHTML={{ __html: display.text }}></div>
-          ))}
-        </div>
+        <Div
+          ref={scrollableContainer}
+          css={{
+            display: "flex",
+            flexDirection: "column",
+            gap: "1rem",
+            height: "100vh",
+            overflowY: "auto",
+            padding: "43px 0.5rem 56px"
+          }}
+        >
+          {displayState.map((display) => {
+            let newDate = undefined;
+            if (lastDate.current !== display.date?.toISOString()) {
+              newDate = display.date;
+            }
+            lastDate.current = display.date?.toISOString();
+            return (
+              <>
+                {newDate !== undefined && (
+                  <Div
+                    css={{
+                      position: "relative"
+                    }}
+                  >
+                    <Div
+                      css={{
+                        width: "100%",
+                        borderBottom: "1px solid #ccc",
+                        position: "absolute",
+                        top: "10px"
+                      }}
+                    />
+                    <Div
+                      css={{
+                        display: "flex",
+                        justifyContent: "center"
+                      }}
+                    >
+                      <Div
+                        css={{
+                          background: "white",
+                          zIndex: 1,
+                          padding: "0 .5rem"
+                        }}
+                      >
+                        {newDate.format("D MMMM")}
+                      </Div>
+                    </Div>
+                  </Div>
+                )}
+                <div dangerouslySetInnerHTML={{ __html: display.text }}></div>
+              </>
+            );
+          })}
+        </Div>
         <Div
           css={{
             position: "fixed",

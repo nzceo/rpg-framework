@@ -7,9 +7,9 @@ export const addArrayOrStringToDisplay = (
 ) => {
   if (isArray(arrayOrString)) {
     arrayOrString.forEach((message) => {
-      game.extraDisplay.push({ text: message, type: "flavor" });
+      game.addToExtraDisplay({ text: message, type: "flavor" });
     });
   } else {
-    game.extraDisplay.push({ text: arrayOrString, type: "flavor" });
+    game.addToExtraDisplay({ text: arrayOrString, type: "flavor" });
   }
 };

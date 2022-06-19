@@ -17,10 +17,11 @@ export const useGame = () => {
   };
 
   return {
-    displayState,
+    displayState: displayState as ITurn["display"],
     optionsState,
     turn: increaseGameCounter,
     started: gameCounter > 0,
+    gameCounter,
     game
   };
 };

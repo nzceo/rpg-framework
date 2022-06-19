@@ -15,7 +15,7 @@ const encounters = (game: Game, map: Map) => {
     // @ts-ignore
     game.addEnemy(encounter);
     game.player.switchState("combat");
-    game.extraDisplay.push({
+    game.addToExtraDisplay({
       type: "flavor",
       text: `${encounter.name} wants to fight!`
     });

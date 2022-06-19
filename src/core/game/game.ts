@@ -13,9 +13,20 @@ import weapons from "../../gameData/static/weapons";
 import armors from "../../gameData/static/armors";
 import getUuid from "uuid-by-string";
 import { IPlayerItem } from "core/types";
+import dayjs from "dayjs";
+import updateLocale from "dayjs/plugin/updateLocale";
+
+dayjs.locale("en");
+dayjs.extend(updateLocale);
+
+dayjs.updateLocale("en", {
+  months: "Morning Star_Sun's Dawn_First Seed_Rain's Hand_Second Seed_Midyear_Sun's Height_Last Seed_Heartfire_Frostfall_Sun's Dusk_Evening Star".split(
+    "_"
+  ) // months Array
+});
 
 export interface ITurn {
-  display: { text: string; type: "flavor" | "dialog" }[];
+  display: { text: string; type: "flavor" | "dialog"; date?: dayjs.Dayjs }[];
   options: { text: string; action: () => any }[];
 }
 
@@ -133,12 +144,22 @@ class Game {
 
   /**
    * Array containing any number of extra display dialog
-   * that should be rendered. Any class that wants to print
-   * something to the output should push it to this array.
+   * that should be rendered. Do not use this, use `addToExtraDisplay`
+   * to add to this array.
    *
    * It will be cleaned every turn.
    */
   extraDisplay: ITurn["display"] = [];
+
+  /**
+   * Add object to `extraDisplay` array.
+   */
+  addToExtraDisplay(value: ITurn["display"][0]) {
+    this.extraDisplay.push({
+      ...value,
+      date: dayjs("0238-06-17T00:00:00.000Z").add(this.day, "day")
+    });
+  }
 
   /**
    * Array containing any number of extra dialog options
@@ -163,12 +184,24 @@ class Game {
     this.extraOptions = [];
     this.endCombat();
 
-    return output;
+    return {
+      ...output,
+      display: output.display.map((d) => ({
+        ...d,
+        date: d.date
+          ? d.date
+          : dayjs("0238-06-17T00:00:00.000Z").add(this.day, "day")
+      }))
+    };
   }
 
   day: number = 0;
   daysToSleep: number = 0;
 
+  /**
+   * Sleep for X days
+   * @param days - number of days to sleep, defaults to 1
+   */
   sleep(days: number = 1) {
     this.daysToSleep = days;
     for (let i = 0; i < this.daysToSleep; i++) {
