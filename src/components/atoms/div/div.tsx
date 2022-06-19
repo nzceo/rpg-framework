@@ -12,6 +12,7 @@ const Div = React.forwardRef(
     }: { css?: Stitches.CSS } & React.HTMLAttributes<HTMLDivElement>,
     ref
   ) => {
+    // @ts-ignore
     return <DivPrimitive ref={ref} css={css} {...props} />;
   }
 );
