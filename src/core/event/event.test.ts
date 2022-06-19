@@ -14,10 +14,10 @@ describe("event tests", () => {
     player.setCustomState(CustomEvent, {});
 
     expect(game.turn().display).toStrictEqual([
-      {
+      expect.objectContaining({
         text: `This is a custom event.`,
         type: "flavor"
-      }
+      })
     ]);
   });
   it("custom events can be assigned consumed and exited", () => {
@@ -28,24 +28,22 @@ describe("event tests", () => {
     player.setCustomState(CustomEvent, {});
 
     expect(game.turn().display).toStrictEqual(
-      // expect.arrayContaining(
-      [
-        {
+      expect.arrayContaining([
+        expect.objectContaining({
           text: `This is a custom event.`,
           type: "flavor"
-        }
-      ]
-      // )
+        })
+      ])
     );
 
     player.customState?.exit();
 
     expect(game.turn().display).toStrictEqual(
       expect.arrayContaining([
-        {
+        expect.objectContaining({
           text: `You are in The Golden Boot.`,
           type: "flavor"
-        }
+        })
       ])
     );
   });

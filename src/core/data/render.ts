@@ -54,7 +54,7 @@ const render = (game: Game): ITurn => {
         game.player.getState("data").dialogRef
       );
       const currentMessages: ITurn["display"] = currentDialog.map((dialog) => {
-        return { text: dialog.message || "", type: "dialog" };
+        return { text: (dialog.message as string) || "", type: "dialog" };
       });
       const lastDialog = currentDialog[currentDialog.length - 1] as IDialog;
       let currentOptionsIfAny: ITurn["options"] = [];

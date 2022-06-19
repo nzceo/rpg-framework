@@ -15,10 +15,10 @@ describe("game can be played", () => {
     game.load();
     expect(game.turn()).toStrictEqual({
       display: expect.arrayContaining([
-        {
+        expect.objectContaining({
           text: `You are in ${game.player.map.name}.`,
           type: "flavor"
-        }
+        })
       ]),
       options: expect.arrayContaining([
         {
@@ -42,10 +42,10 @@ describe("game can be played", () => {
     game.turn().options[0].action();
     expect(game.turn()).toStrictEqual({
       display: expect.arrayContaining([
-        {
+        expect.objectContaining({
           text: `You are in ${game.player.map.name}.`,
           type: "flavor"
-        }
+        })
       ]),
       options: [
         {
@@ -70,10 +70,10 @@ describe("game can be played", () => {
     game.turn().options[0].action();
     expect(game.turn()).toStrictEqual({
       display: expect.arrayContaining([
-        {
+        expect.objectContaining({
           text: `You are in Test map.`,
           type: "flavor"
-        }
+        })
       ]),
       options: expect.arrayContaining([
         {
@@ -97,8 +97,8 @@ describe("game can be played", () => {
     game.turn().options[2].action();
     expect(game.turn()).toStrictEqual({
       display: [
-        { text: "Hello world", type: "dialog" },
-        { text: "Hello world", type: "dialog" }
+        expect.objectContaining({ text: "Hello world", type: "dialog" }),
+        expect.objectContaining({ text: "Hello world", type: "dialog" })
       ],
       options: [
         {
@@ -124,7 +124,10 @@ describe("game can be played", () => {
     expect(game.player.getState("data").dialogRef).toBe("testMapActor1Dialog4");
     expect(game.turn()).toStrictEqual({
       display: expect.arrayContaining([
-        { text: "I'm answering the question", type: "dialog" }
+        expect.objectContaining({
+          text: "I'm answering the question",
+          type: "dialog"
+        })
       ]),
       options: expect.anything()
     });
@@ -145,7 +148,10 @@ describe("game can be played", () => {
     expect(game.player.getState("data").dialogRef).toBe("testMapActor1Dialog4");
     expect(game.turn()).toStrictEqual({
       display: expect.arrayContaining([
-        { text: "I'm answering the question", type: "dialog" }
+        expect.objectContaining({
+          text: "I'm answering the question",
+          type: "dialog"
+        })
       ]),
       options: expect.anything()
     });
