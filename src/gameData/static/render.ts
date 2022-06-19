@@ -1,4 +1,5 @@
 import { addArrayOrStringToDisplay } from "core/game/utils/addArrayOrStringToDisplay";
+import { isArray, isFunction } from "lodash";
 import Game, { ITurn } from "../../core/game/game";
 import { addCapital } from "../../core/helpers/dialogHelpers";
 import { IDialog } from "../../core/types/IDialog";
@@ -89,9 +90,37 @@ const render = (game: Game): ITurn => {
       const currentDialog = game.player.dialog.returnDialog(
         game.player.getState("data").dialogRef
       );
-      const currentMessages: ITurn["display"] = currentDialog.map((dialog) => {
-        return { text: dialog.message || "", type: "dialog" };
-      });
+      // const currentMessages: ITurn["display"] = currentDialog.map((dialog) => {
+      //   return { text: dialog.message || "", type: "dialog" };
+      // });
+      const currentMessages = currentDialog
+        .map((dialog) => {
+          let message;
+          if (dialog.message) {
+            if (isFunction(dialog.message)) {
+              message = dialog.message(game);
+            } else {
+              message = dialog.message;
+            }
+          } else {
+            message = "";
+          }
+
+          if (isArray(message)) {
+            return message.map((m) => ({
+              text: m,
+              type: "dialog"
+            }));
+          } else {
+            return [
+              {
+                text: message,
+                type: "dialog"
+              }
+            ];
+          }
+        })
+        .flat();
       const lastDialog = currentDialog[currentDialog.length - 1] as IDialog;
       let currentOptionsIfAny: ITurn["options"] = [];
       if (lastDialog.type === "question") {

@@ -86,22 +86,18 @@ const actors: IActor[] = [
           "Oh that? It happens, what are you going to do. These bastards pay my salary, I'm not about to ruin such a cushy opportunity just because someone touches me. Being as big as I am I don't get much attention anymore, at least stuff like that reminds me I'm not just a bloated pregnant whale to everyone.",
         next: "initial_question"
       },
-      // {
-      //   label: "pregnant_question",
-      //   type: "switch",
-      //   flag: "pregInches",
-      //   options: {
-      //     0: {
-      //       m: "How do you think? A cute guy talked me into sleeping with him, told me he wouldn't come inside and then he forgot to pull out. Before I know it my belly starts rounding out and I find him fucking some other woman. The usual.",
-      //       next: "initial_question",
-      //     },
-      //     12: {
-      //       m: "The same way it happened to you I assume, I fucked around and got stuck with the kid while the bastard found some other woman to get pregnant.",
-      //       next: "initial_question",
-      //     },
-      //   },
-      //   next: "initial_question",
-      // },
+
+      {
+        type: "message",
+        id: "pregnant_question",
+        message: (game: Game) => {
+          if (game.player.dialogHelpers.waistIsAbove(12)) {
+            return "The same way it happened to you I assume, I fucked around and got stuck with the kid while the bastard found some other woman to get pregnant.";
+          }
+          return "How do you think? A cute guy talked me into sleeping with him, told me he wouldn't come inside and then he forgot to pull out. Before I know it my belly starts rounding out and I find him fucking some other woman. The usual.";
+        },
+        next: "initial_question"
+      },
       {
         type: "end",
         id: "convo_end"

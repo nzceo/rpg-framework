@@ -35,9 +35,7 @@ function App() {
   const scrollableContainer = useRef<undefined | HTMLDivElement>();
 
   useEffect(() => {
-    console.log("scroll");
     if (scrollableContainer.current) {
-      console.log({ scrollHeight: scrollableContainer.current.scrollHeight });
       scrollableContainer.current.scrollTop =
         scrollableContainer.current.scrollHeight;
     }
