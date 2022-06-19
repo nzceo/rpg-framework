@@ -137,8 +137,14 @@ describe("preg tests", () => {
 
     expect(game.turn().display).toStrictEqual(
       expect.arrayContaining([
-        { text: "Your period seems to be late.", type: "flavor" },
-        { text: "You're feeling nauseous.", type: "flavor" }
+        expect.objectContaining({
+          text: "Your period seems to be late.",
+          type: "flavor"
+        }),
+        expect.objectContaining({
+          text: "You're feeling nauseous.",
+          type: "flavor"
+        })
       ])
     );
   });
@@ -157,11 +163,11 @@ describe("preg tests", () => {
 
     expect(game.turn().display).toStrictEqual(
       expect.arrayContaining([
-        {
+        expect.objectContaining({
           text:
             "You still haven't gotten your period and your stomach is starting to swell outwards. You know from experience you're probably pregnant again.",
           type: "flavor"
-        }
+        })
       ])
     );
   });
@@ -205,11 +211,11 @@ describe("preg tests", () => {
 
     expect(game.turn().display).toStrictEqual(
       expect.arrayContaining([
-        {
+        expect.objectContaining({
           text:
             "Your pregnant belly has grown quite a lot. A bit too fast even. You don't remember anyone from the village getting as big as you so quickly. You're not completely sure but you think you can feel more movement than a single baby should be capable of.",
           type: "flavor"
-        }
+        })
       ])
     );
   });

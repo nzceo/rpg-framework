@@ -16,10 +16,10 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          {
+          expect.objectContaining({
             text: `You are fighting ${actors[0].name}. A normal looking man. Everything about him is normal. He has 15HP left.`,
             type: "flavor"
-          }
+          })
         ])
       })
     );
@@ -34,10 +34,10 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          {
+          expect.objectContaining({
             text: `You are fighting Actor 1. A normal looking man. Everything about him is normal. He doesn't look very good. He has 15HP left.`,
             type: "flavor"
-          }
+          })
         ])
       })
     );
@@ -51,10 +51,10 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         options: expect.arrayContaining([
-          {
+          expect.objectContaining({
             text: `Attack ${actors[0].name}`,
             action: expect.anything()
-          }
+          })
         ])
       })
     );
@@ -67,14 +67,14 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         options: expect.arrayContaining([
-          {
+          expect.objectContaining({
             text: `Attack ${actors[0].name}`,
             action: expect.anything()
-          },
-          {
+          }),
+          expect.objectContaining({
             text: `Attack ${actors[0].name}`,
             action: expect.anything()
-          }
+          })
         ])
       })
     );
@@ -89,10 +89,10 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         options: expect.arrayContaining([
-          {
+          expect.objectContaining({
             text: `Attack ${actors[0].name}`,
             action: expect.anything()
-          }
+          })
         ])
       })
     );
@@ -102,13 +102,19 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          { text: "Actor 1 takes 10 damage.", type: "flavor" },
-          { text: "You have 140HP left.", type: "flavor" },
-          {
+          expect.objectContaining({
+            text: "Actor 1 takes 10 damage.",
+            type: "flavor"
+          }),
+          expect.objectContaining({
+            text: "You have 140HP left.",
+            type: "flavor"
+          }),
+          expect.objectContaining({
             text:
               "You are fighting Actor 1. A normal looking man. Everything about him is normal. He has 5HP left.",
             type: "flavor"
-          }
+          })
         ])
       })
     );
@@ -123,11 +129,11 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          {
+          expect.objectContaining({
             text:
               "You are fighting Actor 2. A normal looking man. Everything about him is normal. He has 15HP left.",
             type: "flavor"
-          }
+          })
         ])
       })
     );
@@ -138,7 +144,10 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          { text: "Actor 2 has been defeated!", type: "flavor" }
+          expect.objectContaining({
+            text: "Actor 2 has been defeated!",
+            type: "flavor"
+          })
         ]),
         options: expect.arrayContaining([
           { action: expect.anything(), text: "Next" }
@@ -149,7 +158,10 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          { text: "You are in Test map.", type: "flavor" }
+          expect.objectContaining({
+            text: "You are in Test map.",
+            type: "flavor"
+          })
         ])
       })
     );
@@ -169,11 +181,11 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          {
+          expect.objectContaining({
             text:
               "You are fighting Actor 3. A normal looking man. Everything about him is normal. He has 100HP left.",
             type: "flavor"
-          }
+          })
         ])
       })
     );
@@ -185,8 +197,11 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          { text: "Your HP has reached 0!", type: "flavor" },
-          { text: "Game Over!", type: "flavor" }
+          expect.objectContaining({
+            text: "Your HP has reached 0!",
+            type: "flavor"
+          }),
+          expect.objectContaining({ text: "Game Over!", type: "flavor" })
         ]),
         options: expect.arrayContaining([
           { action: expect.anything(), text: "Start from last checkpoint" }
@@ -199,7 +214,10 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          { text: "You are in Test map 5.", type: "flavor" }
+          expect.objectContaining({
+            text: "You are in Test map 5.",
+            type: "flavor"
+          })
         ])
       })
     );
@@ -226,7 +244,10 @@ describe("combat tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          { text: "Enemy 1 wants to fight!", type: "flavor" }
+          expect.objectContaining({
+            text: "Enemy 1 wants to fight!",
+            type: "flavor"
+          })
         ])
       })
     );

@@ -16,7 +16,7 @@ const render = (game: Game): ITurn => {
        * Unsure if this should be here, I also don't like the hardcoded state.
        */
       if (game.player.map.actors.length > 0) {
-        game.extraDisplay.push({
+        game.addToExtraDisplay({
           text: `You see the following characters:`,
           type: "flavor"
         });
@@ -54,7 +54,7 @@ const render = (game: Game): ITurn => {
         game.player.getState("data").dialogRef
       );
       const currentMessages: ITurn["display"] = currentDialog.map((dialog) => {
-        return { text: dialog.message || "", type: "dialog" };
+        return { text: (dialog.message as string) || "", type: "dialog" };
       });
       const lastDialog = currentDialog[currentDialog.length - 1] as IDialog;
       let currentOptionsIfAny: ITurn["options"] = [];

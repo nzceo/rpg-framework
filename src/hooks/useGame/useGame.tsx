@@ -4,16 +4,24 @@ import config from "../../core/custom.rpg.config";
 import { ctx } from "./context";
 
 export const useGame = () => {
-  const { game, gameState, gameCounter, setGameCounter } = useContext(ctx);
+  const {
+    game,
+    displayState,
+    optionsState,
+    gameCounter,
+    setGameCounter
+  } = useContext(ctx);
 
   const increaseGameCounter = () => {
     setGameCounter(gameCounter + 1);
   };
 
   return {
-    gameState,
+    displayState: displayState as ITurn["display"],
+    optionsState,
     turn: increaseGameCounter,
     started: gameCounter > 0,
+    gameCounter,
     game
   };
 };
@@ -26,14 +34,14 @@ export const GameContextProvider = ({
   const gameRef = React.useRef<Game | undefined>();
 
   const [gameCounter, setGameCounter] = useState(0);
-  const [gameState, setGameState] = useState<ITurn>({
-    display: [],
-    options: []
-  });
+  const [displayState, setDisplayState] = useState<ITurn["display"]>([]);
+
+  const [optionsState, setOptionsState] = useState<ITurn["options"]>([]);
 
   useEffect(() => {
     if (gameCounter > 0) {
-      setGameState(gameRef.current!.turn());
+      setDisplayState([...displayState, ...gameRef.current!.turn().display]);
+      setOptionsState(gameRef.current!.turn().options);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [gameCounter]);
@@ -44,18 +52,16 @@ export const GameContextProvider = ({
     /**
      * Populate initial state
      */
-    setGameState({
-      display: [{ text: "Welcome to the game.", type: "flavor" }],
-      options: [
-        {
-          text: "Load",
-          action: () => {
-            gameRef.current!.load();
-            setGameCounter(gameCounter + 1);
-          }
+    setDisplayState([{ text: "Welcome to the game.", type: "flavor" }]);
+    setOptionsState([
+      {
+        text: "Load",
+        action: () => {
+          gameRef.current!.load();
+          setGameCounter(gameCounter + 1);
         }
-      ]
-    });
+      }
+    ]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -63,8 +69,10 @@ export const GameContextProvider = ({
     <ctx.Provider
       value={{
         game: gameRef.current!,
-        gameState,
-        setGameState,
+        optionsState,
+        displayState,
+        setOptionsState,
+        setDisplayState,
         gameCounter,
         setGameCounter
       }}

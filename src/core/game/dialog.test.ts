@@ -14,12 +14,11 @@ describe("dialog tests", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          { text: "Hello world", type: "dialog" },
-          { text: "And here's a continuation", type: "dialog" },
-          {
-            text: "You are in Test map.",
-            type: "flavor"
-          }
+          expect.objectContaining({ text: "Hello world", type: "dialog" }),
+          expect.objectContaining({
+            text: "And here's a continuation",
+            type: "dialog"
+          })
         ]),
         options: expect.arrayContaining([
           { text: "Talk to Actor 1", action: expect.anything() }

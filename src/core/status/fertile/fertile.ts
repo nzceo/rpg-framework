@@ -175,10 +175,10 @@ class Fertile extends Status {
           const a = returnRandomMessage(this.game, this, contractionMessages);
           if (isArray(a)) {
             a.forEach((message) => {
-              this.game.extraDisplay.push({ text: message, type: "flavor" });
+              this.game.addToExtraDisplay({ text: message, type: "flavor" });
             });
           } else {
-            this.game.extraDisplay.push({ text: a, type: "flavor" });
+            this.game.addToExtraDisplay({ text: a, type: "flavor" });
           }
         }
       }
@@ -321,10 +321,10 @@ class Fertile extends Status {
       progressAlerts.messages.forEach((alert) => {
         if (isArray(alert)) {
           alert.forEach((a) => {
-            this.game.extraDisplay.push({ text: a, type: "flavor" });
+            this.game.addToExtraDisplay({ text: a, type: "flavor" });
           });
         } else {
-          this.game.extraDisplay.push({ text: alert, type: "flavor" });
+          this.game.addToExtraDisplay({ text: alert, type: "flavor" });
         }
       });
     }

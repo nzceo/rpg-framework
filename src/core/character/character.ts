@@ -104,7 +104,7 @@ class Character extends Saveable {
       }
     });
     description.forEach((entry) => {
-      this.game.extraDisplay.push(entry);
+      this.game.addToExtraDisplay(entry);
     });
   }
 
@@ -213,7 +213,7 @@ class Character extends Saveable {
       this.game.enemyData = [];
       this.game.player.switchState("normal");
     } else {
-      this.game.extraDisplay.push({
+      this.game.addToExtraDisplay({
         text: `The enemy ${this.name} ignores your advances completely and attacks you.`,
         type: "flavor"
       });
@@ -265,7 +265,7 @@ class Character extends Saveable {
    * @param totalDamage - damage taken
    */
   damage(totalDamage: number) {
-    this.game.extraDisplay.push({
+    this.game.addToExtraDisplay({
       type: "flavor",
       text: `${
         this.pronoun === "you" ? "You take" : `${this.name} takes`
@@ -275,7 +275,7 @@ class Character extends Saveable {
 
     if (this.isDead()) {
       if (this.isYou()) {
-        this.game.extraDisplay.push({
+        this.game.addToExtraDisplay({
           type: "flavor",
           text: `Your HP has reached 0!`
         });
@@ -287,7 +287,7 @@ class Character extends Saveable {
         this.game.player.activeQuests.forEach((quest) => {
           quest.onDefeat(this.id);
         });
-        this.game.extraDisplay.push({
+        this.game.addToExtraDisplay({
           type: "flavor",
           text: `${this.name} has been defeated!`
         });

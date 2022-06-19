@@ -1,6 +1,7 @@
 import { IDisappearing } from "./IDisappearing";
 import Actor from "../actor/actor";
 import Game from "../game/game";
+import { Message } from "./IGame";
 
 interface IBaseDialog extends IDisappearing<Actor> {
   /**
@@ -10,7 +11,7 @@ interface IBaseDialog extends IDisappearing<Actor> {
   /**
    * Text of the message. This is what the user will see.
    */
-  message: string;
+  message: Message;
   /**
    * A function that will run whenever a piece of dialog is rendered.
    */

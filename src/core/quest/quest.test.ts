@@ -157,11 +157,11 @@ describe("character class", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          {
+          expect.objectContaining({
             text:
               "You are fighting Actor 2. A normal looking man. Everything about him is normal. He has 15HP left.",
             type: "flavor"
-          }
+          })
         ])
       })
     );
@@ -193,11 +193,11 @@ describe("character class", () => {
     expect(game.turn()).toStrictEqual(
       expect.objectContaining({
         display: expect.arrayContaining([
-          {
+          expect.objectContaining({
             text:
               "You are fighting Actor 1. A normal looking man. Everything about him is normal. He has 15HP left.",
             type: "flavor"
-          }
+          })
         ])
       })
     );

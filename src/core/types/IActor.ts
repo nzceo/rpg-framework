@@ -8,6 +8,11 @@ export interface IActor extends IDisappearing<Actor>, ICharacter {
    * This actor's unique ID
    */
   id: string;
+
+  /**
+   * Overrides the `Talk to` text
+   */
+  customAction?: string;
   /**
    * Actor dialogue
    */
