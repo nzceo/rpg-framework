@@ -120,7 +120,7 @@ const render = (game: Game): ITurn => {
             ];
           }
         })
-        .flat();
+        .flat() as ITurn["display"];
       const lastDialog = currentDialog[currentDialog.length - 1] as IDialog;
       let currentOptionsIfAny: ITurn["options"] = [];
       if (lastDialog.type === "question") {
