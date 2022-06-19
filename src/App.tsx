@@ -50,6 +50,7 @@ function App() {
       )}
       <Gameview>
         <Div
+          // @ts-ignore
           ref={scrollableContainer}
           css={{
             display: "flex",
