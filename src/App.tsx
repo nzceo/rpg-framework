@@ -1,8 +1,12 @@
 import Div from "components/atoms/div";
+import ReactHtmlParser from "react-html-parser";
+import reactStringReplace from "react-string-replace";
 import { useEffect, useRef } from "react";
 import { globalCss, styled } from "stitches.config";
 import Inventory from "./components/molecules/inventory";
 import { useGame } from "./hooks/useGame";
+import FairyIcon from "components/icons/fairy";
+import ElfIcon from "components/icons/elf";
 import "./styles/styles.css";
 
 const globalStyles = globalCss({
@@ -46,6 +50,8 @@ function App() {
       {started && (
         <Navbar>
           <Inventory />
+          <FairyIcon />
+          <ElfIcon />
         </Navbar>
       )}
       <Gameview>
@@ -101,7 +107,20 @@ function App() {
                     </Div>
                   </Div>
                 )}
-                <div dangerouslySetInnerHTML={{ __html: display.text }}></div>
+                <Div>
+                  {reactStringReplace(
+                    reactStringReplace(display.text, "%player%", (match, i) => (
+                      <ElfIcon />
+                    )),
+                    "%fairy%",
+                    (match, i) => <FairyIcon />
+                  ).map((element) => {
+                    if (typeof element === "string") {
+                      return ReactHtmlParser(element);
+                    }
+                    return element;
+                  })}
+                </Div>
               </>
             );
           })}

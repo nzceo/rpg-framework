@@ -1,9 +1,8 @@
-import Actor from "../actor/actor";
 import { ICharacter } from "./ICharacter";
 import { IDialog } from "./IDialog";
 import { IDisappearing } from "./IDisappearing";
 
-export interface IActor extends IDisappearing<Actor>, ICharacter {
+export interface IActor extends IDisappearing, ICharacter {
   /**
    * This actor's unique ID
    */

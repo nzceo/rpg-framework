@@ -90,9 +90,6 @@ const render = (game: Game): ITurn => {
       const currentDialog = game.player.dialog.returnDialog(
         game.player.getState("data").dialogRef
       );
-      // const currentMessages: ITurn["display"] = currentDialog.map((dialog) => {
-      //   return { text: dialog.message || "", type: "dialog" };
-      // });
       const currentMessages = currentDialog
         .map((dialog) => {
           let message;

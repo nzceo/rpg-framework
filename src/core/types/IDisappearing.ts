@@ -1,6 +1,6 @@
-import Player from "../player/player";
+import Game from "core/game";
 
-export interface IDisappearing<Extra = void> {
-  visible?: (player: Player, other?: Extra) => boolean;
-  hidden?: (player: Player, other?: Extra) => boolean;
+export interface IDisappearing {
+  visible?: (game: Game) => boolean;
+  hidden?: (game: Game) => boolean;
 }

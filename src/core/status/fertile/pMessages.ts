@@ -22,10 +22,17 @@ export const pMessages: PMessages[] = [
   {
     m: (game: Game) => {
       if (game.player.fertility.isFirstPregnancy()) {
-        return "You seem to be gaining some weight, you have a slight pot belly. You decide not to pay too much attention to it.";
+        return [
+          `%fairy% "You're looking a bit chubby, you should look after your figure more."`,
+          `%player% "Am I? Strange, I don't think I've been eating more than usual."`
+        ];
       } else {
-        game.player.fertility.setPregnancyKnown();
-        return "You still haven't gotten your period and your stomach is starting to swell outwards. You know from experience you're probably pregnant again.";
+        return [
+          `%fairy% "Have you looked at yourself in the mirror lately? I think you're getting fat again! Wait did you even get your period this month?"`,
+          `%player% "No... I'm a bit late but I'm sure it's nothing."`,
+          `%fairy% "Don't tell me you've gotten yourself impregnated again?! How many times does it need to happen before you stop fucking around?"`,
+          "You really hope she isn't right, but it's hard to deny your stomach swelling outwards..."
+        ];
       }
     },
     display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 2)
@@ -33,7 +40,10 @@ export const pMessages: PMessages[] = [
   {
     m: (game: Game) => {
       game.player.fertility.setPregnancyKnown();
-      return "Your waist has been thickening for a few weeks now. As you touch the small roundness that has appeared on your once-flat stomach you finally succumb to what you've been trying to avoid thinking about for so long. You're pregnant, you're not sure when it happened but there's a child growing inside you.";
+      return [
+        "Your waist has been thickening for a few weeks now. As you touch the small roundness that has appeared on your once-flat stomach you finally succumb to what you've been trying to avoid thinking about for so long. You're pregnant, you're not sure when it happened but there's a child growing inside you.",
+        `%fairy% "You better not let this affect your quest, there's no way I'm going to sit around for 9 months before you push your bastard out."`
+      ];
     },
     display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 4)
   },
@@ -43,8 +53,10 @@ export const pMessages: PMessages[] = [
     display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 5)
   },
   {
-    m:
+    m: [
       "As you put on some clothes and get ready for the day you look down below your engorged breasts. Your belly is now obviously protruting from your body, your womb has expanded exponentially and the skin feels warm but hard when you touch it.",
+      `%fairy% "We don't have time to waste for you playing proud mother, come on let's get going."`
+    ],
     display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 6)
   },
   {
@@ -53,109 +65,185 @@ export const pMessages: PMessages[] = [
         game.player.fertility.isMultiples() &&
         !game.player.fertility.isKnownMultiples()
       ) {
-        return "Your pregnant belly has grown quite a lot. A bit too fast even. You don't remember anyone from the village getting as big as you so quickly. You're not completely sure but you think you can feel more movement than a single baby should be capable of.";
+        return [
+          `%fairy% "Haha! Look at you, you're getting huge. I bet the father would be very proud to know you're growing him such a healthy bastard!"`,
+          `%player% "I'm not that much bigger than normal, and it's not like I wanted this in the first place."`,
+          "Is she right? Are you growing faster than normal? You don't remember anyone from the village getting as big as you so quickly.",
+          "You're not completely sure but you think you can feel more movement than a single baby should be capable of. You decide to keep that for yourself though."
+        ];
       }
-      return "Your pregnant belly has grown quite a lot. A bit too fast even. You don't remember anyone from the village getting as big as you so quickly. Maybe you should go see a doctor.";
+      return [
+        `%fairy% "Haha! Look at you, you're getting huge. I bet the father would be very proud to know you're growing him such a healthy bastard!"`,
+        `%player% "I'm not that much bigger than normal, and it's not like I wanted this in the first place."`,
+        "Is she right? Are you growing faster than normal? You don't remember anyone from the village getting as big as you so quickly."
+      ];
     },
     display: (fertile: Fertile) =>
       waistIsAbove(fertile.statusData, 7) &&
       sizeMatches(fertile, ["large", "veryLarge"])
   },
+  // {
+  //   m:
+  //     "A dark line that goes from your pubic area and your belly button seems to have appeared, it divides your pregnant belly in two perfectly.",
+  //   display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 7)
+  // },
   {
     m: (game: Game) => {
       return [
-        "Like every other day for the past couple of weeks you wake up sore and tired. The more your belly grows and the heavier your womb becomes, the harder it is to find a comfortable position to sleep in. As soon as you're on your feet you realise you can't quite stand normally anymore, the ball jutting out of your midsection is so big it forces you to bend your back, pushing out your belly even further.",
-        "Throughout the day you find yourself resting your hands on the small of your back to give you some respite over carrying your heavy womb wherever you go, but it doesn't do much to improve the constant discomfort."
+        "Like every other day for the past couple of weeks you wake up sore and tired. The more your belly grows and the heavier your womb becomes, the harder it is to find a comfortable position to sleep in.",
+        `%player% "Ugh, this belly is really starting to get heavy. My back is killing me."`,
+        `%fairy% "Serves you right, it's an appropriate punishment for being a slut."`,
+        "You rest your hands on the small of your back to give you some respite over carrying your heavy womb wherever you go, but it doesn't do much to improve the constant discomfort."
       ];
     },
-    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 8)
+    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 10)
   },
   {
-    m:
-      "A dark line that goes from your pubic area and your belly button seems to have appeared, it divides your pregnant belly in two perfectly.",
-    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 7)
-  },
-  {
-    m:
-      "Your belly button has recently popped and become an outie. Touching it feels funny and somewhat arousing.",
-    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 8)
+    m: "Your belly button has recently popped and become an outie. ",
+    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 12)
   },
   {
     m: (game: Game) => {
       if (game.player.fertility.isMultiples()) {
         return [
-          "Your stomach is now big enough to be a nuisance during your daily activities. Your womb's weight and size make it difficult to get up when you're sitting and slow down your movements considerably. As you wake up, you feel kicks at opposite sides of your belly, you gasp as you realise there's more than one baby inside you.",
+          "Your stomach is now big enough to be a nuisance during your daily activities. Your womb's weight and size make it difficult to get up when you're sitting and slow down your movements considerably.",
+          "For the first time you clearly feel kicks from two opposites sides within your womb, your hands shoot to where you felt the movement.",
+          `%fairy% "What is it now?"`,
+          `%player% "I think I felt two kicks..."`,
+          `%fairy% "You're telling me you didn't just get yourself bred by a stranger, but you're also having twins? You're unbelieveable. I can't believe I'm stuck with you."`,
           "Giving birth to one child is already a lot to think about, but having multiples? You can't even imagine how difficult that's going to be.",
           "You shudder thinking at how big you're going to be in a couple months time."
         ];
       }
       return [
         "Your stomach is now big enough to be a nuisance during your daily activities. Your womb's weight and size make it difficult to get up when you're sitting and slow down your movements considerably, movements from within have also started increasing in frequency it's hard to go a day without feeling a kick or a punch.",
-        "As the weight inside your womb increases you can't quite help yourself from waddling rather than walking."
+        `%fairy% "Nice waddle, now you really look like a pregnant woman."`,
+        "You hadn't noticed, but she's right, your walk has slowly developed into a deep waddle to accomodate the size of your stomach."
       ];
     },
-    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 9)
+    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 13)
   },
   {
     m: [
-      "As you try to get out of bed you suddenly realize how difficult moving your heavy body has become. Once you're on your feet, you feel your womb shift downwards and its weight settling deep within your pelvis.",
+      "You try to get out of bed you suddenly realize how difficult moving your heavy body has become.",
+      `%fairy% "Come on fatass, I don't have time to wait for your huge pregnant ass to get up."`,
+      `%player% "Shut up! I'm trying my best here, I can barely rollover with this thing in me.`,
+      "Once you're on your feet, you feel your womb shift downwards and its weight settling deep within your pelvis.",
       "You place a hand under your burgeoning stomach and try to lift its weight, it relieves you of some of the enormous pressure you're feeling, but it's only temporary."
     ],
-    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 10)
+    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 15)
   },
   // Something about not being able to breathe?
   {
     m: (game: Game) => {
       if (game.player.fertility.isMultiples()) {
         return [
-          "Your belly is huge, you are surprised that it could've grown so much in such a short amount of time. The babies are getting heavier and heavier by the day and you are really starting to wish you could get this whole thing over with, but you know you're probably not even close to getting them out of you.",
+          "Your belly is huge, you are surprised that it could've grown so much in such a short amount of time.",
+          `%player% "I'm huge..."`,
+          `%fairy% "Yeah you are and I hope you're ready to get bigger, you're nowhere close to being done."`,
+          "The babies are getting heavier and heavier by the day and you are really starting to wish you could get this whole thing over with, but you know you're probably not even close to getting them out of you.",
           "As you cup your swelling stomach, it's hard to imagine how much further these babies will stretch you before they're ready to come out."
         ];
       }
       return [
-        "Your belly is huge, you're surprised that it could've grown so much in such a short amount of time. Your baby is getting heavier and heavier by the day and you are really starting to wish you could get this whole thing over with.",
-        "Your once flat stomach has been replaced by the round swell of your womb. Not being a local as well as your size and gait attract stares and gazes wherever you go, everyone knows you're not wed and probably don't know the father."
+        "Your belly is huge, you are surprised that it could've grown so much in such a short amount of time.",
+        `%player% "I'm huge..."`,
+        `%fairy% "Yeah you are and I hope you're ready to get bigger, you're nowhere close to being done."`,
+        "The babies are getting heavier and heavier by the day and you are really starting to wish you could get this whole thing over with."
       ];
     },
-    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 11)
-  },
-  {
-    m: (game: Game) => {
-      if (game.player.fertility.isMultiples()) {
-        return "Your belly is so big it's getting really hard for you to actually go about your day. The babies are very active and spend most of their time awake kicking you. Your belly sticks out 10 inches in front of you making you look pretty much full-term, you can't imagine your pregnancy lasting that much longer.";
-      }
-      return "Your belly is so big it's getting really hard for you to actually go about your day. The baby is incredibly active and spends most of his time awake kicking you. Your belly sticks out 10 inches in front of you making you look pretty much full-term, you can't imagine your pregnancy lasting that much longer.";
-    },
-    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 12)
+    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 17)
   },
   {
     m: (game: Game) => {
       return [
-        "You're huge. Bigger than any pregnant woman you've ever met before. Getting up, sitting down, dressing yourself have all become taxing activities on your swollen frame, each of them needs to be done with extreme carefullness.",
-        "When standing up, the weight in your womb is settled low between your legs, causing you to swing your belly left and right with each step."
+        `%player% "Ow! Owowowowowowow... Gah!" You complain, one hand on your straining uterus as ${
+          game.player.dialogHelpers.isKnownMultiples()
+            ? "the babies painfully shift"
+            : "the baby painfully shifts"
+        } inside you in the hope of finding more space.`,
+        `%player% "So much movement..." You caress your huge womb trying to soothe ${
+          game.player.dialogHelpers.isKnownMultiples()
+            ? "its occupants"
+            : "its occupant"
+        }`,
+        `%fairy% "${
+          game.player.dialogHelpers.isKnownMultiples()
+            ? "It looks"
+            : "They look"
+        } pretty huge and strong, but look on the bright side at least you can't be that far from pushing them out."`,
+        `You sure hope she's right, but every day you keep waking up a bit bigger.`,
+        `${
+          ["first", "second"].includes(
+            game.player.dialogHelpers.getPregnancyTerm()
+          )
+            ? `You try to do the math in your head but realise you're nowhere close to full-term. Your heart sinks at the thoughts of what you'll have to give birth to.`
+            : ""
+        }`
       ];
     },
-    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 13)
+    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 18)
   },
   {
     m: (game: Game) => {
       return [
-        "You're huge. Bigger than any pregnant woman you've ever met before. Getting up, sitting down, dressing yourself have all become taxing activities on your swollen frame, each of them needs to be done with extreme carefullness.",
-        "When standing up, the weight in your womb is settled low between your legs, causing you to swing your belly left and right with each step."
+        `You sit on the edge of the bed with your feet on the ground and your bulging womb between your legs. You're too big to simply get up, instead you shift your weight back and forth until the momentum and the weight of your stomach allows you stand up.`,
+        `%player% "OOOooooofff... There we go." You tell yourself.`,
+        `%fairy% "You looked absolutely ridiculous doing that, who's ever going to hire an adventurer that can't even stand up by herself!?"`,
+        `%player% "I'll have you know I'm a great adventurer, pregnant or not!"`,
+        "You know she's right though, the more your uterus expands the less able you are at fighting.",
+        "The alternative is to go work in a brothel until you give birth, so you're not quite sure what would be worse."
       ];
     },
-    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 14)
+    display: (fertile: Fertile) => fertile.dialogHelpers.fetusWeightIsAbove(10)
   },
   {
-    m:
-      "Your belly is so big your body is starting to have trouble dealing with its sheer weight and size. Every single movement you do seems awkward and even the smallest tasks are now extremely complicated. By how much your baby is moving you can tell it wants to get out as soon as possible, but you can't help but be a little worried about the birth, can your body handle it?",
-    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 15)
+    m: (game: Game) => {
+      return [
+        `%player% "Guh... So much pressure..."`,
+        `When standing up, the huge weight of ${
+          game.player.dialogHelpers.isKnownMultiples()
+            ? "the children"
+            : "the child"
+        } you're carrying settles low within your pelvis.`,
+        `%fairy% "Heh, the way your swing that belly left and right with each step tells me whatever's stuck between your legs must be huge!"`,
+        `%player% "Shut up ${game.fairyName}, this is uncomfortable enough without your comments."`
+      ];
+    },
+    display: (fertile: Fertile) => fertile.dialogHelpers.fetusWeightIsAbove(12)
   },
   {
-    m:
-      "This doesn't feel right, you know you shouldn't be this big. Your belly has grown so big you're having trouble sitting down and sleeping, the weight of it making it hard for you to breathe. You're sore all over and the baby's head is so big between your hips that you've had to resort to walking bow-legged.",
-    display: (fertile: Fertile) => waistIsAbove(fertile.statusData, 16)
+    m: (game: Game) => {
+      return [
+        `%fairy% "Are you sure you only have one in there? Maybe you or the doc made a mistake."`,
+        `%player% "I already told you a thousand times: yes! I think I'd know if I was having more than one at this point."`,
+        `%fairy% "Hey don't take it out on me, I wasn't the slut that got bred by a monster ❤"`,
+        `%player% "Shut up, it's not a monster, it's just a big child!"`,
+        `Or so you can keep telling yourself, you've felt the baby's muscular body through the thin walls of your overstretched womb and there's no way they feel normal. Not that you'd ever admit that to ${game.fairyName}.`
+      ];
+    },
+    display: (fertile: Fertile) =>
+      fertile.dialogHelpers.waistIsAbove(fertile.statusData, 22) &&
+      !fertile.dialogHelpers.isKnownMultiples() &&
+      fertile.dialogHelpers.isMonsterPregnancy()
+  },
+  {
+    m: (game: Game) => {
+      return [
+        `There's no way you should be this big. Your great taut ball of a womb is so stretched and full it greatly restricts your movement options.`,
+        `Turning your torso, bending over, leaning back... With your waistline now more than doubled these are all things of the past.`,
+        `Just how big ${
+          game.player.dialogHelpers.isKnownMultiples()
+            ? "are these babies?"
+            : "is this baby?"
+        }`
+      ];
+    },
+    display: (fertile: Fertile) =>
+      fertile.dialogHelpers.waistIsAbove(25) &&
+      fertile.dialogHelpers.sizeMatches(["large", "veryLarge"])
   }
+  // This should be specifically for singleton and larger babies
 
   // Dexterity penalties
   //   {

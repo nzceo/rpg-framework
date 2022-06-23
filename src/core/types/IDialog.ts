@@ -3,7 +3,9 @@ import Actor from "../actor/actor";
 import Game from "../game/game";
 import { Message } from "./IGame";
 
-interface IBaseDialog extends IDisappearing<Actor> {
+type Next = string | ((game: Game) => string);
+
+interface IBaseDialog extends IDisappearing {
   /**
    * Id of the message. Needs to be unique in the dialog tree.
    */
@@ -24,7 +26,7 @@ interface IMessage extends IBaseDialog {
    * The id of the next message to display. If undefined, the next
    * item in the dialog array will be returned
    */
-  next?: string;
+  next?: Next;
 }
 
 interface IQuestion extends IBaseDialog {
@@ -44,7 +46,7 @@ interface IEnd extends Omit<IBaseDialog, "message"> {
   type: "end";
 
   message?: string;
-  next?: string;
+  next?: Next;
 }
 
 export type IDialog = IMessage | IQuestion | IEnd;

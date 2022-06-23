@@ -148,29 +148,29 @@ describe("preg tests", () => {
       ])
     );
   });
-  it("different progression alert depending on being pregnant before", () => {
-    const tempPState = cloneDeep(pState);
-    tempPState.player.statuses.fertile.pregnancies = 1;
-    localStorage.setItem("state", JSON.stringify(tempPState));
-    // @ts-ignore
-    const game = new Game();
-    game.load();
-    const player = game.player;
+  // it("different progression alert depending on being pregnant before", () => {
+  //   const tempPState = cloneDeep(pState);
+  //   tempPState.player.statuses.fertile.pregnancies = 1;
+  //   localStorage.setItem("state", JSON.stringify(tempPState));
+  //   // @ts-ignore
+  //   const game = new Game();
+  //   game.load();
+  //   const player = game.player;
 
-    expect(player.statuses[0].statusData.isPregnant).toBe(true);
+  //   expect(player.statuses[0].statusData.isPregnant).toBe(true);
 
-    game.sleep(100);
+  //   game.sleep(100);
 
-    expect(game.turn().display).toStrictEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          text:
-            "You still haven't gotten your period and your stomach is starting to swell outwards. You know from experience you're probably pregnant again.",
-          type: "flavor"
-        })
-      ])
-    );
-  });
+  //   expect(game.turn().display).toStrictEqual(
+  //     expect.arrayContaining([
+  //       expect.objectContaining({
+  //         text:
+  //           "You still haven't gotten your period and your stomach is starting to swell outwards. You know from experience you're probably pregnant again.",
+  //         type: "flavor"
+  //       })
+  //     ])
+  //   );
+  // });
   // it("different progression alert if child is larger", () => {
   //   const tempPState = cloneDeep(pState);
   //   tempPState.player.statuses.fertile.pregnancy.fetusType = fType.orc;
@@ -195,30 +195,30 @@ describe("preg tests", () => {
   //     ])
   //   );
   // });
-  it("different progression alert if child is larger and multiples", () => {
-    const tempPState = cloneDeep(pState);
-    tempPState.player.statuses.fertile.pregnancy.fetusType = fType.orc;
-    tempPState.player.statuses.fertile.pregnancy.babies = 2;
-    localStorage.setItem("state", JSON.stringify(tempPState));
-    // @ts-ignore
-    const game = new Game();
-    game.load();
-    const player = game.player;
+  // it("different progression alert if child is larger and multiples", () => {
+  //   const tempPState = cloneDeep(pState);
+  //   tempPState.player.statuses.fertile.pregnancy.fetusType = fType.orc;
+  //   tempPState.player.statuses.fertile.pregnancy.babies = 2;
+  //   localStorage.setItem("state", JSON.stringify(tempPState));
+  //   // @ts-ignore
+  //   const game = new Game();
+  //   game.load();
+  //   const player = game.player;
 
-    expect(player.statuses[0].statusData.isPregnant).toBe(true);
+  //   expect(player.statuses[0].statusData.isPregnant).toBe(true);
 
-    game.sleep(155);
+  //   game.sleep(155);
 
-    expect(game.turn().display).toStrictEqual(
-      expect.arrayContaining([
-        expect.objectContaining({
-          text:
-            "Your pregnant belly has grown quite a lot. A bit too fast even. You don't remember anyone from the village getting as big as you so quickly. You're not completely sure but you think you can feel more movement than a single baby should be capable of.",
-          type: "flavor"
-        })
-      ])
-    );
-  });
+  //   expect(game.turn().display).toStrictEqual(
+  //     expect.arrayContaining([
+  //       expect.objectContaining({
+  //         text:
+  //           "Your pregnant belly has grown quite a lot. A bit too fast even. You don't remember anyone from the village getting as big as you so quickly. You're not completely sure but you think you can feel more movement than a single baby should be capable of.",
+  //         type: "flavor"
+  //       })
+  //     ])
+  //   );
+  // });
   it("generates fetuses array if non-existing", () => {
     const tempPState = cloneDeep(pState);
     tempPState.player.statuses.fertile.pregnancy.fetusType = fType.orc;
