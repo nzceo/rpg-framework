@@ -84,6 +84,13 @@ class Game {
     }) as IConfig;
   }
 
+  /**
+   * Returns your fairy's name
+   */
+  get fairyName() {
+    return "Pluck";
+  }
+
   get player() {
     return this.playerData!;
   }

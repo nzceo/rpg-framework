@@ -52,7 +52,12 @@ export const GameContextProvider = ({
     /**
      * Populate initial state
      */
-    setDisplayState([{ text: "Welcome to the game.", type: "flavor" }]);
+    setDisplayState([
+      {
+        text: "Welcome to the game.",
+        type: "flavor"
+      }
+    ]);
     setOptionsState([
       {
         text: "Load",

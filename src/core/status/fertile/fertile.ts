@@ -154,17 +154,17 @@ class Fertile extends Status {
         const chanceModifier = progressDays + 14 - pregnancyDuration;
 
         // below console logs a bunch of stuff
-        // console.log({
-        //   progressDays,
-        //   waist: this.waist,
-        //   weight: this.weight,
-        //   eachBabyWeight: this.statusData.pregnancy.fetuses.map(({ weight }) =>
-        //     weight.toFixed(2)
-        //   ),
-        //   totalBabyWeight: this.statusData.pregnancy.fetuses
-        //     .reduce((p: number, c: { weight: number }) => p + c.weight, 0)
-        //     .toFixed(2)
-        // });
+        console.log({
+          progressDays,
+          waist: this.waist,
+          weight: this.weight,
+          eachBabyWeight: this.statusData.pregnancy.fetuses.map(({ weight }) =>
+            weight.toFixed(2)
+          ),
+          totalBabyWeight: this.statusData.pregnancy.fetuses
+            .reduce((p: number, c: { weight: number }) => p + c.weight, 0)
+            .toFixed(2)
+        });
 
         if (chance + chanceModifier > 100) {
           this.game.player.setCustomState(BirthEvent, {});
@@ -401,6 +401,12 @@ class Fertile extends Status {
     }, this),
     sizeMatches: bind((sizes: Sizes[]) => {
       return this.isPregnant() && sizeMatches(this, sizes);
+    }, this) as (sizes: Sizes[]) => boolean,
+    isMonsterPregnancy: bind(() => {
+      return this.isPregnant() && !["human", "elf"].includes(this.fetusType!);
+    }, this),
+    fetusWeightIsAbove: bind((weight: number) => {
+      return this.fetusWeight() > weight;
     }, this)
   };
 
@@ -457,6 +463,16 @@ class Fertile extends Status {
    */
   babies() {
     return this.statusData.pregnancy.babies;
+  }
+
+  /**
+   * Returns the total weight of all fetuses currently pregnant with
+   */
+  fetusWeight() {
+    return this.statusData.pregnancy.fetuses.reduce(
+      (p: number, c: { weight: number }) => p + c.weight,
+      0
+    );
   }
 
   /**
@@ -537,7 +553,7 @@ class Fertile extends Status {
       body: {
         height: 5.4,
         weightBase: 138,
-        waistBase: 25,
+        waistBase: 28,
         weight: 138,
         waist: 25
       },
@@ -548,10 +564,10 @@ class Fertile extends Status {
         progressDays: 0,
         progressWeeks: 0,
         publicProgressWeeks: 0,
-        babies: 4,
+        babies: 2,
         publicBabies: 0,
         publicFetus: "",
-        fetusType: fType.goblin,
+        fetusType: fType.orc,
         fetuses: [],
         inches: 0,
         weight: 0,
