@@ -64,21 +64,19 @@ const actors: IActor[] = [
         message:
           "Yeah, I might be on my feet all day and my back hurts like a bitch from carrying this baby around, but at least I don't have to work the streets to support myself."
       },
-      // {
-      //   type: "switch",
-      //   flag: "pregInches",
-      //   options: {
-      //     0: { m: "", next: "initial_question" },
-      //     12: {
-      //       m: "I mean it's not like you're in a different situation, I'd be surprised if you're not going to be exactly where I am now in a couple of months. ",
-      //       next: "initial_question",
-      //     },
-      //     20: {
-      //       m: "I don't know why this is so surprising to you, judging by your size I don't think you're able to do much at the moment.",
-      //       next: "initial_question",
-      //     },
-      //   },
-      // },
+      {
+        id: uuid(),
+        type: "message",
+        message: (game: Game) => {
+          if (game.player.dialogHelpers.waistIsAbove(20)) {
+            return "I don't know why this is so surprising to you, judging by your size I don't think you're able to do much at the moment.";
+          } else if (game.player.dialogHelpers.waistIsAbove(12)) {
+            return "I mean it's not like you're in a different situation, I'd be surprised if you're not going to be exactly where I am now in a couple of months. ";
+          }
+          return "";
+        },
+        next: "initial_question"
+      },
       {
         type: "message",
         id: "harrassment_answer",

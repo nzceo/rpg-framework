@@ -2,7 +2,7 @@ import { IActor } from "../types/IActor";
 import { IDialog } from "../types/IDialog";
 import Character from "../character/character";
 import Game from "../game/game";
-import { cloneDeep } from "lodash";
+import { cloneDeep, isFunction } from "lodash";
 
 /**
  * Actor class, used for any non playable, but talkable NPC
@@ -56,14 +56,14 @@ class Actor extends Character {
 
       // If visible exists and returns false, don't display this message
       if (message.visible) {
-        if (!message.visible(this.game.player, this)) {
+        if (!message.visible(this.game)) {
           i++;
         }
       }
 
       // If hidden exists and returns true, don't display this message
       if (message.hidden) {
-        if (message.hidden(this.game.player, this)) {
+        if (message.hidden(this.game)) {
           i++;
         }
       }
@@ -85,7 +85,17 @@ class Actor extends Character {
       }
 
       if (message.next) {
-        i = findDialogIndex(message.next);
+        let next;
+        /**
+         * Re-route to a different dialog depending on game state
+         * or just return string to always send to same dialog
+         */
+        if (isFunction(message.next)) {
+          next = message.next(this.game);
+        } else {
+          next = message.next;
+        }
+        i = findDialogIndex(next);
       } else {
         i++;
       }

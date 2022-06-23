@@ -4,7 +4,7 @@ import { IActor } from "./IActor";
 import { ICharacter } from "./ICharacter";
 import { IDisappearing } from "./IDisappearing";
 
-export interface IMapContructorArg extends IDisappearing<Map> {
+export interface IMapContructorArg extends IDisappearing {
   /**
    * This map's unique ID
    */
