@@ -1,8 +1,8 @@
 import { Backpack } from "phosphor-react";
-import { styled } from "stitches.config";
-import { useGame } from "../../../hooks/useGame";
-import Dialog from "../../atoms/dialog";
-import Div from "../../atoms/div";
+import { styled } from "@/stitches.config";
+import { useGame } from "@/hooks/useGame";
+import Dialog from "@/components/atoms/dialog";
+import Div from "@/components/atoms/div";
 import Item from "./item";
 
 const Button = styled("button", {

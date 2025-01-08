@@ -1,6 +1,6 @@
-import Div from "components/atoms/div";
+import Div from "@/components/atoms/div";
 import { useEffect, useRef } from "react";
-import { globalCss, styled } from "stitches.config";
+import { globalCss, styled } from "@/stitches.config";
 import Inventory from "./components/molecules/inventory";
 import { useGame } from "./hooks/useGame";
 import "./styles/styles.css";

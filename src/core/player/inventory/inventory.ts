@@ -1,5 +1,5 @@
-import Game from "core/game";
-import { addArrayOrStringToDisplay } from "core/game/utils/addArrayOrStringToDisplay";
+import Game from "@/core/game";
+import { addArrayOrStringToDisplay } from "@/core/game/utils/addArrayOrStringToDisplay";
 import { cloneDeep, isFunction } from "lodash";
 import { IInventory } from "../../types/IInventory";
 import Player from "../player";
