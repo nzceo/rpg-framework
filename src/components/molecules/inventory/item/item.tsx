@@ -1,17 +1,17 @@
 import { IPlayerItem } from "../../../../core/types";
-import Div from "components/atoms/div";
+import Div from "@/components/atoms/div";
 import {
   DropdownMenu,
   DropdownMenuArrow,
   DropdownMenuContent,
   DropdownMenuItem,
   DropdownMenuTrigger
-} from "components/atoms/dropdown";
+} from "@/components/atoms/dropdown";
 import { DotsThreeVertical, Shield, TShirt } from "phosphor-react";
 import { blackA } from "@radix-ui/colors";
-import { useGame } from "hooks/useGame";
-import { styled } from "stitches.config";
-import { useDialog } from "components/atoms/dialog/dialog";
+import { useGame } from "@/hooks/useGame";
+import { styled } from "@/stitches.config";
+import { useDialog } from "@/components/atoms/dialog/dialog";
 
 const IconButton = styled("button", {
   position: "absolute",

@@ -1,12 +1,10 @@
-import Div from "components/atoms/div";
-import ReactHtmlParser from "react-html-parser";
-import reactStringReplace from "react-string-replace";
+import Div from "@/components/atoms/div";
 import { useEffect, useRef } from "react";
-import { globalCss, styled } from "stitches.config";
+import { globalCss, styled } from "@/stitches.config";
 import Inventory from "./components/molecules/inventory";
 import { useGame } from "./hooks/useGame";
-import FairyIcon from "components/icons/fairy";
-import ElfIcon from "components/icons/elf";
+import FairyIcon from "@/components/icons/fairy";
+import ElfIcon from "@/components/icons/elf";
 import "./styles/styles.css";
 
 const globalStyles = globalCss({

@@ -1,4 +1,4 @@
-import { addArrayOrStringToDisplay } from "core/game/utils/addArrayOrStringToDisplay";
+import { addArrayOrStringToDisplay } from "@/core/game/utils/addArrayOrStringToDisplay";
 import { isArray, isFunction } from "lodash";
 import Game, { ITurn } from "../../core/game/game";
 import { addCapital } from "../../core/helpers/dialogHelpers";
