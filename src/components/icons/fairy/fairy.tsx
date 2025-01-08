@@ -1,4 +1,4 @@
-import Div from "components/atoms/div";
+import Div from "@/components/atoms/div";
 
 const FairyIcon = () => {
   return (

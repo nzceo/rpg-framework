@@ -319,6 +319,7 @@ class Fertile extends Status {
         }
       };
       progressAlerts.messages.forEach((alert) => {
+        console.log(this.game)
         if (isArray(alert)) {
           alert.forEach((a) => {
             this.game.addToExtraDisplay({ text: a, type: "flavor" });

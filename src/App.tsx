@@ -1,4 +1,6 @@
 import Div from "@/components/atoms/div";
+import ReactHtmlParser from "html-react-parser";
+import reactStringReplace from "react-string-replace";
 import { useEffect, useRef } from "react";
 import { globalCss, styled } from "@/stitches.config";
 import Inventory from "./components/molecules/inventory";
