@@ -1,6 +1,6 @@
 import { StrictMode } from "react";
 import * as ReactDOMClient from "react-dom/client";
-import { GameContextProvider } from "./hooks/useGame";
+import { GameContextProvider } from "@/hooks/useGame/provider";
 import App from "./App";
 
 const rootElement = document.getElementById("root")!;

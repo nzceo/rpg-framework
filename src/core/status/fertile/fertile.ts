@@ -62,14 +62,15 @@ class Fertile extends Status {
   contractionMessages!: PMessages[];
   pregnancyMessages!: PMessages[];
 
-  game!: Game;
-
   constructor(game: any, character: any) {
+    console.log('initiating fertility', game, character)
     super(game, character, {
       type: "fertile",
       name: "Fertile",
       explanation: "The explanation"
     });
+
+
 
     this.init();
   }
