@@ -87,10 +87,10 @@ const actors: IActor[] = [
         id: "dialog1",
         type: "message",
         message: "Hello world",
-        visible: (c) =>
+        visible: (game) =>
           dialog.ifFlagExists({
             flagName: "aflagthatdoesntexist",
-            classToCheck: c
+            classToCheck: game.player
           })
       },
       {
@@ -110,10 +110,10 @@ const actors: IActor[] = [
     name: "Actor 5",
     description: archetypes.normalMan,
     combat: stats.weak,
-    visible: (c) =>
+    visible: (game) =>
       dialog.ifFlagExists({
         flagName: "aflagthatdoesntexist",
-        classToCheck: c
+        classToCheck: game.player
       }),
     dialog: [
       {
@@ -128,10 +128,10 @@ const actors: IActor[] = [
     name: "Actor 6",
     description: archetypes.normalMan,
     combat: stats.weak,
-    hidden: (c) =>
+    hidden: (game) =>
       dialog.ifFlagExists({
         flagName: "aflagthatdoesntexist",
-        classToCheck: c
+        classToCheck: game.player
       }),
     dialog: [
       {

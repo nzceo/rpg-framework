@@ -142,7 +142,7 @@ describe("character class", () => {
 
     expect(player.quests.length).toBe(0);
 
-    const mockedOnDefeat = jest.fn();
+    const mockedOnDefeat = vi.fn();
 
     player.assignQuests([
       new DefeatTestEnemy(game, player, {
@@ -178,7 +178,7 @@ describe("character class", () => {
 
     expect(player.quests.length).toBe(0);
 
-    const mockedRewards = jest.fn();
+    const mockedRewards = vi.fn();
 
     player.assignQuests([
       new DefeatTestEnemy(game, player, {

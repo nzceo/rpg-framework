@@ -23,20 +23,20 @@ const maps: IMapContructorArg[] = [
     id: "test-map-3",
     name: "Test map 3",
     connectionRefs: ["test-map-1"],
-    visible: (c) =>
+    visible: (game) =>
       dialog.ifFlagExists({
         flagName: "aflagthatdoesntexist",
-        classToCheck: c
+        classToCheck: game.player
       })
   },
   {
     id: "test-map-4",
     name: "Test map 5",
     connectionRefs: ["test-map-1"],
-    hidden: (c) =>
+    hidden: (game) =>
       dialog.ifFlagExists({
         flagName: "aflagthatdoesntexist",
-        classToCheck: c
+        classToCheck: game.player
       })
   },
   {

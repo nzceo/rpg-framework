@@ -37,14 +37,14 @@ class Map extends Salveable {
           if (
             this.game?.player &&
             connection.data.visible &&
-            !connection.data.visible(this.game?.player, connection)
+            !connection.data.visible(this.game)
           ) {
             return false;
           }
           if (
             this.game?.player &&
             connection.data.hidden &&
-            connection.data.hidden(this.game?.player, connection)
+            connection.data.hidden(this.game)
           ) {
             return false;
           }
@@ -63,14 +63,14 @@ class Map extends Salveable {
         if (
           this.game?.player &&
           actor.data.visible &&
-          !actor.data.visible(this.game?.player, actor)
+          !actor.data.visible(this.game)
         ) {
           return false;
         }
         if (
           this.game?.player &&
           actor.data.hidden &&
-          actor.data.hidden(this.game?.player, actor)
+          actor.data.hidden(this.game)
         ) {
           return false;
         }
