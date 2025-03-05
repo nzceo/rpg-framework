@@ -29,13 +29,13 @@ describe("character class", () => {
     game.load();
     const player = game.player;
 
-    const mockedEachTurn = jest.fn();
+    const mockedEachTurn = vi.fn();
 
     player.assignStatuses([
       new TestableStatus(game, player, {
         eachTurn: mockedEachTurn,
-        eachDay: jest.fn(),
-        onRemove: jest.fn()
+        eachDay: vi.fn(),
+        onRemove: vi.fn()
       })
     ]);
 
@@ -75,12 +75,12 @@ describe("character class", () => {
     game.load();
     const player = game.player;
 
-    const mockedOnRemove = jest.fn();
+    const mockedOnRemove = vi.fn();
 
     player.assignStatuses([
       new TestableStatus(game, player, {
-        eachTurn: jest.fn(),
-        eachDay: jest.fn(),
+        eachTurn: vi.fn(),
+        eachDay: vi.fn(),
         onRemove: mockedOnRemove
       })
     ]);

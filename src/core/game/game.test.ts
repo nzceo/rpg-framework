@@ -158,7 +158,7 @@ describe("Game class", () => {
 
     player.addStatus("fertile");
 
-    const mockedEachDay = jest.fn();
+    const mockedEachDay = vi.fn();
 
     player.activeStatuses[0].eachDay = mockedEachDay;
 
@@ -174,7 +174,7 @@ describe("Game class", () => {
 
     player.addStatus("fertile");
 
-    const mockedEachDay = jest.fn();
+    const mockedEachDay = vi.fn();
 
     player.activeStatuses[0].eachDay = mockedEachDay;
 

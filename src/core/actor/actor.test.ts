@@ -81,7 +81,7 @@ describe("Actor class", () => {
     const game = new Game();
     game.load();
     const tempActor = cloneDeep(actors[6]);
-    const mockedDialogFunc = jest.fn();
+    const mockedDialogFunc = vi.fn();
     tempActor.dialog[1].func = mockedDialogFunc;
     const newActor = new Actor(tempActor, game);
 

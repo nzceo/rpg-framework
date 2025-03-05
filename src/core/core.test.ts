@@ -1,6 +1,7 @@
 import maps from "./data/maps";
 import Game from "./game/game";
 
+
 describe("game can be played", () => {
   it("returns current map and options", () => {
     localStorage.setItem(

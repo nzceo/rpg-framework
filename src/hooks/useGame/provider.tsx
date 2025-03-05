@@ -4,6 +4,15 @@ import { useEffect, useRef, useState } from "react";
 import { ctx } from './context'
 import config from "../../core/custom.rpg.config";
 
+player:
+  name: "Elua"
+  pregnancy: 
+    description: "9 out of 10 months pregnant with an orc."
+    waist: "40 inches"
+  wearing: "A tunic worn by dark skinned fighters from a far away land. A single piece of fabric fastened at the waist, the tunic extends down to your knees in front of you and behind you."
+
+
+  
 export const GameContextProvider = ({
   children
 }: {

@@ -318,7 +318,7 @@ describe("preg tests", () => {
     game.load();
     const player = game.player;
 
-    const mockedSetCustomState = jest.fn();
+    const mockedSetCustomState = vi.fn();
     player.setCustomState = mockedSetCustomState;
 
     game.sleep(1);
@@ -423,7 +423,7 @@ describe("preg tests", () => {
     game.load();
     const player = game.player;
 
-    const mockedMakePregnant = jest.fn();
+    const mockedMakePregnant = vi.fn();
     player.fertility.makePregnant = mockedMakePregnant;
 
     player.sex({ ...fertility.standard, spermCount: 9999 });
@@ -437,7 +437,7 @@ describe("preg tests", () => {
     game.load();
     const player = game.player;
 
-    const mockedMakePregnant = jest.fn();
+    const mockedMakePregnant = vi.fn();
     player.fertility.makePregnant = mockedMakePregnant;
 
     player.sex({ ...fertility.standard, spermCount: 9999 });

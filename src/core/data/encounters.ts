@@ -2,6 +2,8 @@ import Game from "../game/game";
 import Map from "../map/map";
 import Dice from "roll";
 
+console.log(Dice);
+
 const dice = new Dice();
 
 const encounters = (game: Game, map: Map) => {

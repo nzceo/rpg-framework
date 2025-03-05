@@ -12,7 +12,7 @@ import submissionSex from "../../gameData/static/combat/submissionSex";
 import weapons from "../../gameData/static/weapons";
 import armors from "../../gameData/static/armors";
 import getUuid from "uuid-by-string";
-import { IPlayerItem } from "core/types";
+import { IPlayerItem } from "../types";
 import dayjs from "dayjs";
 import updateLocale from "dayjs/plugin/updateLocale";
 
